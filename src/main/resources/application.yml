@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      path: /h2-console
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id:  7f4cc337492e0209aa63
+            client-secret: ca0885fbbb54975ad14ff03e46928368762abe56
