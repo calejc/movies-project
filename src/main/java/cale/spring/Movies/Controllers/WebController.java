@@ -14,10 +14,30 @@ public class WebController {
 
     @GetMapping("/")
     public String index(Model model){
-//        String currDate = (new Date()).toString();
-//        model.addAttribute("currDate", currDate);
+        String currDate = (new Date()).toString();
+        model.addAttribute("currDate", currDate);
+        model.addAttribute("pageTitle", "Home");
         return "index";
     }
+
+    @GetMapping("/add")
+    public String add(Model model){
+        model.addAttribute("pageTitle", "Add Movies");
+        return "add";
+    }
+
+    @GetMapping("/movies")
+    public String movies(Model model){
+        model.addAttribute("pageTitle", "Movies");
+        return "movies";
+    }
+
+    @GetMapping("/actors")
+    public String actors(Model model){
+        model.addAttribute("pageTitle", "Actors");
+        return "actors";
+    }
+
 
     @GetMapping("/account")
     public String account(Model model, Principal principal){
@@ -28,6 +48,7 @@ public class WebController {
             String login = (String) attributes.get("login");
             String name = (String) attributes.get("name");
             String email = (String) attributes.get("email");
+            model.addAttribute("pageTitle", "Account");
             model.addAttribute("login", login);
             model.addAttribute("name", name);
             model.addAttribute("email", email);

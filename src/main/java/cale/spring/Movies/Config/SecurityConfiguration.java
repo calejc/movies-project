@@ -3,7 +3,6 @@ package cale.spring.Movies.Config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -13,7 +12,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated().and().oauth2Login();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
 }
