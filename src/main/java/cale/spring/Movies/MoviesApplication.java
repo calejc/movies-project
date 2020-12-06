@@ -29,23 +29,22 @@ public class MoviesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception{
-//		importDataset(inputFileName);
-		temp();
+		importDataset(inputFileName);
+//		temp();
 	}
 
 	public void temp(){
-
-		Movie movie = new Movie();
-		movie.setTitle("Test Movie");
-		Set<Actor> actors = new HashSet<>();
-		Actor actor1 = new Actor();
-		Actor actor2 = new Actor();
-		actor1.setName("Test Actor 1");
-		actor2.setName("Test Actor 2");
-		actors.add(actor1);
-		actors.add(actor2);
-		movie.setActors(actors);
-		movieService.addMovie(movie);
+//		Movie movie = new Movie();
+//		movie.setTitle("Test Movie");
+//		Set<Actor> actors = new HashSet<>();
+//		Actor actor1 = new Actor();
+//		Actor actor2 = new Actor();
+//		actor1.setName("Test Actor 1");
+//		actor2.setName("Test Actor 2");
+//		actors.add(actor1);
+//		actors.add(actor2);
+//		movie.setActors(actors);
+//		movieService.addMovie(movie);
 	}
 
 	public void importDataset(String filename) throws IOException {
@@ -54,11 +53,10 @@ public class MoviesApplication implements CommandLineRunner {
 		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
 		for (Movie movie : movies){
 			movieService.addMovie(movie);
-			System.out.println(movie.getTitle());
+//			System.out.println(movie.getTitle());
 			for (Actor actor : movie.getActors()){
-				System.out.println("\t" + actor.getName());
+//				System.out.println("\t" + actor.getName());
 			}
-			break;
 		}
 	}
 

@@ -4,7 +4,9 @@ import cale.spring.Movies.Models.Actor;
 import cale.spring.Movies.Models.Movie;
 import cale.spring.Movies.Repositories.ActorRepository;
 import cale.spring.Movies.Repositories.MovieRepository;
+import cale.spring.Movies.Repositories.MovieRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
@@ -12,9 +14,6 @@ import java.util.Set;
 
 @Service
 public class MovieService {
-
-
-
 
     private final ActorRepository actorRepository;
     private final MovieRepository movieRepository;
@@ -28,14 +27,13 @@ public class MovieService {
     public void addMovie(Movie movie){
         Set<Actor> actors = movie.getActors();
         for (Actor actor : actors){
-            actor.setId(null);
+//            actor.setMovies(movie);
+//            System.out.println(actor.getMovies());
+//            System.out.println(actor);
             actorRepository.save(actor);
-//            actor.setId(null);
 //            actor.addMovie(movie);
         }
-        movie.setId(null);
         movieRepository.save(movie);
-//        movie.setId(null);
     }
 
 }

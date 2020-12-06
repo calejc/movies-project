@@ -3,20 +3,22 @@ package cale.spring.Movies.Models;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Actor {
+public class Actor implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    public Actor(){}
+    public Actor(){ }
 
     public Actor(Long id, String name, Set<Movie> movies) {
         this.id = id;
@@ -26,8 +28,8 @@ public class Actor {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "actor_movie",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
+            joinColumns = {@JoinColumn(name = "actor_id")},
+            inverseJoinColumns = {@JoinColumn(name = "movie_id")}
     )
     private Set<Movie> movies = new HashSet<>();
 
@@ -54,7 +56,6 @@ public class Actor {
     }
 
     public void setMovies(Set<Movie> movies) {
-
         this.movies = movies;
     }
 
@@ -71,7 +72,7 @@ public class Actor {
         return "Actor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", movies=" + movies +
+                ", movies=" + movies.size() +
                 '}';
     }
 
@@ -80,7 +81,7 @@ public class Actor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Actor actor1 = (Actor) o;
-        return Objects.equals(this.name, actor1.name) && Objects.equals(this.id, actor1.id);
+        return Objects.equals(this.id, actor1.id);
     }
 
     @Override

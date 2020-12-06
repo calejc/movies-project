@@ -3,6 +3,7 @@ package cale.spring.Movies.DTO;
 import cale.spring.Movies.Models.Movie;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ActorDTO {
@@ -40,5 +41,18 @@ public class ActorDTO {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActorDTO actorDTO = (ActorDTO) o;
+        return this.actorId.equals(actorDTO.actorId) && this.name.equals(actorDTO.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name);
     }
 }
