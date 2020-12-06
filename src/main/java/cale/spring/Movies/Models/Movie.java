@@ -2,6 +2,8 @@ package cale.spring.Movies.Models;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +13,6 @@ import java.util.Set;
 
 @Entity
 public class Movie implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,7 @@ public class Movie implements Serializable {
         this.actors = actors;
     }
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @ManyToMany(mappedBy = "movies", fetch=FetchType.EAGER)
     private Set<Actor> actors = new HashSet<>();
 

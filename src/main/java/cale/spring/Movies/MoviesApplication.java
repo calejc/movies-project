@@ -22,6 +22,7 @@ public class MoviesApplication implements CommandLineRunner {
 	MovieService movieService;
 
 	private final String inputFileName = "src/main/resources/ema_dataset_updated.json";
+	Integer counter = 0;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MoviesApplication.class, args);
@@ -47,6 +48,20 @@ public class MoviesApplication implements CommandLineRunner {
 //		movieService.addMovie(movie);
 	}
 
+	public Integer getCounter() {
+		return counter;
+	}
+
+	public void setCounter(Integer counter) {
+		this.counter = counter;
+	}
+
+	public void addToCounter(){
+		Integer c = getCounter();
+		c++;
+		setCounter(c);
+	}
+
 	public void importDataset(String filename) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -55,6 +70,8 @@ public class MoviesApplication implements CommandLineRunner {
 			movieService.addMovie(movie);
 //			System.out.println(movie.getTitle());
 			for (Actor actor : movie.getActors()){
+				addToCounter();
+				System.out.println(counter);
 //				System.out.println("\t" + actor.getName());
 			}
 		}
