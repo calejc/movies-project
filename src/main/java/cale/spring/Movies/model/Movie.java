@@ -25,7 +25,7 @@ public class Movie {
         this.actors = actors;
     }
 
-    @NotFound(action = NotFoundAction.IGNORE)
+//    @NotFound(action = NotFoundAction.IGNORE)
     @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY)
     private Set<Actor> actors = new HashSet<>();
 
