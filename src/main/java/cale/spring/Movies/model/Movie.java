@@ -1,18 +1,16 @@
-package cale.spring.Movies.Models;
+package cale.spring.Movies.model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Movie implements Serializable {
+public class Movie {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +26,7 @@ public class Movie implements Serializable {
     }
 
     @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY)
     private Set<Actor> actors = new HashSet<>();
 
     @Override
@@ -48,15 +46,15 @@ public class Movie implements Serializable {
         return this.id.equals(movie.id);
     }
 
-    public void addActor(Actor actor) {
-        this.actors.add(actor);
-        actor.getMovies().add(this);
-    }
-
-    public void removeActor(Actor actor) {
-        this.actors.remove(actor);
-        actor.getMovies().remove(this);
-    }
+//    public void addActor(Actor actor) {
+//        this.actors.add(actor);
+//        actor.getMovies().add(this);
+//    }
+//
+//    public void removeActor(Actor actor) {
+//        this.actors.remove(actor);
+//        actor.getMovies().remove(this);
+//    }
 
     @Override
     public int hashCode() {

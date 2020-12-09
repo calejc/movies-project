@@ -1,6 +1,6 @@
-package cale.spring.Movies.DTO;
+package cale.spring.Movies.dto;
 
-import cale.spring.Movies.Models.Actor;
+import cale.spring.Movies.model.Actor;
 
 import java.util.HashSet;
 import java.util.Objects;

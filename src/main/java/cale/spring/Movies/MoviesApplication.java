@@ -1,8 +1,8 @@
 package cale.spring.Movies;
 
-import cale.spring.Movies.Models.Actor;
-import cale.spring.Movies.Models.Movie;
-import cale.spring.Movies.Services.MovieService;
+import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Movie;
+import cale.spring.Movies.service.MovieService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication
 public class MoviesApplication implements CommandLineRunner {
@@ -66,8 +64,9 @@ public class MoviesApplication implements CommandLineRunner {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
+		movieService.addMovie(movies);
 		for (Movie movie : movies){
-			movieService.addMovie(movie);
+//			movieService.addMovie(movie);
 //			System.out.println(movie.getTitle());
 			for (Actor actor : movie.getActors()){
 				addToCounter();

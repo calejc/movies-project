@@ -1,14 +1,11 @@
-package cale.spring.Movies.Services;
+package cale.spring.Movies.service;
 
-import cale.spring.Movies.Models.Actor;
-import cale.spring.Movies.Models.Movie;
-import cale.spring.Movies.Repositories.ActorRepository;
-import cale.spring.Movies.Repositories.MovieRepository;
-import cale.spring.Movies.Repositories.MovieRepository;
+import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Movie;
+import cale.spring.Movies.repository.ActorRepository;
+import cale.spring.Movies.repository.MovieRepository;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
@@ -42,13 +39,18 @@ public class MovieService {
     }
 
     @Transactional
-    public void addMovie(Movie movie){
+    public void addMovie(Movie[] movies){
 //        movieRepository.save(movie);
-        Set<Actor> actors = movie.getActors();
-        for (Actor actor : actors){
-            actor.addMovie(movie);
-            movieRepository.save(movie);
-            actorRepository.save(actor);
+        for (Movie movie : movies){
+            Set<Actor> actors = movie.getActors();
+            for (Actor actor : actors){
+                actor.addMovie(movie);
+            }
+        }
+        for (Movie movie : movies){
+            for (Actor actor : movie.getActors()){
+                actorRepository.save(actor);
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package cale.spring.Movies.Controllers;
+package cale.spring.Movies.controller;
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;

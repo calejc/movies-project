@@ -1,15 +1,12 @@
-package cale.spring.Movies.Models;
-
-import com.fasterxml.jackson.annotation.JsonSetter;
+package cale.spring.Movies.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Actor implements Serializable {
+public class Actor {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
