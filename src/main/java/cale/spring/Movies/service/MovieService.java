@@ -44,14 +44,16 @@ public class MovieService {
         for (Movie movie : movies){
             Set<Actor> actors = movie.getActors();
             for (Actor actor : actors){
-                actor.addMovie(movie);
+//                actor.addMovie(movie);
+                movie.addActor(actor);
             }
+            movieRepository.save(movie);
         }
-        for (Movie movie : movies){
-            for (Actor actor : movie.getActors()){
-                actorRepository.save(actor);
-            }
-        }
+//        for (Movie movie : movies){
+//            for (Actor actor : movie.getActors()){
+//                actorRepository.save(actor);
+//            }
+//        }
     }
 
 }

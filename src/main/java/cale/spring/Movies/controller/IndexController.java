@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @Controller
-public class WebController {
+public class IndexController {
 
     @Autowired
     MovieRepository movieRepository;
@@ -29,37 +29,6 @@ public class WebController {
         model.addAttribute("currDate", currDate);
         model.addAttribute("pageTitle", "Home");
         return "index";
-    }
-
-    @GetMapping("/update")
-    public String add(Model model){
-        model.addAttribute("pageTitle", "Update database");
-        return "update";
-    }
-
-    @GetMapping("/movies")
-    public String movies(Model model){
-        model.addAttribute("pageTitle", "Movies");
-        return "movies";
-    }
-
-    @GetMapping("/actors")
-    public String actors(Model model){
-        model.addAttribute("pageTitle", "Actors");
-        return "actors";
-    }
-    @GetMapping("/actors/{id}")
-    public String actorView(@RequestParam Long id, Model model){
-        String slug;
-        if (actorRepository.findById(id).isPresent()){
-            String actorName = actorRepository.findById(id).get().getName();
-            slug = actorName.toLowerCase().replace(" ", "-");
-        } else {
-            return "error";
-        }
-        model.addAttribute("pageTitle", slug);
-        actorRepository.findById(id);
-        return "actor-view";
     }
 
 

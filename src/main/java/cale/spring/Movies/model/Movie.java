@@ -26,7 +26,7 @@ public class Movie {
     }
 
 //    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY)
+    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Actor> actors = new HashSet<>();
 
     @Override
@@ -46,15 +46,15 @@ public class Movie {
         return this.id.equals(movie.id);
     }
 
-//    public void addActor(Actor actor) {
-//        this.actors.add(actor);
-//        actor.getMovies().add(this);
-//    }
-//
-//    public void removeActor(Actor actor) {
-//        this.actors.remove(actor);
-//        actor.getMovies().remove(this);
-//    }
+    public void addActor(Actor actor) {
+        this.actors.add(actor);
+        actor.getMovies().add(this);
+    }
+
+    public void removeActor(Actor actor) {
+        this.actors.remove(actor);
+        actor.getMovies().remove(this);
+    }
 
     @Override
     public int hashCode() {
