@@ -17,7 +17,12 @@ public class UpdateController {
 
     @PostMapping("/success")
     public String update(@RequestBody Model model) {
-        model.getAttribute("actorName")
+        model.getAttribute("actorName");
+        model.getAttribute("movieName");
+        model.getAttribute("movieGenre");
+        model.getAttribute("movieRating");
+        model.getAttribute("moviePhotoUrl");
+        return "success";
     }
 
 }
