@@ -1,10 +1,49 @@
-/*html {
-    background-image: url(backgroundimg.png);
+html {
+    background-image: url();
     background-attachment: fixed;
     background-position: center;
-      background-repeat: no-repeat;
+    background-repeat: no-repeat;
     height: 100%;
+    background-color: #c7ccd1;
 }
+
+.jumbotron jumbotron-fluid {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.container {
+padding: 10px;
+}
+
+.container-fluid {
+margin: 10px 10px;
+}
+.carousel {
+  width:640px;
+  height:360px;
+}
+
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 360px;
+}
+
+.carousel-caption d-none d-md-block h5 {
+background-color:  #94b8b8;
+color: #fff;
+}
+
+a.card bg-dark text-white {
+color: inherit;
+}
+/*.carousel-item {
+  max-height:500px;
+  }
+*/
+/*
 body {
     width: 90%;
     margin: 0 auto;

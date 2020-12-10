@@ -27,7 +27,7 @@ public class IndexController {
     public String index(Model model){
         String currDate = (new Date()).toString();
         model.addAttribute("currDate", currDate);
-        model.addAttribute("pageTitle", "Home");
+        model.addAttribute("pageTitle", "Movie Home");
         return "index";
     }
 
