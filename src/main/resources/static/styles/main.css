@@ -1,17 +1,28 @@
 html {
-    background-color: #f4e1d2;
+    background-color: #b2b2b2;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
 }
+.navbar {
+    background-color: #bc5a45;
+}
+
+.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited {
+    color: #fff;
+}
+
+.navbar-brand, .nav-link:hover {
+    opacity: .5;
+}
 
 body {
-    background-color: #f4e1d2;
+    background-color: #b2b2b2;
 }
 
 .jumbotron {
-    background-color: #343a40;
+    background-color: #bc5a45;
     color: #fff;
 }
 
@@ -19,21 +30,16 @@ body {
 padding: 10px;
 }
 
-.container-fluid {
-margin: 10px 10px;
-}
 .carousel {
   width:100%;
-  height:360px;
+  height:500px;
 }
 
-.carousel-item {
-    height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
- }
+#carouselImg {
+    margin: auto;
+    display: block;
+    width: 30%;
+}
 
 .carousel-caption d-none d-md-block h5 {
 background-color:  #94b8b8;
@@ -43,28 +49,5 @@ color: #fff;
 a.card bg-dark text-white {
 color: inherit;
 }
-/*.carousel-item {
-  max-height:500px;
-  }
-*/
-/*
-body {
-    width: 90%;
-    margin: 0 auto;
-    background-image: url();
-    background-attachment: fixed;
-    background-position: center;
-    }
 
- .container {
-    display: flex;
-    padding: 100px;
-    height: 50px;
-    width: 100%;
-    }
-
-.row {
-    height: 50px;
-    padding: 20px;
-}*/
 
