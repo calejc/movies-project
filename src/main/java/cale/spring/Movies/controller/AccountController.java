@@ -17,6 +17,9 @@ public class AccountController {
             OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
             Map<String, Object> attributes = token.getPrincipal().getAttributes();
             System.out.println(attributes);
+            for (Map.Entry<String, Object> entry : attributes.entrySet()){
+                System.out.printf("%s = %s\n", entry.getKey(), entry.getValue());
+            }
             String login = (String) attributes.get("login");
             String name = (String) attributes.get("name");
             String email = (String) attributes.get("email");

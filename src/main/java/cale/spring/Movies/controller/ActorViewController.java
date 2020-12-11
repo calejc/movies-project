@@ -26,10 +26,7 @@ public class ActorViewController {
             mav.setViewName("actor");
             String actorName = actorRepository.findById(id).get().getName();
             mav.addObject("actor", actorRepository.findById(id).get());
-            mav.addObject("movies", actorRepository.findById(id).get().getMovies());
             mav.addObject("pageTitle", actorName);
-//            String slug = actorName.toLowerCase().replace(" ", "-");
-//            mav.addObject("actorSlug", slug);
         }
         return mav;
     }

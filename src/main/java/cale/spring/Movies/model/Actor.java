@@ -1,6 +1,7 @@
 package cale.spring.Movies.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,16 +12,25 @@ public class Actor {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photoUrl;
+    private String name, photoUrl;
+    @Lob
+    private String biography;
+    private Date birthday, deathday;
+    private Integer gender;
+    private Double popularity;
 
-    private String name;
 
     public Actor(){ }
-    public Actor(Long id, String name, Set<Movie> movies, String photoUrl) {
+    public Actor(Long id, String name, Set<Movie> movies, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
         this.id = id;
         this.name = name;
         this.movies = movies;
         this.photoUrl = photoUrl;
+        this.biography = biography;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.gender = gender;
+        this.popularity = popularity;
     }
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -69,7 +79,13 @@ public class Actor {
         return "Actor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", movies=" + movies.size() +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", biography='" + biography + '\'' +
+                ", birthday=" + birthday +
+                ", deathday=" + deathday +
+                ", gender=" + gender +
+                ", popularity=" + popularity +
+                ", movies=" + movies +
                 '}';
     }
 
@@ -92,5 +108,45 @@ public class Actor {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getDeathday() {
+        return deathday;
+    }
+
+    public void setDeathday(Date deathday) {
+        this.deathday = deathday;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
     }
 }

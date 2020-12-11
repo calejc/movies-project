@@ -1,11 +1,11 @@
-.card-outer {
+/*.card-container {
     background-color: transparent;
     perspective: 200vw;
-    height:50vh;
-    width:50vw;
+    min-height:50vh;
+    min-width:50vw;
 }
 
-.card {
+.card-outer, .card {
     border-radius:1em;
     border: .15em solid black;
     box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
@@ -18,7 +18,7 @@
     -moz-transform-style: preserve-3d;
 }
 
-.card.flipped{
+.card-outer.flipped{
   -webkit-transform:rotateY(180deg);
   -moz-transform:rotateY(180deg);
 }
@@ -37,4 +37,5 @@
   -webkit-backface-visibility:hidden;
   -moz-backface-visibility:hidden;
   position:absolute;
-}
+}/*
+
