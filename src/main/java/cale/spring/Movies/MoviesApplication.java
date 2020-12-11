@@ -23,7 +23,8 @@ public class MoviesApplication implements CommandLineRunner {
 	@Autowired
 	MovieService movieService;
 
-	private final String inputFileName = "src/main/resources/ema_dataset_updated.json";
+//	private final String inputFileName = "src/main/resources/ema_dataset_updated.json";
+	private final String inputFileName = "src/main/resources/dataset.json";
 	Integer counter = 0;
 
 	public static void main(String[] args) {

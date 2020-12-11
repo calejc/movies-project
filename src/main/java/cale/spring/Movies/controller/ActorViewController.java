@@ -20,6 +20,8 @@ public class ActorViewController {
     public ModelAndView actorView(@PathVariable("id") Long id, ModelAndView mav){
         if (actorRepository.findById(id).isEmpty()){
             mav.setViewName("error");
+            String errorMessage = String.format("Actor %d not found", id);
+            mav.addObject("errorMessage", errorMessage);
         } else {
             mav.setViewName("actor");
             String actorName = actorRepository.findById(id).get().getName();

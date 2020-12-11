@@ -1,8 +1,6 @@
 package cale.spring.Movies.model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,10 +12,9 @@ public class Movie {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonSetter("movieId")
+//    @JsonSetter("movieId")
     private Long id;
     String title;
-    @JsonSetter("photoURL")
     private String photoUrl;
 
     public Movie(){ }
