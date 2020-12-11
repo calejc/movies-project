@@ -12,6 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class MoviesApplication implements CommandLineRunner {
@@ -61,18 +65,33 @@ public class MoviesApplication implements CommandLineRunner {
 	}
 
 	public void importDataset(String filename) throws IOException {
+		Map<Actor, List<Movie>> actorToMovieMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
-		movieService.addMovie(movies);
 		for (Movie movie : movies){
 //			movieService.addMovie(movie);
 //			System.out.println(movie.getTitle());
 			for (Actor actor : movie.getActors()){
-				addToCounter();
-				System.out.println(counter);
+			//	addToCounter();
+				addToMap(actorToMovieMap, actor, movie);
+//				System.out.println(counter);
 //				System.out.println("\t" + actor.getName());
 			}
+		}
+		movieService.addMovie(movies);
+	}
+
+	private void addToMap(Map<Actor, List<Movie>> actorToMovieMap, Actor actor, Movie movie) {
+		List<Movie> movieList = actorToMovieMap.get(actor);
+		if (movieList==null) {
+			movieList=new ArrayList<>();
+		}
+		movieList.add(movie);
+		actorToMovieMap.put(actor, movieList);
+		if (movieList.size()>1) {
+			System.out.format("%s (%d) is in %d movies.\n",actor.getName(), actor.getId(), movieList.size());
+			System.out.println("Well?");
 		}
 	}
 
