@@ -30,24 +30,35 @@ body {
 padding: 10px;
 }
 
-.carousel {
-  width:100%;
-  height:500px;
+.row {
+padding: 10px 10px;
 }
 
-#carouselImg {
+.carousel {
+  width: 100%;
+  height: 100%;
+  margin: 10px 10px;
+}
+
+.carouselImg {
     margin: auto;
     display: block;
     width: 30%;
 }
 
-.carousel-caption d-none d-md-block h5 {
-background-color:  #94b8b8;
-color: #fff;
+.carousel-caption p {
+color: #b2b2b2;
+width: 30%
+text-align: center;
 }
 
-a.card bg-dark text-white {
-color: inherit;
+.card {
+    margin: 20px 20px;
+    padding: 10px 10px;
+    width: 400px;
+    height: auto;
+    background-color: #bc5a45;
 }
+
 
 
