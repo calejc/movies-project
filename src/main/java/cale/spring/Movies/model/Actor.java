@@ -11,18 +11,19 @@ public class Actor {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String photoUrl;
 
     private String name;
 
     public Actor(){ }
-
-    public Actor(Long id, String name, Set<Movie> movies) {
+    public Actor(Long id, String name, Set<Movie> movies, String photoUrl) {
         this.id = id;
         this.name = name;
         this.movies = movies;
+        this.photoUrl = photoUrl;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "actor_movie",
             joinColumns = {@JoinColumn(name = "actor_id")},
             inverseJoinColumns = {@JoinColumn(name = "movie_id")}
@@ -85,4 +86,11 @@ public class Actor {
         return Objects.hash(this.id);
     }
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }

@@ -17,16 +17,19 @@ public class Movie {
     @JsonSetter("movieId")
     private Long id;
     String title;
+    @JsonSetter("photoURL")
+    private String photoUrl;
 
     public Movie(){ }
-    public Movie(Long id, String title, Set<Actor> actors) {
+    public Movie(Long id, String title, Set<Actor> actors, String photoUrl) {
         this.id = id;
         this.title = title;
         this.actors = actors;
+        this.photoUrl = photoUrl;
     }
 
 //    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Actor> actors = new HashSet<>();
 
     @Override
@@ -83,5 +86,13 @@ public class Movie {
 
     public void setActors(Set<Actor> actors) {
         this.actors = actors;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

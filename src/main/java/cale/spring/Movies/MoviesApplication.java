@@ -10,8 +10,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class MoviesApplication implements CommandLineRunner {
@@ -60,18 +64,28 @@ public class MoviesApplication implements CommandLineRunner {
 		setCounter(c);
 	}
 
+	private String filename = "src/main/resources/authorized-usernames.txt";
+	public Map<String, String> readInAuthorizedUsers(String filename) throws IOException {
+		File file = new File(filename);
+		Map<String, String> users = new HashMap<>();
+		String s;
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		while((s = br.readLine()) != null){
+			String[] splitString = s.split(" ");
+			users.put(splitString[0], splitString[1]);
+		}
+		return users;
+	}
+
 	public void importDataset(String filename) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
 		movieService.addMovie(movies);
 		for (Movie movie : movies){
-//			movieService.addMovie(movie);
-//			System.out.println(movie.getTitle());
 			for (Actor actor : movie.getActors()){
 				addToCounter();
 				System.out.println(counter);
-//				System.out.println("\t" + actor.getName());
 			}
 		}
 	}
