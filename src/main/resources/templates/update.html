@@ -37,22 +37,32 @@
             </div>
         </div>
         <div class="form-row">
-<!--        <div class="form-group col-md-3">-->
-<!--            <label for="actorName">Actors (Format as list.  Ex: Brad Pitt, Keanu Reeves, etc)</label>-->
-<!--            <input type="text" class="form-control" id="actorName" placeholder="Actor Names Here">-->
-<!--        </div>-->
+        <div class="form-group col-md-3">
+            <label for="moviePhotoURL">Please paste URL for movie poster image. (Try URL From TMDB)</label>
+            <input type="url" class="form-control" id="moviePhotoURL" name="photoURL" placeholder="URL Here Please">
         </div>
-        <div class="instructions">
-            <label>Please upload the Movies image (.jpg, .png)</label>
         </div>
-<!--        <form action="/action_page.php">-->
-<!--            <input type="file" id="userFile" name="filename">-->
-<!--            <input type="submit">-->
-<!--        </form>-->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <form class="crudForm" id="editMovie"></form>
     <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}"></form>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="actorName">Actor Name</label>
+            <input type="text" class="form-control" id="actorName" name="name" placeholder="Actor Name">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="actorRating">Actor Rating</label>
+            <input type="text" class="form-control" id="actorRating" name="popularity" placeholder="Rating 1-10">
+        </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-3">
+        <label for="actorPhotoURL">Please paste URL for movie poster image. (Try URL From TMDB)</label>
+        <input type="url" class="form-control" id="actorPhotoURL" name="photoURL" placeholder="URL Here Please">
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
     <form class="crudForm" id="editActor"></form>
 </div>
 <div th:insert="fragments :: footer"></div>
