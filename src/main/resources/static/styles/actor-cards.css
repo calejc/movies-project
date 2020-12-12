@@ -1,6 +1,12 @@
 .card-container{
     display:grid;
-    perspective:500px;
+    perspective:200em;
+}
+
+.card{
+border-radius:1em;
+    border: .15em solid black;
+    box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
 }
 
 .card-flip, .card-container {
@@ -15,9 +21,10 @@
 
 .back {
     transform: rotateY(-180deg);
+    z-index:0;
 }
 
-.card-container:hover .card-flip {
+.card-flip {
     transform: rotateY(180deg);
 }
 
@@ -30,9 +37,11 @@
 
 .front {
     grid-area: frontAndBack;
+    z-index:1;
 }
 
 .back {
     grid-area: frontAndBack;
     transform: rotateY(-180deg);
+    z-index:0;
 }
