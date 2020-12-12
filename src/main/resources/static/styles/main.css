@@ -1,0 +1,53 @@
+html {
+    background-color: #b2b2b2;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.navbar {
+    background-color: #bc5a45;
+}
+
+.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited, h1 {
+    color: #fff;
+}
+
+.navbar-brand, .nav-link:hover {
+    opacity: .5;
+}
+
+body {
+    background-color: #b2b2b2;
+}
+
+.jumbotron {
+    background-color: #bc5a45;
+    color: #fff;
+}
+
+.container {
+padding: 10px;
+}
+
+.row {
+padding: 10px 10px;
+}
+
+.card {
+    padding: 10px 10px;
+    width: 400px;
+    height: auto;
+    background-color: #bc5a45;
+    margin: 0 auto;
+    float: none;
+}
+
+.img-fluid {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+
+
