@@ -45,8 +45,8 @@ public class Movie {
         this.photoUrl = photoUrl;
     }
 
-//    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    // Changed to follow example https://github.com/payne/notes/blob/master/src/main/java/org/mattpayne/spring/visit/notes/entity/Url.java#L17
+    @ManyToMany(mappedBy = "movies")
     private Set<Actor> actors = new HashSet<>();
 
     @Override
