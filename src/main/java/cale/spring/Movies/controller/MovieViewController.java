@@ -24,6 +24,6 @@ public class MovieViewController {
         }
         model.addAttribute("pageTitle", slug);
         movieRepository.findById(id);
-        return "actor-view";
+        return "movie";
     }
 }
