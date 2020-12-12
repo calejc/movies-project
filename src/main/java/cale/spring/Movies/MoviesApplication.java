@@ -72,16 +72,14 @@ public class MoviesApplication implements CommandLineRunner {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		MovieDTO[] movies = objectMapper.readValue(new File(filename), MovieDTO[].class);
 		for (MovieDTO movie : movies){
-//			movieService.addMovie(movie);
-//			System.out.println(movie.getTitle());
+		    // Add one movie at a time like the example (movie is like a URL in the example)
+			movieService.addMovie(movie);
+			/*
 			for (ActorDTO actor : movie.getActors()){
-			//	addToCounter();
-				addToMap(actorToMovieMap, actor, movie);
-//				System.out.println(counter);
-//				System.out.println("\t" + actor.getName());
+				addToMap(actorToMovieMap, actor, movie); // Detects when actor is in more than one movie
 			}
+		 */
 		}
-		// TODO(MGP): movieService.addMovie(movies);
 	}
 
 	private void addToMap(Map<ActorDTO, List<MovieDTO>> actorToMovieMap, ActorDTO actor, MovieDTO movie) {

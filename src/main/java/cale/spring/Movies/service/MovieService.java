@@ -1,5 +1,6 @@
 package cale.spring.Movies.service;
 
+import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -41,8 +43,21 @@ public class MovieService {
 
     // Changed to follow example from notes app (Url is like a Movie)
     @Transactional
-    public void addMovie(MovieDTO movie){
-
+    public void addMovie(MovieDTO movieDTO){
+        Movie movie = new Movie(movieDTO.getMovieId(),movieDTO.getTitle());
+        Movie savedMovie = movieRepository.save(movie);
+        if (movie.getId() != savedMovie.getId()) {
+            System.out.println("Problem!");
+        }
+        for (ActorDTO actorDTO: movieDTO.getActors()) {
+            Optional<Actor> optional = actorRepository.findById(actorDTO.getActorId());
+            Actor actor = optional.isPresent() ? optional.get() : new Actor(actorDTO.getActorId(), actorDTO.getName());
+            actor.addMovie(movie);
+            Actor savedActor = actorRepository.save(actor);
+            if (actor.getId() != savedActor.getId()) {
+                System.out.println("Problem saving actor!");
+            }
+        }
     }
 
 }

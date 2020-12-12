@@ -16,6 +16,11 @@ public class Actor {
 
     public Actor(){ }
 
+    public Actor(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Actor(Long id, String name, Set<Movie> movies) {
         this.id = id;
         this.name = name;

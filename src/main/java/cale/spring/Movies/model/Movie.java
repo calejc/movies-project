@@ -18,6 +18,10 @@ public class Movie {
     String title;
 
     public Movie(){ }
+    public Movie(Long id, String title) {
+        this.id=id;
+        this.title=title;
+    }
     public Movie(Long id, String title, Set<Actor> actors) {
         this.id = id;
         this.title = title;
