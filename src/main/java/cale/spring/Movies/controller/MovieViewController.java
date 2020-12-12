@@ -1,29 +1,32 @@
 package cale.spring.Movies.controller;
 
-import cale.spring.Movies.repository.ActorRepository;
 import cale.spring.Movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Transactional
 public class MovieViewController {
+
     @Autowired
     MovieRepository movieRepository;
 
     @GetMapping("/movie/{id}")
-    public String actorView(@RequestParam Long id, Model model){
-        String slug;
-        if (movieRepository.findById(id).isPresent()){
-            String actorName = movieRepository.findById(id).get().getTitle();
-            slug = actorName.toLowerCase().replace(" ", "-");
+    public ModelAndView movieView(@PathVariable("id") Long id, ModelAndView mav){
+        if (movieRepository.findById(id).isEmpty()){
+            mav.setViewName("error");
+            String errorMessage = String.format("Movie %d not found", id);
+            mav.addObject("errorMessage", errorMessage);
         } else {
-            return "error";
+            mav.setViewName("movie");
+            String movieTitle = movieRepository.findById(id).get().getTitle();
+            mav.addObject("movie", movieRepository.findById(id).get());
+            mav.addObject("pageTitle", movieTitle);
         }
-        model.addAttribute("pageTitle", slug);
-        movieRepository.findById(id);
-        return "movie";
+        return mav;
     }
 }

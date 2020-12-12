@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
+<link th:href="@{/styles/update.css}" rel="stylesheet">
 <div>
 <!--    INSERT FORM HERE   -->
-    <form>
-
+    <form method="post" th:action="@{/update}" th:object="${MovieDTO}">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="movieName">Movie Title</label>
+                <input type="text" class="form-control" id="movieName" placeholder="Title">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="movieGenre">Genre</label>
+                <input type="text" class="form-control" id="movieGenre" placeholder="Genre">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="movieRating">Movie Rating</label>
+                <input type="text" class="form-control" id="movieRating" placeholder="Rating 1-10">
+            </div>
+        </div>
+        <div class="form-row"?>
+        <div class="form-group col-md-3">
+            <label for="actorName">Actors (Format as list.  Ex: Brad Pitt, Keanu Reeves, etc)</label>
+            <input type="text" class="form-control" id="actorName" placeholder="Actor Names Here">
+        </div>
+        </div>
+        <div class="instructions">
+            <label>Please upload the Movies image (.jpg, .png)</label>
+        </div>
+        <form action="/action_page.php">
+            <input type="file" id="userFile" name="filename">
+            <input type="submit">
+        </form>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 <div th:insert="fragments :: footer"></div>
+<script src="scripts/update.js"></script>
 </html>
