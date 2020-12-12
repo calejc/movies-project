@@ -16,11 +16,36 @@ public class UpdateController {
         return mav;
     }
 
-    @PostMapping("/update")
-    public void updatePost(@RequestParam("movieAdd") String string, ModelAndView mav){
+    @PostMapping("/newActor")
+    public void newActor(@RequestParam("movieAdd") String string, ModelAndView mav){
         System.out.println(string);
         mav.setViewName("success");
 //        return mav;
+    }
+
+    @PostMapping("/newMovie")
+    public void newMovie(){
+
+    }
+
+    @PostMapping("/editActor")
+    public void editActor(){
+
+    }
+
+    @PostMapping("editMovie")
+    public void editMovie(){
+
+    }
+
+    @DeleteMapping("/deleteActor")
+    public void deleteActor(){
+
+    }
+
+    @DeleteMapping("/deleteMovie")
+    public void deleteMovie(){
+
     }
 
 }
