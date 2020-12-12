@@ -9,7 +9,7 @@ html {
     background-color: #bc5a45;
 }
 
-.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited {
+.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited, h1 {
     color: #fff;
 }
 
@@ -62,6 +62,12 @@ text-align: center;
     width: 400px;
     height: auto;
     background-color: #bc5a45;
+}
+
+.img-fluid {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
 }
 
 
