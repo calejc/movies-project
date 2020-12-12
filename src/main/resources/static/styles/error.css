@@ -1,0 +1,11 @@
+
+.row{
+    margin-top:25vh;
+}
+
+.jumbotron{
+    margin-left:30vw;
+    width:40vw;
+    border: .15em solid red;
+    border-radius: 1em;
+}
