@@ -33,7 +33,7 @@ public class UpdateController {
         String authorizations = authorizationMap.get(userName); //create,update
         if (authorizations.indexOf("create")>= 0) {
             model.addAttribute("pageTitle", "Update database");
-            return "updatee";
+            return "update";
         } else {
             model.addAttribute("");
             return "probably jordan's fault";
@@ -59,6 +59,7 @@ public class UpdateController {
 
     @PostMapping("/success")
     public String update(@RequestBody Model model) {
+
         model.getAttribute("actorName");
         model.getAttribute("movieName");
         model.getAttribute("movieGenre");
