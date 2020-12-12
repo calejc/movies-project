@@ -48,10 +48,9 @@ public class UpdateController {
 //        String userName = getUsername(princpal);
 //        String authorizations = authorizationMap.get(userName); //create,update
 //        if (authorizations.contains("create")) {
-            model.addAttribute("pageTitle", "Update database");
             MovieDTO movie = new MovieDTO(title, overview, 5.0);
             Movie savedMovie = movieService.addMovietoDB(movie);
-            model.addAttribute("movie", savedMovie);
+            model.addAttribute("successMessage", savedMovie.getTitle());
             return "success";
 //        } else {
 //            model.addAttribute("errorMessage");
