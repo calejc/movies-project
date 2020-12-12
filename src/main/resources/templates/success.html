@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<title>Success Page</title>
 <div class="container">
     <div class="row">
         <div class="col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <img class="card-img-bottom img-fluid img-thumbnail" th:src="@{/imgs/captain.jpg}"/>
-                    <h1 class="card-title"> <span th:text="${successMessage}"></span> Successfully added!</h1>
+                    <h1 class="card-title"><span th:text="${successMessage}"></span> successfully added!</h1>
                 </div>
             </div>
         </div>

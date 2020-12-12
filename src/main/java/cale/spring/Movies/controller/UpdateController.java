@@ -23,10 +23,7 @@ import java.util.Map;
 public class UpdateController {
 
     @Autowired
-    MovieService movieService;
-    @Autowired
     CrudService crudService;
-
     public final String filename = "src/main/resources/authorized-usernames.txt";
     Map<String, String> authorizationMap = AuthorizationService.readInAuthorizedUsers(filename);
 
@@ -47,13 +44,14 @@ public class UpdateController {
     }
 
     @PostMapping("/addMovie")
-    public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview, Model model, Principal princpal){
+    public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview,  Model model, Principal princpal){
 //        String userName = getUsername(princpal);
 //        String authorizations = authorizationMap.get(userName); //create,update
 //        if (authorizations.contains("create")) {
             Long id = crudService.generateNewMovieId();
-            MovieDTO movie = new MovieDTO(id, title, overview, 5.0);
-            Movie savedMovie = movieService.addMovietoDB(movie);
+            MovieDTO movie = new MovieDTO(id, title, overview, 5.9);
+            Movie savedMovie = crudService.addMovieToDB(movie);
+            System.out.println(savedMovie);
             model.addAttribute("successMessage", savedMovie.getTitle());
             return "success";
 //        } else {
