@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="fragments :: header"></div>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid">
+            <h1 class="display-4">About</h1>
+            <p class="lead">A source for movie and actor information.</p>
+        </div>
+    </div>
+    <h1 class="display-4">Meet the Team</h1>
+    <div class="card-group">
+        <div class="card">
+            <img src="/imgs/gil.jpg" class="card-img-top" alt="cale image">
+            <div class="card-body">
+                <h5 class="card-title">Cale</h5>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/imgs/mattj.jfif" class="card-img-top" alt="matt j image">
+            <div class="card-body">
+                <h5 class="card-title">Matt J</h5>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/imgs/rob.png" class="card-img-top" alt="rob image">
+            <div class="card-body">
+                <h5 class="card-title">Rob</h5>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/imgs/jordan.jpg" class="card-img-top" alt="jordan image">
+            <div class="card-body">
+                <h5 class="card-title">Jordan</h5>
+            </div>
+        </div>
+    </div>
+</div>

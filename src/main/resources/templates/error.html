@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<span th:text="${currentDate}"></span>
+<link th:href="@{/styles/error.css}" rel="stylesheet">
+<div class="row">
+    <div class="jumbotron d-flex justify-content-around">
+        <h1>ERROR :: </h1><h2 th:text="${errorMessage}"></h2>
+    </div>
+</div>
 <div th:insert="fragments :: footer"></div>
 </html>
