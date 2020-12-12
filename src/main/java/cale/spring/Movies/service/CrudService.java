@@ -1,5 +1,6 @@
 package cale.spring.Movies.service;
 
+import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
@@ -22,6 +23,19 @@ public class CrudService {
     private ActorRepository actorRepository;
 
     public void addActor(Actor actor){ actorRepository.save(actor); }
+
+
+    @Transactional
+    public Movie addMovieToDB(MovieDTO movieDTO){
+        Movie movie = new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getPopularity());
+        Movie savedMovie = movieRepository.save(movie);
+        if (movie.getId() != savedMovie.getId()) {
+            System.out.println("Problem!");
+        }
+        return savedMovie;
+    }
+
+    
     public void addMovie(Movie movie){ movieRepository.save(movie); }
     public void updateActor(Actor actor) throws Exception {
         Optional<Actor> actorEntry = actorRepository.findById(actor.getId());
@@ -40,6 +54,31 @@ public class CrudService {
     }
     public void updateMovie(Movie movie){}
     public void delete(Object... args){}
+
+    public Long generateNewMovieId(){
+        boolean validId = false;
+        Long rand;
+        do {
+            rand = Math.round(1 + Math.random()*50000);
+            if (!movieRepository.existsById(rand)){
+                validId = true;
+            }
+        } while(!validId);
+        return rand;
+    }
+
+    public Long generateNewActorId(){
+        boolean validId = false;
+        Long rand;
+        do {
+            rand = Math.round(1 + Math.random()*100000);
+            if (!actorRepository.existsById(rand)){
+                validId = true;
+            }
+        } while(!validId);
+        return rand;
+    }
+
 
 //    public Actor getActorById(Long id){}
 //    public List<Actor> getAllActors(){}

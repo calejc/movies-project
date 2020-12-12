@@ -25,7 +25,8 @@ public class MovieDTO {
 
     public MovieDTO() {}
 
-    public MovieDTO(String title, String overview, Double popularity) {
+    public MovieDTO(Long id, String title, String overview, Double popularity) {
+        this.id = id;
         this.title = title;
         this.overview = overview;
         this.popularity = popularity;
