@@ -45,17 +45,6 @@ public class MoviesApplication implements CommandLineRunner {
 		for (MovieDTO movie : movies){
 		    // Add one movie at a time like the example (movie is like a URL in the example)
 			movieService.addMovie(movie);
-			/*
-			for (ActorDTO actor : movie.getActors()){
-				addToMap(actorToMovieMap, actor, movie); // Detects when actor is in more than one movie
-		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
-		movieService.addMovie(movies);
-		for (Movie movie : movies){
-			for (Actor actor : movie.getActors()){
-				addToCounter();
-				System.out.println(counter);
-			}
-		 */
 		}
 	}
 

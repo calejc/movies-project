@@ -20,12 +20,17 @@ public class Actor {
 
 
     public Actor(){ }
-
-    public Actor(Long id, String name) {
+    public Actor(Long id, String name, Set<Movie> movies, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
         this.id = id;
         this.name = name;
+        this.movies = movies;
+        this.photoUrl = photoUrl;
+        this.biography = biography;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.gender = gender;
+        this.popularity = popularity;
     }
-
     public Actor(Long id, String name, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
         this.id = id;
         this.name = name;
