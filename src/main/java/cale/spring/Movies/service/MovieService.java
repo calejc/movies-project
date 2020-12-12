@@ -61,7 +61,7 @@ public class MovieService {
     }
     @Transactional
     public Movie addMovietoDB(MovieDTO movieDTO){
-        Movie movie = new Movie(movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getPopularity());
+        Movie movie = new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getPopularity());
         Movie savedMovie = movieRepository.save(movie);
         if (movie.getId() != savedMovie.getId()) {
             System.out.println("Problem!");

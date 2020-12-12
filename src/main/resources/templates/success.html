@@ -7,12 +7,12 @@
         <div class="col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="card-title" <span th:text="${successMessage}"></span>Successfully added!</h1>
+                    <img class="card-img-bottom img-fluid img-thumbnail" th:src="@{/imgs/captain.jpg}"/>
+                    <h1 class="card-title"> <span th:text="${successMessage}"></span> Successfully added!</h1>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <div th:insert="fragments :: footer"></div>
 </html>

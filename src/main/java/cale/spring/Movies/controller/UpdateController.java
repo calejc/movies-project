@@ -4,6 +4,7 @@ import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.MovieRepository;
 import cale.spring.Movies.service.AuthorizationService;
+import cale.spring.Movies.service.CrudService;
 import cale.spring.Movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class UpdateController {
 
     @Autowired
     MovieService movieService;
+    @Autowired
+    CrudService crudService;
 
     public final String filename = "src/main/resources/authorized-usernames.txt";
     Map<String, String> authorizationMap = AuthorizationService.readInAuthorizedUsers(filename);
@@ -48,7 +51,8 @@ public class UpdateController {
 //        String userName = getUsername(princpal);
 //        String authorizations = authorizationMap.get(userName); //create,update
 //        if (authorizations.contains("create")) {
-            MovieDTO movie = new MovieDTO(title, overview, 5.0);
+            Long id = crudService.generateNewMovieId();
+            MovieDTO movie = new MovieDTO(id, title, overview, 5.0);
             Movie savedMovie = movieService.addMovietoDB(movie);
             model.addAttribute("successMessage", savedMovie.getTitle());
             return "success";

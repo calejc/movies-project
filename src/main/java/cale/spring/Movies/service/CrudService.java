@@ -41,6 +41,30 @@ public class CrudService {
     public void updateMovie(Movie movie){}
     public void delete(Object... args){}
 
+    public Long generateNewMovieId() {
+        boolean validId = false;
+        Long rand;
+        do {
+            rand = Math.round(1 + Math.random() * 100000);
+            if (movieRepository.existsById(rand)) {
+                validId = true;
+            }
+        } while (validId == false);
+        return rand;
+    }
+
+    public Long generateNewActorId() {
+        boolean validId = false;
+        Long rand;
+        do {
+            rand = Math.round(1 + Math.random() * 100000);
+            if (actorRepository.existsById(rand)) {
+                validId = true;
+            }
+        } while (validId == false);
+        return rand;
+    }
+
 //    public Actor getActorById(Long id){}
 //    public List<Actor> getAllActors(){}
 //    public List<Actor> getActorsByName(){}
