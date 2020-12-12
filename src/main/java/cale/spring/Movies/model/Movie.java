@@ -15,6 +15,7 @@ import java.util.Set;
 public class Movie {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title, photoUrl;
     @Lob
@@ -56,6 +57,11 @@ public class Movie {
         this.popularity = popularity;
     }
 
+    public Movie(String title, String overview, Double popularity) {
+        this.title = title;
+        this.overview = overview;
+        this.popularity = popularity;
+    }
 
     @ManyToMany(mappedBy = "movies")
     private Set<Actor> actors = new HashSet<>();
