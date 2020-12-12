@@ -31,10 +31,3 @@ public class ActorsController {
 }
 
 //Generated url format actors?page=1
-
-//    private Long id;
-//    private String name, photoUrl;
-//    private String biography;
-//    private Date birthday, deathday;
-//    private Integer gender;
-//    private Double popularity;
