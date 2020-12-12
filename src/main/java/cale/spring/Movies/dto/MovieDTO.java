@@ -25,6 +25,13 @@ public class MovieDTO {
 
     public MovieDTO() {}
 
+    public MovieDTO(Long id, String title, String overview, Double popularity) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+        this.popularity = popularity;
+    }
+
     public MovieDTO(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<ActorDTO> actors) {
         this.id = id;
         this.title = title;
@@ -34,6 +41,13 @@ public class MovieDTO {
         this.voteAverage = voteAverage;
         this.popularity = popularity;
         this.actors = actors;
+    }
+
+    public MovieDTO(Long id, String title, String overview, Double popularity) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+        this.popularity = popularity;
     }
 
     public Long getId() {
