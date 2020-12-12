@@ -2,16 +2,25 @@ package cale.spring.Movies.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UpdateController {
 
     @GetMapping("/update")
-    public String add(Model model){
-        model.addAttribute("pageTitle", "Update database");
-        return "update";
+    public ModelAndView update(ModelAndView mav){
+        mav.setViewName("update");
+        mav.addObject("pageTitle", "Update database");
+        return mav;
+    }
+
+    @PostMapping("/update")
+    public void updatePost(@RequestParam("movieAdd") String string, ModelAndView mav){
+        System.out.println(string);
+        mav.setViewName("success");
+//        return mav;
     }
 
 }

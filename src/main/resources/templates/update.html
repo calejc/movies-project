@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<div>
-<!--    INSERT FORM HERE   -->
-    <form>
-
-    </form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>
+                    <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>
+                    <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>
+                    <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>
+                    <a class="dropdown-item" href="#" id="delete-Select">Delete</a>
+                </div>
+            </div>
+            <form class="crudForm" id="addMovie" th:action="@{/update}" method="post">
+                <div class="form-group">
+                    <label for="movieAdd">ADD MOVIE</label>
+                    <input type="text" class="form-control" id="movieAdd" name="movieAdd">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+            <form class="crudForm" id="editMovie" th:action="@{/update}" method="post">
+                <div class="form-group">
+                    <label for="movieEdit">EDIT MOVIE</label>
+                    <input type="text" class="form-control" id="movieEdit">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+            <form class="crudForm" id="addActor">
+                <div class="form-group">
+                    <label for="actorAdd">ADD ACTOR</label>
+                    <input type="text" class="form-control" id="actorAdd">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+            <form class="crudForm" id="editActor">
+                <div class="form-group">
+                    <label for="actorEdit">EDIT ACTOR</label>
+                    <input type="text" class="form-control" id="actorEdit">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+            <form class="crudForm" id="delete">
+                <div class="form-group">
+                    <label for="deleteFc">DELETE</label>
+                    <input type="text" class="form-control" id="deleteFc">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>
+        </div>
+    </div>
 </div>
 <div th:insert="fragments :: footer"></div>
+<script src="scripts/update.js"></script>
 </html>

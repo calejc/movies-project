@@ -1,41 +1,38 @@
-/*.card-container {
-    background-color: transparent;
-    perspective: 200vw;
-    min-height:50vh;
-    min-width:50vw;
+.card-container{
+    display:grid;
+    perspective:500px;
 }
 
-.card-outer, .card {
-    border-radius:1em;
-    border: .15em solid black;
-    box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
-    position: relative;
-    height:100%;
-    width:100%;
-    -webkit-transition: 2s;
-    -moz-transition: 2s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
+.card-flip, .card-container {
+    transform-style: preserve-3d;
+    transition: all 0.7s ease;
 }
 
-.card-outer.flipped{
-  -webkit-transform:rotateY(180deg);
-  -moz-transform:rotateY(180deg);
+.card-flip div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
-.card-front{
-  -webkit-transform:rotateY(0deg);
-  -moz-transform:rotateY(0deg);
-  -webkit-backface-visibility:hidden;
-  -moz-backface-visibility:hidden;
-  position:absolute;
+.back {
+    transform: rotateY(-180deg);
 }
 
-.card-back{
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -webkit-backface-visibility:hidden;
-  -moz-backface-visibility:hidden;
-  position:absolute;
-}/*
+.card-container:hover .card-flip {
+    transform: rotateY(180deg);
+}
 
+.card-flip {
+    display: grid; grid-template: 1fr / 1fr;
+    grid-template-areas: "frontAndBack";
+    transform-style: preserve-3d;
+    transition: all 0.7s ease;
+}
+
+.front {
+    grid-area: frontAndBack;
+}
+
+.back {
+    grid-area: frontAndBack;
+    transform: rotateY(-180deg);
+}
