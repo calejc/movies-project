@@ -3,18 +3,23 @@
 <div th:insert="fragments :: header"></div>
 <link th:href="@{/styles/update.css}" rel="stylesheet">
 <div>
-<!--    <div class="dropdown">-->
-<!--        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--            Dropdown button-->
-<!--        </button>-->
-<!--        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-<!--            <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>-->
-<!--            <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>-->
-<!--            <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>-->
-<!--            <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>-->
-<!--            <a class="dropdown-item" href="#" id="delete-Select">Delete</a>-->
-<!--        </div>-->
-<!--    </div>-->
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-8 mx-auto">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-6 mx-auto">-->
+<!--                    <div class="dropdown">-->
+<!--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                            Dropdown button-->
+<!--                        </button>-->
+<!--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                            <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>-->
+<!--                            <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>-->
+<!--                            <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>-->
+<!--                            <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>-->
+<!--                            <a class="dropdown-item" href="#" id="delete-Select">Delete</a>-->
+<!--                        </div>-->
+
 
     <!--    INSERT FORM HERE   -->
     <form class="crudForm" id ="addMovie" method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
@@ -45,7 +50,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <form class="crudForm" id="editMovie"></form>
-    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}"></form>
+    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}" th:object="${ActorDTO}"></form>
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="actorName">Actor Name</label>

@@ -1,5 +1,6 @@
 package cale.spring.Movies.service;
 
+import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
@@ -30,9 +31,18 @@ public class CrudService {
         Movie movie = new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getPopularity());
         Movie savedMovie = movieRepository.save(movie);
         if (movie.getId() != savedMovie.getId()) {
-            System.out.println("Problem!");
+            System.out.println("Problem with adding movie!");
         }
         return savedMovie;
+    }
+
+    public Actor addActortoDB(ActorDTO actorDTO) {
+        Actor actor = new Actor(actorDTO.getId(), actorDTO.getName(), actorDTO.getPopularity());
+        Actor savedActor = actorRepository.save(actor);
+        if (actor.getId() != savedActor.getId()) {
+            System.out.println("Problem with adding actor!");
+        }
+        return savedActor;
     }
 
     
@@ -78,6 +88,8 @@ public class CrudService {
         } while(!validId);
         return rand;
     }
+
+
 
 
 //    public Actor getActorById(Long id){}
