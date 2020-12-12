@@ -13,7 +13,6 @@ import java.util.Set;
 public class Movie {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonSetter("movieId")
     private Long id;
     String title;
@@ -25,8 +24,8 @@ public class Movie {
         this.actors = actors;
     }
 
-//    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    // Changed to follow example https://github.com/payne/notes/blob/master/src/main/java/org/mattpayne/spring/visit/notes/entity/Url.java#L17
+    @ManyToMany(mappedBy = "movies")
     private Set<Actor> actors = new HashSet<>();
 
     @Override

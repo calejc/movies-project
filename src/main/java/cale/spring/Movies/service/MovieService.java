@@ -1,5 +1,6 @@
 package cale.spring.Movies.service;
 
+import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
@@ -38,22 +39,10 @@ public class MovieService {
         setCounter(c);
     }
 
+    // Changed to follow example from notes app (Url is like a Movie)
     @Transactional
-    public void addMovie(Movie[] movies){
-//        movieRepository.save(movie);
-        for (Movie movie : movies){
-            Set<Actor> actors = movie.getActors();
-            for (Actor actor : actors){
-//                actor.addMovie(movie);
-                movie.addActor(actor);
-            }
-            movieRepository.save(movie);
-        }
-//        for (Movie movie : movies){
-//            for (Actor actor : movie.getActors()){
-//                actorRepository.save(actor);
-//            }
-//        }
+    public void addMovie(MovieDTO movie){
+
     }
 
 }

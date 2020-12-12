@@ -1,7 +1,7 @@
 package cale.spring.Movies;
 
-import cale.spring.Movies.model.Actor;
-import cale.spring.Movies.model.Movie;
+import cale.spring.Movies.dto.ActorDTO;
+import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.service.MovieService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,33 +64,35 @@ public class MoviesApplication implements CommandLineRunner {
 		setCounter(c);
 	}
 
+	// This should create DTOs since entities (aka models here) are only to be used
+	// by the service and repository layers.
 	public void importDataset(String filename) throws IOException {
-		Map<Actor, List<Movie>> actorToMovieMap = new HashMap<>();
+		Map<ActorDTO, List<MovieDTO>> actorToMovieMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
-		for (Movie movie : movies){
+		MovieDTO[] movies = objectMapper.readValue(new File(filename), MovieDTO[].class);
+		for (MovieDTO movie : movies){
 //			movieService.addMovie(movie);
 //			System.out.println(movie.getTitle());
-			for (Actor actor : movie.getActors()){
+			for (ActorDTO actor : movie.getActors()){
 			//	addToCounter();
 				addToMap(actorToMovieMap, actor, movie);
 //				System.out.println(counter);
 //				System.out.println("\t" + actor.getName());
 			}
 		}
-		movieService.addMovie(movies);
+		// TODO(MGP): movieService.addMovie(movies);
 	}
 
-	private void addToMap(Map<Actor, List<Movie>> actorToMovieMap, Actor actor, Movie movie) {
-		List<Movie> movieList = actorToMovieMap.get(actor);
+	private void addToMap(Map<ActorDTO, List<MovieDTO>> actorToMovieMap, ActorDTO actor, MovieDTO movie) {
+		List<MovieDTO> movieList = actorToMovieMap.get(actor);
 		if (movieList==null) {
 			movieList=new ArrayList<>();
 		}
 		movieList.add(movie);
 		actorToMovieMap.put(actor, movieList);
 		if (movieList.size()>1) {
-			System.out.format("%s (%d) is in %d movies.\n",actor.getName(), actor.getId(), movieList.size());
+			System.out.format("%s (%d) is in %d movies.\n",actor.getName(), actor.getActorId(), movieList.size());
 			System.out.println("Well?");
 		}
 	}
