@@ -3,37 +3,57 @@
 <div th:insert="fragments :: header"></div>
 <link th:href="@{/styles/update.css}" rel="stylesheet">
 <div>
-<!--    INSERT FORM HERE   -->
-    <form method="post" th:action="@{/update}" th:object="${MovieDTO}">
+<!--    <div class="dropdown">-->
+<!--        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--            Dropdown button-->
+<!--        </button>-->
+<!--        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--            <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>-->
+<!--            <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>-->
+<!--            <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>-->
+<!--            <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>-->
+<!--            <a class="dropdown-item" href="#" id="delete-Select">Delete</a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!--    INSERT FORM HERE   -->
+    <form class="crudForm" id ="addMovie" method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="movieName">Movie Title</label>
-                <input type="text" class="form-control" id="movieName" placeholder="Title">
+                <input type="text" class="form-control" id="movieName" name="title" placeholder="Title">
             </div>
-            <div class="form-group col-md-3">
-                <label for="movieGenre">Genre</label>
-                <input type="text" class="form-control" id="movieGenre" placeholder="Genre">
-            </div>
+<!--            <div class="form-group col-md-3">-->
+<!--                <label for="movieGenre">Genre</label>-->
+<!--                <input type="text" class="form-control" id="movieGenre" placeholder="Genre">-->
+<!--            </div>-->
             <div class="form-group col-md-3">
                 <label for="movieRating">Movie Rating</label>
-                <input type="text" class="form-control" id="movieRating" placeholder="Rating 1-10">
+                <input type="text" class="form-control" id="movieRating" name="popularity" placeholder="Rating 1-10">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="movieRating">Movie Overview</label>
+                <input type="text" class="form-control" id="movieOverview" name="overview" placeholder="Rating 1-10">
             </div>
         </div>
-        <div class="form-row"?>
-        <div class="form-group col-md-3">
-            <label for="actorName">Actors (Format as list.  Ex: Brad Pitt, Keanu Reeves, etc)</label>
-            <input type="text" class="form-control" id="actorName" placeholder="Actor Names Here">
-        </div>
+        <div class="form-row">
+<!--        <div class="form-group col-md-3">-->
+<!--            <label for="actorName">Actors (Format as list.  Ex: Brad Pitt, Keanu Reeves, etc)</label>-->
+<!--            <input type="text" class="form-control" id="actorName" placeholder="Actor Names Here">-->
+<!--        </div>-->
         </div>
         <div class="instructions">
             <label>Please upload the Movies image (.jpg, .png)</label>
         </div>
-        <form action="/action_page.php">
-            <input type="file" id="userFile" name="filename">
-            <input type="submit">
-        </form>
+<!--        <form action="/action_page.php">-->
+<!--            <input type="file" id="userFile" name="filename">-->
+<!--            <input type="submit">-->
+<!--        </form>-->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <form class="crudForm" id="editMovie"></form>
+    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}"></form>
+    <form class="crudForm" id="editActor"></form>
 </div>
 <div th:insert="fragments :: footer"></div>
 <script src="scripts/update.js"></script>

@@ -13,20 +13,12 @@
                             <img class="card-img-left img-fluid img-thumbnail rounded m-3" th:src="${actor.photoUrl}">
                         </div>
                         <div class="col-lg-9 mx-auto justify-content-center">
-<!--                            <div class="card-body">-->
                                 <h5 class="card-title" th:text="${actor.name}"></h5>
-<!--                                <div class="card-text" th:text="${actor.biography}"></div>-->
-<!--                            </div>-->
-<!--                            <h5 class="card-title" th:text="${actor.name}"></h5>-->
-<!--                            <div class="card-text" th:text="${actor.biography}"></div>-->
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="card-text" th:text="${actor.biography}"></div>
                     </div>
-<!--                    <img class="card-img-left img-fluid img-thumbnail rounded" th:src="${actor.photoUrl}">-->
-<!--                    <h5 class="card-title" th:text="${actor.name}"></h5>-->
-<!--                    <div class="card-text" th:text="${actor.biography}"></div>-->
                 </div>
                 <div class="card back">
                     <div class="row flex-fill">
@@ -39,12 +31,6 @@
                             </div>
                         </div>
                     </div>
-<!--                    <h1 class="card-title">Movies: </h1>-->
-<!--                    <div class="card-body">-->
-<!--                        <ul th:each="movie: ${actor.movies}">-->
-<!--                            <li th:text="${movie.title}"></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>
