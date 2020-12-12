@@ -36,6 +36,12 @@ public class MovieDTO {
         this.actors = actors;
     }
 
+    public MovieDTO(String title, String overview, Double popularity) {
+        this.title = title;
+        this.overview = overview;
+        this.popularity = popularity;
+    }
+
     public Long getId() {
         return id;
     }
