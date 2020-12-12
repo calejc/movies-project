@@ -40,13 +40,17 @@ padding: 10px 10px;
   margin: 10px 10px;
 }
 
+#carouselExampleIndicators {
+    background-color: #b2b2b2;
+}
+
 .carouselImg {
     margin: auto;
     display: block;
     width: 30%;
 }
 
-.carousel-caption p {
+.carousel-caption p, .carousel-caption h5 {
 color: #b2b2b2;
 width: 30%
 text-align: center;
