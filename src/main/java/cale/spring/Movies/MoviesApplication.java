@@ -23,8 +23,7 @@ public class MoviesApplication implements CommandLineRunner {
 	@Autowired
 	MovieService movieService;
 
-	private final String inputFileName = "src/main/resources/ema_dataset_updated.json";
-	Integer counter = 0;
+	private final String inputFileName = "src/main/resources/test_output.json";
 
 	public static void main(String[] args) {
 		SpringApplication.run(MoviesApplication.class, args);
@@ -33,36 +32,8 @@ public class MoviesApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception{
 		importDataset(inputFileName);
-//		temp();
 	}
 
-	public void temp(){
-//		Movie movie = new Movie();
-//		movie.setTitle("Test Movie");
-//		Set<Actor> actors = new HashSet<>();
-//		Actor actor1 = new Actor();
-//		Actor actor2 = new Actor();
-//		actor1.setName("Test Actor 1");
-//		actor2.setName("Test Actor 2");
-//		actors.add(actor1);
-//		actors.add(actor2);
-//		movie.setActors(actors);
-//		movieService.addMovie(movie);
-	}
-
-	public Integer getCounter() {
-		return counter;
-	}
-
-	public void setCounter(Integer counter) {
-		this.counter = counter;
-	}
-
-	public void addToCounter(){
-		Integer c = getCounter();
-		c++;
-		setCounter(c);
-	}
 
 	// This should create DTOs since entities (aka models here) are only to be used
 	// by the service and repository layers.
@@ -77,6 +48,12 @@ public class MoviesApplication implements CommandLineRunner {
 			/*
 			for (ActorDTO actor : movie.getActors()){
 				addToMap(actorToMovieMap, actor, movie); // Detects when actor is in more than one movie
+		Movie[] movies = objectMapper.readValue(new File(filename), Movie[].class);
+		movieService.addMovie(movies);
+		for (Movie movie : movies){
+			for (Actor actor : movie.getActors()){
+				addToCounter();
+				System.out.println(counter);
 			}
 		 */
 		}

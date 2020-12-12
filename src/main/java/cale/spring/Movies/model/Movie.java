@@ -1,11 +1,11 @@
 package cale.spring.Movies.model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,23 +13,44 @@ import java.util.Set;
 public class Movie {
 
     @Id
-    @JsonSetter("movieId")
     private Long id;
-    String title;
+    private String title, photoUrl;
+    @Lob
+    private String overview;
+    @JsonSetter("release_date")
+    private Date releaseDate;
+    @JsonSetter("vote_average")
+    private Double voteAverage;
+    private Double popularity;
+//    @JsonSetter("genre_ids")
+//    private List<Integer> genreIds;
+
+    public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<Actor> actors) {
+        this.id = id;
+        this.title = title;
+        this.photoUrl = photoUrl;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.popularity = popularity;
+        this.actors = actors;
+    }
 
     public Movie(){ }
     public Movie(Long id, String title) {
         this.id=id;
         this.title=title;
     }
-    public Movie(Long id, String title, Set<Actor> actors) {
+    public Movie(Long id, String title, Set<Actor> actors, String photoUrl) {
         this.id = id;
         this.title = title;
         this.actors = actors;
+        this.photoUrl = photoUrl;
     }
 
     // Changed to follow example https://github.com/payne/notes/blob/master/src/main/java/org/mattpayne/spring/visit/notes/entity/Url.java#L17
     @ManyToMany(mappedBy = "movies")
+//    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Actor> actors = new HashSet<>();
 
     @Override
@@ -37,7 +58,10 @@ public class Movie {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", actors=" + actors.size() +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", voteAverage=" + voteAverage +
+                ", popularity=" + popularity +
                 '}';
     }
 
@@ -87,4 +111,52 @@ public class Movie {
     public void setActors(Set<Actor> actors) {
         this.actors = actors;
     }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
+    }
+
+//    public List<Integer> getGenreIds() {
+//        return genreIds;
+//    }
+//
+//    public void setGenreIds(List<Integer> genreIds) {
+//        this.genreIds = genreIds;
+//    }
 }
