@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    $(".crudForm").hide();
     $('.dropdown-menu a').click(function(){
         var formAction = $(this).attr('id').split("-")[0];
         toggleForms(formAction);

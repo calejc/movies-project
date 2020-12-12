@@ -1,13 +1,15 @@
 package cale.spring.Movies.model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-
+import org.springframework.transaction.annotation.Transactional;
+import cale.spring.Movies.model.Genre;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 
 @Entity
 public class Movie {
@@ -22,8 +24,17 @@ public class Movie {
     @JsonSetter("vote_average")
     private Double voteAverage;
     private Double popularity;
+
+
 //    @JsonSetter("genre_ids")
-//    private List<Integer> genreIds;
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "movie_genre",
+//            joinColumns = {@JoinColumn(name = "")},
+//            inverseJoinColumns = {@JoinColumn(name = "")}
+//    )
+//    private Set<Genre> genres = new HashSet<>();
+
     public Movie(){ }
     public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<Actor> actors) {
         this.id = id;
