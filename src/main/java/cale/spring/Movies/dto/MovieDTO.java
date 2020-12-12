@@ -1,6 +1,6 @@
 package cale.spring.Movies.dto;
 
-import cale.spring.Movies.model.Actor;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,12 +8,14 @@ import java.util.Set;
 
 public class MovieDTO {
 
+    @JsonSetter("movieId")
     private Long movieId;
     private String title;
-    private Set<Actor> actors = new HashSet<>();
+    // DTO classes should not reference entity (aka model here) classes.
+    private Set<ActorDTO> actors = new HashSet<>();
 
     public MovieDTO() {}
-    public MovieDTO(Long movieId, String title, Set<Actor> actors) {
+    public MovieDTO(Long movieId, String title, Set<ActorDTO> actors) {
         this.movieId = movieId;
         this.title = title;
         this.actors = actors;
@@ -35,11 +37,11 @@ public class MovieDTO {
         this.title = title;
     }
 
-    public Set<Actor> getActors() {
+    public Set<ActorDTO> getActors() {
         return actors;
     }
 
-    public void setActors(Set<Actor> actors) {
+    public void setActors(Set<ActorDTO> actors) {
         this.actors = actors;
     }
 

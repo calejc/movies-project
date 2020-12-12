@@ -13,20 +13,23 @@ import java.util.Set;
 public class Movie {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonSetter("movieId")
     private Long id;
     String title;
 
     public Movie(){ }
+    public Movie(Long id, String title) {
+        this.id=id;
+        this.title=title;
+    }
     public Movie(Long id, String title, Set<Actor> actors) {
         this.id = id;
         this.title = title;
         this.actors = actors;
     }
 
-//    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    // Changed to follow example https://github.com/payne/notes/blob/master/src/main/java/org/mattpayne/spring/visit/notes/entity/Url.java#L17
+    @ManyToMany(mappedBy = "movies")
     private Set<Actor> actors = new HashSet<>();
 
     @Override

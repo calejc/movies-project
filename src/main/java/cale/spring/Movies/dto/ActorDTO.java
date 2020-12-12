@@ -1,6 +1,7 @@
 package cale.spring.Movies.dto;
 
 import cale.spring.Movies.model.Movie;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 public class ActorDTO {
 
+    @JsonSetter("id")
     private Long actorId;
     private String name;
     private Set<Movie> movies = new HashSet<>();
@@ -48,6 +50,9 @@ public class ActorDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ActorDTO actorDTO = (ActorDTO) o;
+        if (actorId == null || actorDTO.actorId == null || this.name == null) {
+            System.out.println("HEY!");
+        }
         return this.actorId.equals(actorDTO.actorId) && this.name.equals(actorDTO.name);
     }
 
