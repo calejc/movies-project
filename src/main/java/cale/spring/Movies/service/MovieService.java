@@ -44,14 +44,14 @@ public class MovieService {
     // Changed to follow example from notes app (Url is like a Movie)
     @Transactional
     public void addMovie(MovieDTO movieDTO){
-        Movie movie = new Movie(movieDTO.getMovieId(),movieDTO.getTitle());
+        Movie movie = new Movie(movieDTO.getId(),movieDTO.getTitle(), movieDTO.getPhotoUrl(), movieDTO.getOverview(), movieDTO.getReleaseDate(), movieDTO.getVoteAverage(), movieDTO.getPopularity());
         Movie savedMovie = movieRepository.save(movie);
         if (movie.getId() != savedMovie.getId()) {
             System.out.println("Problem!");
         }
         for (ActorDTO actorDTO: movieDTO.getActors()) {
-            Optional<Actor> optional = actorRepository.findById(actorDTO.getActorId());
-            Actor actor = optional.isPresent() ? optional.get() : new Actor(actorDTO.getActorId(), actorDTO.getName());
+            Optional<Actor> optional = actorRepository.findById(actorDTO.getId());
+            Actor actor = optional.orElseGet(() -> new Actor(actorDTO.getId(), actorDTO.getName(), actorDTO.getPhotoUrl(), actorDTO.getBiography(), actorDTO.getBirthday(), actorDTO.getDeathday(), actorDTO.getGender(), actorDTO.getPopularity()));
             actor.addMovie(movie);
             Actor savedActor = actorRepository.save(actor);
             if (actor.getId() != savedActor.getId()) {

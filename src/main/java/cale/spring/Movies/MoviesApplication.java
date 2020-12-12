@@ -67,7 +67,7 @@ public class MoviesApplication implements CommandLineRunner {
 		movieList.add(movie);
 		actorToMovieMap.put(actor, movieList);
 		if (movieList.size()>1) {
-			System.out.format("%s (%d) is in %d movies.\n",actor.getName(), actor.getActorId(), movieList.size());
+			System.out.format("%s (%d) is in %d movies.\n",actor.getName(), actor.getId(), movieList.size());
 			System.out.println("Well?");
 		}
 	}

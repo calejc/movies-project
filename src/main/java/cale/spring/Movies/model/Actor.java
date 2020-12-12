@@ -10,7 +10,6 @@ import java.util.Set;
 public class Actor {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name, photoUrl;
     @Lob
@@ -27,10 +26,9 @@ public class Actor {
         this.name = name;
     }
 
-    public Actor(Long id, String name, Set<Movie> movies, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
+    public Actor(Long id, String name, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
         this.id = id;
         this.name = name;
-        this.movies = movies;
         this.photoUrl = photoUrl;
         this.biography = biography;
         this.birthday = birthday;

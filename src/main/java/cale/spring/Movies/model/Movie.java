@@ -24,7 +24,7 @@ public class Movie {
     private Double popularity;
 //    @JsonSetter("genre_ids")
 //    private List<Integer> genreIds;
-
+    public Movie(){ }
     public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<Actor> actors) {
         this.id = id;
         this.title = title;
@@ -35,22 +35,18 @@ public class Movie {
         this.popularity = popularity;
         this.actors = actors;
     }
-
-    public Movie(){ }
-    public Movie(Long id, String title) {
-        this.id=id;
-        this.title=title;
-    }
-    public Movie(Long id, String title, Set<Actor> actors, String photoUrl) {
+    public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity) {
         this.id = id;
         this.title = title;
-        this.actors = actors;
         this.photoUrl = photoUrl;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.popularity = popularity;
     }
 
     // Changed to follow example https://github.com/payne/notes/blob/master/src/main/java/org/mattpayne/spring/visit/notes/entity/Url.java#L17
     @ManyToMany(mappedBy = "movies")
-//    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Actor> actors = new HashSet<>();
 
     @Override
