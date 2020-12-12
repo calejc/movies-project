@@ -1,5 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header">HEADER STUFF</div>
+
+<div class="table-view">
+    <table>
+        <tbody>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+<!--            <th>Number of Movies</th>-->
+        </tr>
+        <tr th:each="actor: ${actors}">
+            <td><img th:src=${actor.photoUrl}></td>
+            <td th:text=${actor.name}/></td>
+<!--            <td> <span id="tabletext" th:text=${actor.movies.size}/> Movies:-->
+<!--               <ol>-->
+<!--                 <li th:each="movie: ${actor.movies}"><a th:href="@{${movie.fileName}}" th:text="${movie.title}"/></li>-->
+<!--               </ol>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
 <div th:insert="fragments :: footer">FOOTER STUFF</div>
 </html>
