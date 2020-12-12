@@ -1,22 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" style="background-image: url('http://wid.mccinfo.net/catalog/background.jpg');">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link th:href="@{/styles/main.css}" rel="stylesheet">
+
 
 </head>
 <body>
 <div th:insert="fragments :: header"></div>
-<span th:text="${currentDate}"></span>
 <div class="container">
-    <div class="jumbotron jumbotron-fluid" style="background-color:#343a40;color:#ffffff">
+    <div class="jumbotron jumbotron-fluid">
         <div class="container-fluid">
             <h1 class="display-4">Movie Database</h1>
             <p class="lead">Top movies and actors.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/w200//pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
+                     alt="movie image">
+                <div class="card-body">
+                    <h5 class="card-title">Movies</h5>
+                    <p class="card-text">Four movies...</p>
+                    <a href="movies.html" class="btn btn-outline-light">Go to Movies</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/w200//fbvQc6utpq9wHojQ7wclzEVViEF.jpg"
+                     alt="actor image">
+                <div class="card-body">
+                    <h5 class="card-title">Actors</h5>
+                    <p class="card-text">...and the actors who starred in them.</p>
+                    <a href="actors.html" class="btn btn-outline-light">Go to Actors</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container-fluid">
@@ -30,33 +53,33 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="https://image.tmdb.org/t/p/w200//pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
-                             class="d-block w-100" alt="fight club movie poster">
+                        <img class="carouselImg" src="https://image.tmdb.org/t/p/w200//pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
+                             alt="fight club movie poster">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Fight Club</h5>
                             <p>Mischief. Mayhem. Soap.</p> <!--can this be thymeleaf?-->
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://image.tmdb.org/t/p/w200//kWj4RJzZeJGeyGA3DVGQiNkUjkt.jpg"
-                             class="d-block w-100" alt="troy movie poster">
+                        <img class="carouselImg" src="https://image.tmdb.org/t/p/w200//kWj4RJzZeJGeyGA3DVGQiNkUjkt.jpg"
+                             alt="troy movie poster">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Troy</h5>
-                            <p>For passion. For honor. For destiny. For victory. For love.</p>
+                            <p>For passion. For honor. For destiny.<br> For victory. For love.</p>
                             <!--can this be thymeleaf?-->
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://image.tmdb.org/t/p/w200//eMftEiMCZPEtzzEFyYLjbNkgRQ5.jpg"
-                             class="d-block w-100" alt="mr. and mrs. smith movie poster">
+                        <img class="carouselImg" src="https://image.tmdb.org/t/p/w200//eMftEiMCZPEtzzEFyYLjbNkgRQ5.jpg"
+                             alt="mr. and mrs. smith movie poster">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Mr. & Mrs. Smith</h5>
                             <p>Smart and sexy.</p> <!--can this be thymeleaf?-->
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://image.tmdb.org/t/p/w200//6yoghtyTpznpBik8EngEmJskVUO.jpg"
-                             class="d-block w-100" alt="se7en movie poster" width="600">
+                        <img class="carouselImg" src="https://image.tmdb.org/t/p/w200//6yoghtyTpznpBik8EngEmJskVUO.jpg"
+                             alt="se7en movie poster">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Se7en</h5>
                             <p>Seven deadly sins. Seven ways to die.</p> <!--can this be thymeleaf?-->
@@ -75,32 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm">
-            <div class="card bg-dark text-white">
-                <img src="https://image.tmdb.org/t/p/w200//pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" class="card-img"
-                     alt="fight club poster">
-                <div class="card-img-overlay">
-                    <a href="movies.html" class="card-title">Movies</a>
-                    <p class="card-text">The greatest movies of all time.</p>
-                    <p class="card-text">Last updated 3 minutes ago</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card bg-dark text-white">
-                <img src="https://image.tmdb.org/t/p/w200//fbvQc6utpq9wHojQ7wclzEVViEF.jpg" class="card-img"
-                     alt="brad pitt image">
-                <div class="card-img-overlay">
-                    <a href="actors.html" class="card-title">Actors</a>
-                    <!--        <p class="card-text"></p>-->
-                    <p class="card-text">Last updated 3 minutes ago</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
