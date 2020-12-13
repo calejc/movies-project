@@ -2,6 +2,7 @@ package cale.spring.Movies.controller;
 
 import cale.spring.Movies.authorization.Authorized;
 import cale.spring.Movies.dto.MovieDTO;
+import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.service.AuthorizationService;
 import cale.spring.Movies.service.CrudService;

@@ -2,7 +2,7 @@
     color: blue;
 }
 
-.form-group {
+.form-group, instructions {
     margin: 0px 0px 16px 10px;
 }
 
