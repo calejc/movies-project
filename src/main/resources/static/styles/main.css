@@ -24,6 +24,9 @@ body {
 .jumbotron {
     background-color: #bc5a45;
     color: #fff;
+    border-radius: 1em;
+        border: .15em solid #fff;
+        box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
 }
 
 .container {
