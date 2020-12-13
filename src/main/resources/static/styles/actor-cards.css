@@ -4,7 +4,7 @@
 }
 
 .card{
-border-radius:1em;
+    border-radius:1em;
     border: .15em solid black;
     box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
 }
