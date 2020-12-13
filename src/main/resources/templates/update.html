@@ -50,7 +50,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <form class="crudForm" id="editMovie"></form>
-    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}" th:object="${ActorDTO}"></form>
+    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}" th:object="${ActorDTO}">
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="actorName">Actor Name</label>
@@ -68,6 +68,7 @@
     </div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     <form class="crudForm" id="editActor"></form>
 </div>
 <div th:insert="fragments :: footer"></div>
