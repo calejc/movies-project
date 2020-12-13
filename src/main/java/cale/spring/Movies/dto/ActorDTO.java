@@ -46,6 +46,12 @@ public class ActorDTO {
         this.popularity = popularity;
     }
 
+    public ActorDTO(Long id, String name, Double popularity) {
+        this.id = id;
+        this.name = name;
+        this.popularity = popularity;
+    }
+
     public Long getId() {
         return id;
     }

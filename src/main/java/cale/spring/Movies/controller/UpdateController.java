@@ -1,12 +1,15 @@
 package cale.spring.Movies.controller;
 
+import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.dto.MovieDTO;
+import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.MovieRepository;
 import cale.spring.Movies.service.AuthorizationService;
 import cale.spring.Movies.service.CrudService;
 import cale.spring.Movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,19 +48,36 @@ public class UpdateController {
 
     @PostMapping("/addMovie")
     public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview,  Model model, Principal princpal){
-//        String userName = getUsername(princpal);
-//        String authorizations = authorizationMap.get(userName); //create,update
-//        if (authorizations.contains("create")) {
+        String userName = getUsername(princpal);
+        String authorizations = authorizationMap.get(userName); //create,update
+        if (authorizations.contains("create")) {
             Long id = crudService.generateNewMovieId();
             MovieDTO movie = new MovieDTO(id, title, overview, 5.9);
             Movie savedMovie = crudService.addMovieToDB(movie);
             System.out.println(savedMovie);
             model.addAttribute("successMessage", savedMovie.getTitle());
             return "success";
-//        } else {
-//            model.addAttribute("errorMessage");
-//            return "probably jordan's fault";
-//        }
+        } else {
+            model.addAttribute("errorMessage");
+            return "error";
+        }
+    }
+
+    @PostMapping("/addActor")
+    public String addActor(@RequestParam("name") String name, Model model, Principal principal) {
+        String userName = getUsername(principal);
+        String authorizations = authorizationMap.get(userName);
+        if (authorizations.contains("create")) {
+            Long id = crudService.generateNewActorId();
+            ActorDTO actor = new ActorDTO(id, name, 6.7);
+            Actor savedActor = crudService.addActortoDB(actor);
+            System.out.println(savedActor);
+            model.addAttribute("successMessage", savedActor.getName());
+            return "success";
+        } else {
+            model.addAttribute("errorMessage");
+            return "error";
+        }
     }
 
 
@@ -73,8 +93,12 @@ public class UpdateController {
         }
     }
 
-    private String getUsername(Principal princpal) {
-        return "joe";
+    private String getUsername(Principal principal) {
+        String userName;
+        OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
+        Map<String, Object> attributes = token.getPrincipal().getAttributes();
+        userName = (String) attributes.get("login");
+        return userName;
     }
 
     @PostMapping("/success")
