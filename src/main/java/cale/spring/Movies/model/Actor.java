@@ -49,10 +49,10 @@ public class Actor {
     )
     private Set<Movie> movies = new HashSet<>();
 
-    public Actor(Long id, String name, Double popularity) {
+    public Actor(Long id, String name, String biography) {
         this.id = id;
         this.name = name;
-        this.popularity = popularity;
+        this.biography = biography;
     }
 
     public void addMovie(Movie movie) {

@@ -23,12 +23,9 @@ public class CrudService {
     @Autowired
     private ActorRepository actorRepository;
 
-    public void addActor(Actor actor){ actorRepository.save(actor); }
-
-
     @Transactional
     public Movie addMovieToDB(MovieDTO movieDTO){
-        Movie movie = new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getPopularity());
+        Movie movie = new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview());
         Movie savedMovie = movieRepository.save(movie);
         if (movie.getId() != savedMovie.getId()) {
             System.out.println("Problem with adding movie!");
@@ -36,8 +33,9 @@ public class CrudService {
         return savedMovie;
     }
 
-    public Actor addActortoDB(ActorDTO actorDTO) {
-        Actor actor = new Actor(actorDTO.getId(), actorDTO.getName(), actorDTO.getPopularity());
+    @Transactional
+    public Actor addActorToDB(ActorDTO actorDTO) {
+        Actor actor = new Actor(actorDTO.getId(), actorDTO.getName(), actorDTO.getBiography());
         Actor savedActor = actorRepository.save(actor);
         if (actor.getId() != savedActor.getId()) {
             System.out.println("Problem with adding actor!");

@@ -46,10 +46,10 @@ public class ActorDTO {
         this.popularity = popularity;
     }
 
-    public ActorDTO(Long id, String name, Double popularity) {
+    public ActorDTO(Long id, String name, String biography) {
         this.id = id;
         this.name = name;
-        this.popularity = popularity;
+        this.biography = biography;
     }
 
     public Long getId() {

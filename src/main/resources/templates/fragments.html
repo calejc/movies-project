@@ -31,30 +31,30 @@
 <!--        <![endif]&ndash;&gt;-->
     </head>
     <body>
-    <div class="navbar navbar-expand-md mb-4" role="navigation">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{~/update}">Update
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/about}">About</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/movies}">Movies</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/actors}">Actors</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/logout}">Logout</a></li>
-            </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
-            </form>
+        <div class="navbar navbar-expand-md mb-4" role="navigation">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{~/update}">Update
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{~/about}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{~/movies}">Movies</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{~/actors}">Actors</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{~/logout}">Logout</a></li>
+                </ul>
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+                </form>
+            </div>
         </div>
-    </div>
     </body>
 <div th:fragment="footer">
 <!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->

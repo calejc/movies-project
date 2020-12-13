@@ -1,6 +1,7 @@
 package cale.spring.Movies.controller;
 
 import cale.spring.Movies.authorization.Authorized;
+import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
@@ -33,26 +34,32 @@ public class UpdateController {
 
     @GetMapping("/update")
     public String returnContributePage(Model model, Principal principal){
+        model.addAttribute("pageTitle", "Update");
+        return "update";
+    }
+
+    @PostMapping("/addMovie")
+    public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview,  Model model, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
-        if (authorized.getAuthorized()){
-            return "update";
+        if (authorized.getAuthorized()) {
+            MovieDTO movie = new MovieDTO(crudService.generateNewMovieId(), title, overview);
+            Movie savedMovie = crudService.addMovieToDB(movie);
+            model.addAttribute("successMessage", savedMovie.getTitle());
+            return "success";
         } else {
             model.addAttribute("errorMessage", authorized.getReturnMessage());
             return "error";
         }
     }
 
-    @PostMapping("/addMovie")
-    public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview,  Model model, Principal principal){
-        String userName = "test";
-        Authorized authorized = authorized(userName, "create");
+    @PostMapping("/addActor")
+    public String addActor(@RequestParam("name") String name, @RequestParam("biography") String biography,  Model model, Principal principal){
+        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
         if (authorized.getAuthorized()) {
-            Long id = crudService.generateNewMovieId();
-            MovieDTO movie = new MovieDTO(id, title, overview, 5.9);
-            Movie savedMovie = crudService.addMovieToDB(movie);
-            System.out.println(savedMovie);
-            model.addAttribute("successMessage", savedMovie.getTitle());
-            return "redirect:/success";
+            ActorDTO actor = new ActorDTO(crudService.generateNewActorId(), name, biography);
+            Actor savedActor = crudService.addActorToDB(actor);
+            model.addAttribute("successMessage", savedActor.getName());
+            return "success";
         } else {
             model.addAttribute("errorMessage", authorized.getReturnMessage());
             return "error";
@@ -71,10 +78,10 @@ public class UpdateController {
         }
     }
 
-    @GetMapping("/success")
-    public String successfulAction(Model model){
-        return "success";
-    }
+//    @GetMapping("/success")
+//    public String successfulAction(Model model){
+//        return "success";
+//    }
 
     private Authorized authorized(String userName, String action) {
         Authorized authorized = new Authorized();

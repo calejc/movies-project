@@ -57,11 +57,10 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public Movie(Long id, String title, String overview, Double popularity) {
+    public Movie(Long id, String title, String overview) {
         this.id = id;
         this.title = title;
         this.overview = overview;
-        this.popularity = popularity;
     }
 
     @ManyToMany(mappedBy = "movies")
