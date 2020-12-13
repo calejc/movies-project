@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('.dropdown-menu a').click(function(){
         var formAction = $(this).attr('id').split("-")[0];
+        console.log(formAction);
         toggleForms(formAction);
     })
 });

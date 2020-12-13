@@ -3,11 +3,9 @@
 <div th:insert="fragments :: header"></div>
 <link th:href="@{/styles/update.css}" rel="stylesheet">
 <div class="container">
-    <div class="row">
+    <div class="row dropdown">
         <div class="col-lg-8 mx-auto">
-            <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="dropdown">
+            <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
                 </button>
@@ -19,9 +17,6 @@
                     <a class="dropdown-item" href="#" id="delete-Select">Delete</a>
                 </div>
             </div>
-                </div>
-            </div>
-
             <!--    INSERT FORM HERE   -->
             <form class="crudForm" id ="addMovie" method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
                 <div class="form-row">
@@ -57,12 +52,13 @@
         <!--        </form>-->
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <form class="crudForm" id="editMovie"></form>
-            <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}"></form>
-            <form class="crudForm" id="editActor"></form>
+            <form class="crudForm" id="editMovie">EDIT MOVIE</form>
+            <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}">ADD ACTOR</form>
+            <form class="crudForm" id="editActor">EDIT ACTOR</form>
         </div>
     </div>
 </div>
+<!--<script src="/scripts/update.js"></script>-->
 <div th:insert="fragments :: footer"></div>
 <script src="/scripts/update.js"></script>
 </html>
