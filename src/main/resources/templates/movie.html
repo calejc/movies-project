@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments :: header"></div>
+<<<<<<< HEAD
+<body>
+<div class="container-fluid">
+
+</div>
+</body>
+<div th:insert="fragments :: footer"></div>
+=======
+<link th:href="@{/styles/actor-cards.css}" rel="stylesheet">
+
+<div class="container">
+    <div class="row no-gutters justify-content-center mx-auto">
+        <div class="col-lg-9 card-container">
+            <div class="card-flip">
+                <div class="card front">
+                    <div class="row flex-fill">
+                        <div class="col-lg-3 mx-auto">
+                            <img class="card-img-left img-fluid img-thumbnail rounded m-3" th:src="${movie.photoUrl}">
+                        </div>
+                        <div class="col-lg-9 mx-auto justify-content-center">
+                            <h5 class="card-title" th:text="${movie.title}"></h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text" th:text="${movie.overview}"></div>
+                    </div>
+                </div>
+                <div class="card back">
+                    <div class="row flex-fill">
+                        <div class="col-auto">
+                            <h1 class="card-title">Movies: </h1>
+                            <div class="card-body">
+                                <ul th:each="actor: ${movie.actors}">
+                                    <li th:text="${actor.name}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments :: footer"></div>
+<script th:src="@{/scripts/actor-cards.js}"></script>
+>>>>>>> origin
+</html>

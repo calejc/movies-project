@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
+<link th:href="@{/styles/update.css}" rel="stylesheet">
 <div>
-<!--    INSERT FORM HERE   -->
-    <form>
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-8 mx-auto">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-6 mx-auto">-->
+<!--                    <div class="dropdown">-->
+<!--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                            Dropdown button-->
+<!--                        </button>-->
+<!--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                            <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>-->
+<!--                            <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>-->
+<!--                            <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>-->
+<!--                            <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>-->
+<!--                            <a class="dropdown-item" href="#" id="delete-Select">Delete</a>-->
+<!--                        </div>-->
 
+
+    <!--    INSERT FORM HERE   -->
+    <form class="crudForm" id ="addMovie" method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="movieName">Movie Title</label>
+                <input type="text" class="form-control" id="movieName" name="title" placeholder="Title">
+            </div>
+<!--            <div class="form-group col-md-3">-->
+<!--                <label for="movieGenre">Genre</label>-->
+<!--                <input type="text" class="form-control" id="movieGenre" placeholder="Genre">-->
+<!--            </div>-->
+            <div class="form-group col-md-3">
+                <label for="movieRating">Movie Rating</label>
+                <input type="text" class="form-control" id="movieRating" name="popularity" placeholder="Rating 1-10">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="movieOverview">Movie Overview</label>
+                <input type="text" class="form-control" id="movieOverview" name="overview" placeholder="Overview">
+            </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="moviePhotoURL">Please paste URL for movie poster image. (Try URL From TMDB)</label>
+            <input type="url" class="form-control" id="moviePhotoURL" name="photoURL" placeholder="URL Here Please">
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <form class="crudForm" id="editMovie"></form>
+    <form class="crudForm" id="addActor" method="post" th:action="@{/addActor}" th:object="${ActorDTO}">
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="actorName">Actor Name</label>
+            <input type="text" class="form-control" id="actorName" name="name" placeholder="Actor Name">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="actorRating">Actor Rating</label>
+            <input type="text" class="form-control" id="actorRating" name="popularity" placeholder="Rating 1-10">
+        </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-3">
+        <label for="actorPhotoURL">Please paste URL for movie poster image. (Try URL From TMDB)</label>
+        <input type="url" class="form-control" id="actorPhotoURL" name="photoURL" placeholder="URL Here Please">
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <form class="crudForm" id="editActor"></form>
 </div>
 <div th:insert="fragments :: footer"></div>
+<script src="scripts/update.js"></script>
 </html>
