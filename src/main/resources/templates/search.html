@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments :: header"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1>Actors Found:</h1>
+            <div th:each="actor: ${actorsFound}">
+                <div class="row">
+                    <a th:href="'/actor/' + ${actor.id}"><img th:src="${actor.photoUrl}"></a><a th:href="'/actor/' + ${actor.id}"><span th:text="${actor.name}" th:href="'/actor/' + ${actor.id}"></span></a>
+                </div>
+            </div>
+            <h1>Movies Found:</h1>
+            <div th:each="movie: ${moviesFound}">
+                <div class="row">
+                    <a th:href="'/movie/' + ${movie.id}"><img th:src="${movie.photoUrl}"></a><a th:href="'/movie/' + ${movie.id}"><span th:text="${movie.title}" th:href="'/movie/' + ${movie.id}"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments :: footer"></div>
+</html>
