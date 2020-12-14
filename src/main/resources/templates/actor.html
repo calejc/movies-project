@@ -22,6 +22,11 @@
                                     <h1 id="cardTitle" class="card-title mx-auto my-auto" th:text="${actor.name}"></h1>
                                 </div>
                             </div>
+                            <div class="row my-3 mx-auto">
+                                <a th:href="'/edit-actor/' + ${actor.id}">
+                                    EDIT ACTOR
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -30,7 +35,7 @@
                 </div>
                 <div class="card front">
                     <div class="flex-row float-right">
-                        <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i> Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i> Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     </div>
                     <h1 class="card-title">Filmography</h1>
                     <div class="card-body">

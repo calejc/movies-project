@@ -5,21 +5,21 @@ import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
+import cale.spring.Movies.repository.ActorRepository;
+import cale.spring.Movies.repository.MovieRepository;
 import cale.spring.Movies.service.AuthorizationService;
 import cale.spring.Movies.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -27,6 +27,10 @@ public class UpdateController {
 
     @Autowired
     CrudService crudService;
+    @Autowired
+    MovieRepository movieRepository;
+    @Autowired
+    ActorRepository actorRepository;
     public final String filename = "src/main/resources/authorized-usernames.txt";
     Map<String, String> authorizationMap = AuthorizationService.readInAuthorizedUsers(filename);
 
@@ -64,6 +68,21 @@ public class UpdateController {
             model.addAttribute("errorMessage", authorized.getReturnMessage());
             return "error";
         }
+    }
+
+
+    @GetMapping("/edit-actor/{id}")
+    public String editActor(@PathVariable("id") Long id, Model model){
+        Optional<Actor> actor = actorRepository.findById(id);
+        model.addAttribute("actor", actor);
+        return "edit-actor";
+    }
+
+    @GetMapping("/edit-movie/{id}")
+    public String editMovie(@PathVariable("id") Long id, Model model){
+        Optional<Movie> movie = movieRepository.findById(id);
+        model.addAttribute("movie", movie);
+        return "edit-movie";
     }
 
 
