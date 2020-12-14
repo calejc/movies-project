@@ -72,17 +72,29 @@ public class UpdateController {
 
 
     @GetMapping("/edit-actor/{id}")
-    public String editActor(@PathVariable("id") Long id, Model model){
-        Optional<Actor> actor = actorRepository.findById(id);
-        model.addAttribute("actor", actor);
-        return "edit-actor";
+    public String editActor(@PathVariable("id") Long id, Model model, Principal principal){
+        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+        if (authorized.getAuthorized()){
+            Actor actor = actorRepository.findById(id).get();
+            model.addAttribute("actor", actor);
+            return "edit-actor";
+        } else {
+            model.addAttribute("errorMessage", authorized.getReturnMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/edit-movie/{id}")
-    public String editMovie(@PathVariable("id") Long id, Model model){
-        Optional<Movie> movie = movieRepository.findById(id);
-        model.addAttribute("movie", movie);
-        return "edit-movie";
+    public String editMovie(@PathVariable("id") Long id, Model model, Principal principal){
+        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+        if (authorized.getAuthorized()){
+            Movie movie = movieRepository.findById(id).get();
+            model.addAttribute("movie", movie);
+            return "edit-movie";
+        } else {
+            model.addAttribute("errorMessage", authorized.getReturnMessage());
+            return "error";
+        }
     }
 
 
