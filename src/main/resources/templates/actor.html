@@ -7,87 +7,41 @@
     <div class="row no-gutters justify-content-center mx-auto">
         <div class="col-lg-9 card-container">
             <div class="card-flip">
-                <div class="card main-card back">
-                    <div class="row flex-fill">
-                        <div class="col-lg-3 mx-auto">
+                <div class="card back">
+                    <div class="row">
+                        <div class="col-lg-4 mx-auto">
                             <img class="card-img-left img-fluid img-thumbnail rounded m-3" th:src="${actor.photoUrl}">
                         </div>
-                        <div class="col-lg-9 mx-auto justify-content-center">
-                                <h5 class="card-title" th:text="${actor.name}"></h5>
+                        <div class="col-lg-8">
+                            <div class="flex-row-reverse float-right">
+                                <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i> Filmography <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto my-5">
+                                    <h1 id="cardTitle" class="card-title mx-auto my-auto" th:text="${actor.name}"></h1>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="card-text" th:text="${actor.biography}"></div>
                     </div>
                 </div>
-                <div class="card main-card front">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="card-title">Actor Credits</h1>
-                            <div class="card-body">
-                                <div class="table-responsive card-body">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr th:each="movie: ${actor.movies}">
-                                                <td>
-                                                    <a th:href="'/movie/' + ${movie.id}">
-                                                        <img class="img-fluid mw-100" th:src="${movie.photoUrl}">
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a th:href="'/movie/' + ${movie.id}">
-                                                        <h3 class="mx-auto my-auto" th:text="${movie.title}"></h3>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Test</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-<!--                                <div class="row overflow-auto">-->
-<!--                                    <div class="col-lg-1 mx-auto">-->
-<!--                                        <a th:href="'/movie/' + ${movie.id}"><img class="img-fluid mw-100" th:src="${movie.photoUrl}"></a>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-lg-9 mx-auto">-->
-<!--                                        <a th:href="'/movie/' + ${movie.id}"><h3 class="mx-auto my-auto" th:text="${movie.title}"></h3></a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                <div class="card front">
+                    <div class="flex-row float-right">
+                        <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i> Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    </div>
+                    <h1 class="card-title">Filmography</h1>
+                    <div class="card-body">
+                        <div class="row" th:each="movie: ${actor.movies}">
+                            <div class="col-lg-2 mx-auto my-2">
+                                <a th:href="'/movie/' + ${movie.id}"><img class="img-fluid mw-100" th:src="${movie.photoUrl}"></a>
                             </div>
+                            <div class="col-lg-10 mx-auto my-auto">
+                                <a th:href="'/movie/' + ${movie.id}"><h3 class="mx-auto my-auto" th:text="${movie.title}"></h3></a>
+                            </div>
+                            <hr class="my-2">
                         </div>
                     </div>
                 </div>
