@@ -10,6 +10,19 @@
     max-height:80vh;
 }
 
+#cardTitle{
+    background-color: #b2b2b2;
+    color: #bc5a45;
+    text-shadow: .15em .15em .15em .15em #fff;
+    border-radius: .15em;
+    border: .05em solid #fff;
+    box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
+}
+
+.cardFlipTrigger:hover {
+    cursor: pointer;
+}
+
 .card-body{
     overflow: auto;
 }

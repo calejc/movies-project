@@ -14,6 +14,6 @@ import java.util.List;
 public interface ActorRepository extends JpaRepository<Actor, Long> {
 
     List<Actor> findByNameContainingIgnoreCaseOrderByPopularity(String name);
-
+    List<Actor> findByNameContainingIgnoreCase(String name);
     Page<Actor> findAll(Pageable pageable);
 }

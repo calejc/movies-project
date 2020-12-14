@@ -9,13 +9,50 @@ html {
     background-color: #bc5a45;
 }
 
-.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited, h1, a {
+.nav-link, .nav-link:active, .navbar-brand, .nav-link:visited, a {
     color: #fff;
+    border: .05em solid #bc5a45;
+    border-radius: .25em;
 }
 
-.navbar-brand, .nav-link:hover, a:hover {
+/* Changes Start here */ TODO
+
+/*.navbar-brand, .nav-link:hover, a:hover {
     opacity: .5;
+}*/
+
+.navbar-brand:hover, .nav-link:hover {
+    background-color: #b2b2b2;
+    color: #bc5a45;
+    border: .05em solid #bc5a45;
+    border-radius: .25em;
+    /*font-weight: bold;*/
 }
+
+a:hover {
+    color: #b2b2b2;
+    text-decoration: none;
+}
+
+.navbar-nav li.active > a {
+    background-color: #b2b2b2;
+    color: #bc5a45;
+    border: .05em solid #bc5a45;
+    border-radius: .25em;
+}
+
+.navbar-brand.active {
+    background-color: #b2b2b2;
+    color: #bc5a45;
+    border: .05em solid #bc5a45;
+    border-radius: .25em;
+}
+
+
+
+/* End changes */
+
+
 
 body {
     background-color: #b2b2b2;
@@ -25,8 +62,8 @@ body {
     background-color: #bc5a45;
     color: #fff;
     border-radius: 1em;
-        border: .15em solid #fff;
-        box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
+    border: .15em solid #fff;
+    box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
 }
 
 /*.container {
@@ -52,7 +89,7 @@ padding: 10px 10px;
 }
 
 .result-card{
-    min-width: 10em;
+    min-width: 12em;
 }
 
 
