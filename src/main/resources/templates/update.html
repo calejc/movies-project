@@ -7,14 +7,14 @@
         <div class="col-lg-8 mx-auto">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Action
+                    Select
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" id="addMovie-Select">Add Movie</a>
-                    <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>
-                    <a class="dropdown-item" href="#" id="addActor-Select">Add Actor</a>
-                    <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>
-                    <a class="dropdown-item" href="#" id="delete-Select">Delete</a>
+                    <a class="dropdown-item" href="#" id="addMovie-Select">New Movie</a>
+<!--                    <a class="dropdown-item" href="#" id="editMovie-Select">Edit Movie</a>-->
+                    <a class="dropdown-item" href="#" id="addActor-Select">New Actor</a>
+<!--                    <a class="dropdown-item" href="#" id="editActor-Select">Edit Actor</a>-->
+<!--                    <a class="dropdown-item" href="#" id="delete-Select">Delete</a>-->
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
     <!--                        </div>-->
                             <div class="form-group col-md-3">
                                 <label for="movieOverview">Movie Overview</label>
-                                <input type="text" class="form-control" id="movieOverview" name="overview" placeholder="Overview">
+                                <input type="text" class="form-control" id="movieOverview" name="overview" placeholder="Overview" required="true">
                             </div>
                         </div>
                         <div class="form-row">
@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Edit Movie -->
-                <form class="crudForm" id="editMovie"></form>
+<!--                <form class="crudForm" id="editMovie"></form>-->
 
                 <!-- Add Actor -->
                 <div class="card crudForm" id="addActor">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="actorName">Biography</label>
-                                <input type="text" class="form-control" id="actorBiography" name="biography" placeholder="Biography">
+                                <input type="text" class="form-control" id="actorBiography" name="biography" placeholder="Biography" required="true">
                             </div>
         <!--                    <div class="form-group col-md-3">-->
         <!--                        <label for="actorRating">Actor Rating</label>-->
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Edit Actor -->
-                <form class="crudForm" id="editActor"></form>
+<!--                <form class="crudForm" id="editActor"></form>-->
             </div>
         </div>
     </div>
