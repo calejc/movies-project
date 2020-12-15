@@ -10,7 +10,7 @@
             <th>Name</th>
 <!--            <th>Number of Movies</th>-->
         </tr>
-        <tr th:each="actor: ${actors}">
+        <tr th:each="actor: ${actorPage.content}">
             <td><img th:src=${actor.photoUrl}></td>
             <td th:text=${actor.name}/></td>
 <!--            <td> <span id="tabletext" th:text=${actor.movies.size}/> Movies:-->

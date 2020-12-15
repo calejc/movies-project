@@ -23,9 +23,14 @@ public class PageService {
     ActorRepository actorRepository;
     MovieRepository movieRepository;
 
-    final private List<Actor> actors = actorRepository.findAll();
+//    private final List<Actor> actors = actorRepository.findAll();
+
 
     public Page<Actor> findPaginated(Pageable pageable) {
+        List<Actor> actors = actorRepository.findAll();
+//        for(Actor actor : actors){
+//            System.out.println(actor);
+//        }
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
@@ -38,9 +43,6 @@ public class PageService {
             list = actors.subList(startItem, toIndex);
         }
 
-        Page<Actor> actorPage
-                = new PageImpl<Actor>(list, PageRequest.of(currentPage, pageSize), actors.size());
-
-        return actorPage;
+        return new PageImpl<Actor>(list, PageRequest.of(currentPage, pageSize), actors.size());
     }
 }

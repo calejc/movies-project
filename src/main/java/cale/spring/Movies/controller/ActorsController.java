@@ -28,7 +28,8 @@ public class ActorsController {
 
     @Autowired
     ActorRepository actorRepository;
-    private PageService pageService;
+    @Autowired
+    PageService pageService;
 
     @GetMapping("/actor")
     public String actors(Model model,
@@ -41,6 +42,7 @@ public class ActorsController {
                 pageSize));
         model.addAttribute("actorPage", actorPage);
         int totalPages = actorPage.getTotalPages();
+        System.out.println(totalPages);
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
