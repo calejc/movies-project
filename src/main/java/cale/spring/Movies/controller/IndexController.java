@@ -1,18 +1,17 @@
 package cale.spring.Movies.controller;
 
+import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
 import cale.spring.Movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 public class IndexController {
@@ -26,29 +25,23 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model){
         String currDate = (new Date()).toString();
+        List<Actor> actors = actorRepository.findAll();
+        List<Movie> movies = movieRepository.findAll();
+        Actor randomActor = new Actor();
+        do{
+            randomActor = actors.get(returnRand(actors.size()));
+        } while (randomActor.getPhotoUrl().contains("default"));
+        Movie randomMovie = movies.get(returnRand(movies.size()));
+        model.addAttribute("randomActor", randomActor);
+        model.addAttribute("randomMovie", randomMovie);
         model.addAttribute("currDate", currDate);
         model.addAttribute("pageTitle", "Movie Home");
         return "index";
     }
 
-
-    @GetMapping("/account")
-    public String account(Model model, Principal principal){
-        try {
-            OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
-            Map<String, Object> attributes = token.getPrincipal().getAttributes();
-            System.out.println(attributes);
-            String login = (String) attributes.get("login");
-            String name = (String) attributes.get("name");
-            String email = (String) attributes.get("email");
-            model.addAttribute("pageTitle", "Account");
-            model.addAttribute("login", login);
-            model.addAttribute("name", name);
-            model.addAttribute("email", email);
-        } catch (Exception e) {
-            e.printStackTrace(); //TODO: use a logger!
-        }
-        return "account";
+    public Integer returnRand(int listSize){
+        Random rand = new Random();
+        return rand.nextInt(listSize);
     }
 
 }

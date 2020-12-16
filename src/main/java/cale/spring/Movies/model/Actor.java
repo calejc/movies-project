@@ -1,6 +1,7 @@
 package cale.spring.Movies.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,25 +10,50 @@ import java.util.Set;
 public class Actor {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name, photoUrl;
+    @Lob
+    private String biography;
+    private Date birthday, deathday;
+    private Integer gender;
+    private Double popularity;
 
-    private String name;
 
     public Actor(){ }
-
-    public Actor(Long id, String name, Set<Movie> movies) {
+    public Actor(Long id, String name, Set<Movie> movies, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
         this.id = id;
         this.name = name;
         this.movies = movies;
+        this.photoUrl = photoUrl;
+        this.biography = biography;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.gender = gender;
+        this.popularity = popularity;
+    }
+    public Actor(Long id, String name, String photoUrl, String biography, Date birthday, Date deathday, Integer gender, Double popularity) {
+        this.id = id;
+        this.name = name;
+        this.photoUrl = photoUrl;
+        this.biography = biography;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.gender = gender;
+        this.popularity = popularity;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "actor_movie",
             joinColumns = {@JoinColumn(name = "actor_id")},
             inverseJoinColumns = {@JoinColumn(name = "movie_id")}
     )
     private Set<Movie> movies = new HashSet<>();
+
+    public Actor(Long id, String name, String biography) {
+        this.id = id;
+        this.name = name;
+        this.biography = biography;
+    }
 
     public void addMovie(Movie movie) {
         this.movies.add(movie);
@@ -68,7 +94,11 @@ public class Actor {
         return "Actor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", movies=" + movies.size() +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", birthday=" + birthday +
+                ", deathday=" + deathday +
+                ", gender=" + gender +
+                ", popularity=" + popularity +
                 '}';
     }
 
@@ -85,4 +115,51 @@ public class Actor {
         return Objects.hash(this.id);
     }
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getDeathday() {
+        return deathday;
+    }
+
+    public void setDeathday(Date deathday) {
+        this.deathday = deathday;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
+    }
 }

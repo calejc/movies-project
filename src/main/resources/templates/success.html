@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments :: header"></div>
+<link th:href="@{/styles/update.css}" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <img class="card-img-top img-fluid img-thumbnail" th:src="@{/imgs/captain.jpg}"/>
+                    <h3 class="card-text my-3"><span th:text="${successMessage}"></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments :: footer"></div>
+<script src="scripts/success.js"></script>
+</html>
+

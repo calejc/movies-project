@@ -1,11 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<div>
-<!--    INSERT FORM HERE   -->
-    <form>
+<link th:href="@{/styles/update.css}" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" id="addMovie-Select">New Movie</a>
+                    <a class="dropdown-item" href="#" id="addActor-Select">New Actor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mx-auto mt-5">
 
-    </form>
+                <!-- Add Movie -->
+                <div class="card crudForm" id ="addMovie">
+                    <form method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="movieName">Movie Title</label>
+                                <input type="text" class="form-control" id="movieName" name="title" placeholder="Title" required>
+                            </div>
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="moviePhotoURL">Photo URL</label>
+                                <input type="url" class="form-control" id="moviePhotoURL" name="photoURL" placeholder="https://image.tmdb.org/t/p/w200/example.jpg">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="movieOverview">Movie Overview</label>
+                                <textarea type="text" class="form-control" id="movieOverview" name="overview" placeholder="Overview" required rows="6"></textarea>
+                            </div>
+                            <div class="col-md-5 mx-auto my-auto">
+                                <button type="submit" class="btn btn-outline-light btn-lg">Add to Database</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <!-- Add Actor -->
+                <div class="card crudForm" id="addActor">
+                    <form method="post" th:action="@{/addActor}" th:object="${ActorDTO}">
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="actorName">Actor Name</label>
+                                <input type="text" class="form-control" id="actorName" name="name" placeholder="Actor Name" required="true">
+                            </div>
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="actorPhotoURL">Photo URL</label>
+                                <input type="url" class="form-control" id="actorPhotoURL" name="photoURL" placeholder="https://image.tmdb.org/t/p/w200/example.jpg">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5 mx-auto">
+                                <label for="actorName">Biography</label>
+                                <textarea type="text" class="form-control" id="actorBiography" name="biography" placeholder="Biography" required="true" rows="6"></textarea>
+                            </div>
+                            <div class="col-md-5 mx-auto my-auto">
+                                <button type="submit" class="btn btn-outline-light btn-lg">Add to Database</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 <div th:insert="fragments :: footer"></div>
+<script src="/scripts/update.js"></script>
 </html>

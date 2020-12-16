@@ -1,40 +1,88 @@
 package cale.spring.Movies.model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
+import org.springframework.transaction.annotation.Transactional;
+import cale.spring.Movies.model.Genre;
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 
 @Entity
 public class Movie {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonSetter("movieId")
     private Long id;
-    String title;
+    private String title, photoUrl;
+    @Lob
+    private String overview;
+    @JsonSetter("release_date")
+    private Date releaseDate;
+    @JsonSetter("vote_average")
+    private Double voteAverage;
+    private Double popularity;
+
+
+//    @JsonSetter("genre_ids")
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "movie_genre",
+//            joinColumns = {@JoinColumn(name = "")},
+//            inverseJoinColumns = {@JoinColumn(name = "")}
+//    )
+//    private Set<Genre> genres = new HashSet<>();
 
     public Movie(){ }
-    public Movie(Long id, String title, Set<Actor> actors) {
+    public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<Actor> actors) {
         this.id = id;
         this.title = title;
+        this.photoUrl = photoUrl;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.popularity = popularity;
         this.actors = actors;
     }
+    public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity) {
+        this.id = id;
+        this.title = title;
+        this.photoUrl = photoUrl;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.popularity = popularity;
+    }
 
-//    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToMany(mappedBy = "movies", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    public Movie(Long id, String title, String overview) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+    }
+
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
     private Set<Actor> actors = new HashSet<>();
+
+//    @PreRemove
+//    private void removeMovieFromActor(){
+//        for (Actor actor : actors){
+//            actor.getMovies().remove(this);
+//        }
+//    }
+
 
     @Override
     public String toString() {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", actors=" + actors.size() +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", voteAverage=" + voteAverage +
+                ", popularity=" + popularity +
                 '}';
     }
 
@@ -84,4 +132,52 @@ public class Movie {
     public void setActors(Set<Actor> actors) {
         this.actors = actors;
     }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
+    }
+
+//    public List<Integer> getGenreIds() {
+//        return genreIds;
+//    }
+//
+//    public void setGenreIds(List<Integer> genreIds) {
+//        this.genreIds = genreIds;
+//    }
 }

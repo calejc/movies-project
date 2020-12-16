@@ -7,69 +7,61 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title th:text="${pageTitle}"></title>
 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script th:src="@{/scripts/navbar.js}"></script>
+
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-              crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/css/bootstrap-navbar-dropdowns.min.css"
-              rel="stylesheet">
-        <link rel="stylesheet" href="styles/main.css" type="text/css">
+<!--        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+<!--              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
+<!--              crossorigin="anonymous">-->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--        <link href="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/css/bootstrap-navbar-dropdowns.min.css"-->
+<!--              rel="stylesheet">-->
+        <link rel="stylesheet" th:href="@{/styles/main.css}" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <!--[if lt IE 9]> -->
+<!--        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+<!--        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+<!--        <![endif]&ndash;&gt;-->
     </head>
     <body>
-    <div class="navbar navbar-expand-md mb-4" role="navigation">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{~/update}">Update
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/about}">About</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/movies}">Movies</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/actors}">Actors</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{~/logout}">Logout</a></li>
-            </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
-            </form>
+        <div class="navbar navbar-expand-md mb-4" role="navigation">
+            <a class="navbar-brand" href="/" id="home">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" id="update">
+                        <a class="nav-link" th:href="@{~/update}">Update
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="about"><a class="nav-link" th:href="@{~/about}">About</a></li>
+                    <li class="nav-item" id="movie"><a class="nav-link" th:href="@{~/movies}">Movies</a></li>
+                    <li class="nav-item" id="actor"><a class="nav-link" th:href="@{~/actors}">Actors</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{~/logout}">Logout</a></li>
+                </ul>
+                <form class="form-inline mt-2 mt-md-0" method="get" th:action="@{/search}">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+                </form>
+            </div>
         </div>
-    </div>
-</div>
-
-<main role="main" class="container">
-    <div class="jumbotron text-center">
-        <h1>Notes & Tags</h1>
-        <p class="lead text-info">Noting and tagging URLs</p>
-    </div>
-</main>
-
-<div th:fragment="footer">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fontenele/bootstrap-navbar-dropdowns@5.0.2/dist/js/bootstrap-navbar-dropdowns.min.js"></script>
-    <script>
-    $('.navbar').navbarDropdown({trigger: 'mouseover'});
-
-    </script>
     </body>
+</div>
+<div th:fragment="footer">
+<!--    <script>-->
+<!--    $('.navbar').navbarDropdown({trigger: 'mouseover'});-->
+
+<!--    </script>-->
+<!--    </body>-->
 </div>

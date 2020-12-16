@@ -1,0 +1,28 @@
+#movieRating {
+    color: blue;
+}
+
+.form-group, instructions {
+    margin: 0px 0px 16px 10px;
+}
+
+#userFile {
+    margin-left: 16px;
+}
+
+.btn-primary {
+    margin: 16px 0px 16px 10px;
+}
+
+.instructions {
+    margin: 0px 0px 16px 10px;
+}
+
+.crudForm{
+    display:none;
+}
+
+label {
+    font-weight: bold;
+}
+
