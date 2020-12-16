@@ -33,16 +33,10 @@
     <div class="row">
         <h3>Results</h3>
         <div class="card-deck">
-            <div class="card result-card m-2" th:each="actor: ${actorsFound}">
-                <img class="rounded img-fluid" th:src="${actor.photoUrl}">
+            <div class="card result-card m-2" th:each="result: ${results}">
+                <img class="rounded img-fluid" th:src="${result.photoUrl}">
                 <div class="card-body">
-                    <a th:href="'/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}"></h5></a>
-                </div>
-            </div>
-            <div class="card result-card m-2" th:each="movie: ${moviesFound}">
-                <img class="rounded card-img-top" th:src="${movie.photoUrl}">
-                <div class="card-body">
-                    <a th:href="'/movie/' + ${movie.id}"><h5 class="card-title" th:text="${movie.title}"></h5></a>
+                    <a th:href="'/' +${result.type} + '/' + ${result.id}"><h5 class="card-title" th:text="${result.header}"></h5></a>
                 </div>
             </div>
 <!--                <div th:each="movie: ${moviesFound}">-->
