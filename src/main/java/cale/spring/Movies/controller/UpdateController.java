@@ -150,7 +150,7 @@ public class UpdateController {
                 actorRepository.delete(actorRepository.findById(id).get());
                 if (!actorRepository.existsById(id)){
                     model.addAttribute("successMessage", String.format("Successfully deleted actor %s", actorName));
-                    return "redirect:success";
+                    return "success";
                 } else {
                     model.addAttribute("errorMessage", String.format("Unable to delete actor %s", actorName));
                     return "error";
@@ -175,7 +175,7 @@ public class UpdateController {
                 movieRepository.deleteById(id);
                 if (!movieRepository.existsById(id)){
                     model.addAttribute("successMessage", String.format("Successfully deleted movie %s", movieTitle));
-                    return "redirect:success";
+                    return "success";
                 } else {
                     model.addAttribute("errorMessage", String.format("Unable to delete movie %s", movieTitle));
                     return "error";
