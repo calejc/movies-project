@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<div class="display-4" th:text="${movie.title}"></div>
+<link th:href="@{/styles/edit.css}" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto mt-5">
+            <div class="card">
+                <form method="post" th:action="'/edit-movie?id=' + ${movie.id}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <span>Current: </span><label for="movieTitle" th:text="${movie.title}"></label>
+                            <input class="form-control" type="text" id="movieTitle" name="title" th:attr="placeholder=${movie.title}">
+                            <span>Current: </span><label for="movieOverview" th:text="${movie.overview}"></label>
+                            <input class="form-control" type="text" id="movieOverview" name="overview" th:attr="placeholder=${movie.overview}">
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-light">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div th:insert="fragments :: footer"></div>
 </html>

@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<div class="display-4" th:text="${actor.name}"></div>
+<link th:href="@{/styles/edit.css}" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto mt-5">
+            <div class="card">
+                <form method="post" th:action="'/edit-actor?id=' + ${actor.id}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="actorName" th:text="${actor.name}"></label>
+                            <input class="form-control" type="text" id="actorName" name="name" th:attr="placeholder=${actor.name}">
+                            <label for="actorBiography" th:text="${actor.biography}"></label>
+                            <input class="form-control" type="text" id="actorBiography" name="biography" th:attr="placeholder=${actor.biography}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div th:insert="fragments :: footer"></div>
 </html>
