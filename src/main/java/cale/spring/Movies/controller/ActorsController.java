@@ -37,12 +37,24 @@ public class ActorsController {
                          @RequestParam("size")Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
+        boolean firstPage = false;
+        if (currentPage == 0) {
+            firstPage = true;
+        }
+
 
         Page<Actor> actorPage = pageService.findPaginated(PageRequest.of(currentPage - 1,
                 pageSize));
         model.addAttribute("actorPage", actorPage);
+        model.addAttribute("firstPage", firstPage);
         int totalPages = actorPage.getTotalPages();
         System.out.println(totalPages);
+        boolean lastPage = false;
+        if (currentPage == totalPages) {
+            lastPage = true;
+        }
+        model.addAttribute("lastPage", lastPage);
+
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()

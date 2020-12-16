@@ -21,6 +21,7 @@ public class PageService {
 
     @Autowired
     ActorRepository actorRepository;
+    @Autowired
     MovieRepository movieRepository;
 
 
@@ -33,12 +34,7 @@ public class PageService {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
-        boolean firstPage = true;
-        if (currentPage == 0) {
-            firstPage = true;
-        } else {
-            firstPage = false;
-        }
+
         List<Actor> list;
 
         if (actors.size() < startItem) {
