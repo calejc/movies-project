@@ -14,25 +14,22 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="flex-row-reverse float-right">
-                                <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i> Filmography <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                    Filmography <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                 </a>
-                                <a th:href="'/edit-actor?id=' + ${actor.id}">
-                                    <i class="fa fa-edit" ></i></a>
-                                <a th:href="'/delete-actor?id=' + ${actor.id}" th:object="${actor}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto my-5">
-                                    <h1 id="cardTitle" class="card-title mx-auto my-auto" th:text="${actor.name}">></h1>
-<!--                                    <a th:href="'/edit-actor/' + ${actor.id}">-->
-<!--                                    <i class="fa fa-edit" ></i></a>-->
-<!--                                </a>-->
+                                <div class="row mx-auto my-3 justify-content-center">
+                                    <a th:href="'/edit-actor?id=' + ${actor.id}">
+                                        <i class="fa fa-edit fa-3x"></i></a>
+                                    <a th:href="'/delete-actor?id=' + ${actor.id}" th:object="${actor}"><i
+                                            class="fa fa-trash-o fa-3x" aria-hidden="true"></i></a>
                                 </div>
                             </div>
-<!--                            <div class="row my-3 mx-auto">-->
-<!--                                <a th:href="'/edit-actor/' + ${actor.id}">-->
-<!--                                    <i class="fa fa-edit" ></i>-->
-<!--                                </a>-->
-<!--                            </div>-->
+                            <div class="row justify-content-left">
+                              <!--<div class="col-lg-8 mx-auto my-3">-->
+                                    <h1 id="cardTitle" class="card-title pt-2 pb-3 mt-3" th:text="${actor.name}">></h1>
+
+
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -41,16 +38,19 @@
                 </div>
                 <div class="card front">
                     <div class="flex-row float-right">
-                        <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i> Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     </div>
                     <h1 class="card-title">Filmography</h1>
                     <div class="card-body">
                         <div class="row" th:each="movie: ${actor.movies}">
                             <div class="col-lg-2 mx-auto my-2">
-                                <a th:href="'/movie/' + ${movie.id}"><img class="img-fluid mw-100" th:src="${movie.photoUrl}"></a>
+                                <a th:href="'/movie/' + ${movie.id}"><img class="img-fluid mw-100"
+                                                                          th:src="${movie.photoUrl}"></a>
                             </div>
                             <div class="col-lg-10 mx-auto my-auto">
-                                <a th:href="'/movie/' + ${movie.id}"><h3 class="mx-auto my-auto" th:text="${movie.title}"></h3></a>
+                                <a th:href="'/movie/' + ${movie.id}"><h3 class="mx-auto my-auto"
+                                                                         th:text="${movie.title}"></h3></a>
                             </div>
                             <hr class="my-2">
                         </div>
