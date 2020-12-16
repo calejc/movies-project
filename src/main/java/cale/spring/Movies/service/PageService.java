@@ -23,7 +23,6 @@ public class PageService {
     ActorRepository actorRepository;
     MovieRepository movieRepository;
 
-//    private final List<Actor> actors = actorRepository.findAll();
 
 
     public Page<Actor> findPaginated(Pageable pageable) {
@@ -34,6 +33,12 @@ public class PageService {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
+        boolean firstPage = true;
+        if (currentPage == 0) {
+            firstPage = true;
+        } else {
+            firstPage = false;
+        }
         List<Actor> list;
 
         if (actors.size() < startItem) {

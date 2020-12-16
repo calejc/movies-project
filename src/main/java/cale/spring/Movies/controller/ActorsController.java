@@ -52,6 +52,8 @@ public class ActorsController {
         return "actors";
     }
 
+//    Generated URL format ?page=2&size=6
+
 //    @GetMapping("/actor")
 //    public String actors(Model model,
 //                         @RequestParam(defaultValue = "0") int page){

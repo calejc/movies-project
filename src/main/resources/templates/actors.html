@@ -8,22 +8,71 @@
         <tr>
             <th>Photo</th>
             <th>Name</th>
-<!--            <th>Number of Movies</th>-->
+            <!--            <th>Number of Movies</th>-->
         </tr>
         <tr th:each="actor: ${actorPage.content}">
             <td><img th:src=${actor.photoUrl}></td>
             <td th:text=${actor.name}/></td>
-<!--            <td> <span id="tabletext" th:text=${actor.movies.size}/> Movies:-->
-<!--               <ol>-->
-<!--                 <li th:each="movie: ${actor.movies}"><a th:href="@{${movie.fileName}}" th:text="${movie.title}"/></li>-->
-<!--               </ol>-->
-<!--            </td>-->
+            <!--            <td> <span id="tabletext" th:text=${actor.movies.size}/> Movies:-->
+            <!--               <ol>-->
+            <!--                 <li th:each="movie: ${actor.movies}"><a th:href="@{${movie.fileName}}" th:text="${movie.title}"/></li>-->
+            <!--               </ol>-->
+            <!--            </td>-->
         </tr>
         </tbody>
     </table>
 </div>
 
-<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Next">
+<!--
+The following was sampled from this baeldung
+https://www.baeldung.com/spring-thymeleaf-pagination
+-->
+
+<!--<nav aria-label="Page navigation">&ndash;&gt;-->
+<!--    <ul th:if="${actorPage.totalPages > 0}" class="pagination"-->
+<!--        th:each="pageNumber : ${pageNumbers}">-->
+<!--        <li class="page-item">-->
+<!--            <a class="page-link"-->
+<!--               th:href="@{/actor(size=${actorPage.size}, page=${pageNumber})}"-->
+<!--               th:text=${pageNumber}-->
+<!--               th:class="${pageNumber==actorPage.number + 1} ? active"></a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</nav>-->
+
+
+
+<!--
+The following was sampled from this stackoverflow
+https://stackoverflow.com/questions/18490820/spring-thymeleaf-how-to-implement-pagination-for-a-list
+-->
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li th:class="${actorPage.number eq 0} ? 'disabled' : ''">
+            <a th:if="${not actorPage.firstPage}"
+               th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>
+            <a th:if="${actorPage.firstPage}" href="javascript:void(0);">Previous</a>
+        </li>
+
+        <li th:each="pageNo : ${#numbers.sequence(0, actorPage.totalPages - 1)}"
+            th:class="${actorPage.number eq pageNo}? 'active' : ''">
+            <a th:if="${actorPage.number  eq pageNo}" href="javascript:void(0);">
+                <span th:text="${pageNo + 1}"></span>
+            </a>
+            <a th:if="${not (actorPage.number  eq pageNo)}"
+               th:href="@{${'/contacts'}(page=${pageNo},size=${contactsPage.size})}">
+                <span th:text="${pageNo + 1}"></span>
+            </a>
+
+        </li>
+        <li th:class="${actorPage.number + 1 ge actorPage.totalPages} ? 'disabled' : ''">
+            <a th:if="${not actorPage.lastPage}"
+               th:href="@{${'/actor'}(page=${actorPage.number+1},size=${actorPage.size})}">Next</a>
+            <a th:if="${actorPage.lastPage}" href="javascript:void(0);">Next</a>
+        </li>
+    </ul>
+</nav>
 
 
 <div th:insert="fragments :: footer">FOOTER STUFF</div>

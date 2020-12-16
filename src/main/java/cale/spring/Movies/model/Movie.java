@@ -63,7 +63,7 @@ public class Movie {
         this.overview = overview;
     }
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies") //fetch = FetchType.EAGER <-- include this in the manytomany to get movies, but hogs memory
     private Set<Actor> actors = new HashSet<>();
 
     @Override
