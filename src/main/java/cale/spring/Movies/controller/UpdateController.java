@@ -149,13 +149,14 @@ public class UpdateController {
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "delete");
         if (authorized.getAuthorized()){
             if (movieRepository.existsById(id)){
-                String actorName = movieRepository.findById(id).get().getTitle();
-                movieRepository.delete(movieRepository.findById(id).get());
+                String movieTitle = movieRepository.findById(id).get().getTitle();
+//                movieRepository.delete(movieRepository.findById(id).get());
+                movieRepository.deleteById(id);
                 if (!movieRepository.existsById(id)){
-                    model.addAttribute("successMessage", String.format("Successfully deleted movie %s", actorName));
+                    model.addAttribute("successMessage", String.format("Successfully deleted movie %s", movieTitle));
                     return "redirect:success";
                 } else {
-                    model.addAttribute("errorMessage", String.format("Unable to delete movie %s", actorName));
+                    model.addAttribute("errorMessage", String.format("Unable to delete movie %s", movieTitle));
                     return "error";
                 }
             } else {

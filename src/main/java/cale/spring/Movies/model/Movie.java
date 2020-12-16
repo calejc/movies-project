@@ -66,6 +66,14 @@ public class Movie {
     @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
     private Set<Actor> actors = new HashSet<>();
 
+//    @PreRemove
+//    private void removeMovieFromActor(){
+//        for (Actor actor : actors){
+//            actor.getMovies().remove(this);
+//        }
+//    }
+
+
     @Override
     public String toString() {
         return "Movie{" +
