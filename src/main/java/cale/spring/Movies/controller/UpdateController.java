@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -43,34 +45,33 @@ public class UpdateController {
         return "update";
     }
 
-    @PostMapping("/addMovie")
-    public String addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview,  Model model, Principal principal){
+    @PostMapping("/add-movie")
+    public ModelAndView addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview, ModelAndView mav, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
         if (authorized.getAuthorized()) {
             MovieDTO movie = new MovieDTO(crudService.generateNewMovieId(), title, overview);
             Movie savedMovie = crudService.addMovieToDB(movie);
-            System.out.println(savedMovie.getTitle());
-            model.addAttribute("successMessage", savedMovie.getTitle());
-            return "success";
+            mav.addObject("successMessage", String.format("%s saved successfully",savedMovie.getTitle()));
+            mav.setViewName(String.format("redirect:edit-movie?id=%d", savedMovie.getId()));
         } else {
-            model.addAttribute("errorMessage", authorized.getReturnMessage());
-            return "error";
+            mav.addObject("errorMessage", authorized.getReturnMessage());
+            mav.setViewName("error");
         }
+        return mav;
     }
 
-    @PostMapping("/addActor")
-    public String addActor(@RequestParam("name") String name, @RequestParam("biography") String biography,  Model model, Principal principal){
+    @PostMapping("/add-actor")
+    public ModelAndView addActor(@RequestParam("name") String name, @RequestParam("biography") String biography,  ModelAndView mav, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
         if (authorized.getAuthorized()) {
             ActorDTO actor = new ActorDTO(crudService.generateNewActorId(), name, biography);
             Actor savedActor = crudService.addActorToDB(actor);
-            System.out.println(savedActor.getName());
-            model.addAttribute("successMessage", savedActor.getName());
-            return "success";
+            mav.addObject("successMessage", String.format("%s saved successfully",savedActor.getName()));
+            mav.setViewName(String.format("redirect:edit-actor?id=%d", savedActor.getId()));
         } else {
-            model.addAttribute("errorMessage", authorized.getReturnMessage());
-            return "error";
+            mav.addObject("errorMessage", authorized.getReturnMessage());
         }
+        return mav;
     }
 
 
@@ -93,21 +94,41 @@ public class UpdateController {
     }
 
     @GetMapping("/edit-movie")
-    public String editMovieForm(@RequestParam("id") Long id, Model model, Principal principal){
+    public ModelAndView editMovieForm(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
         if (authorized.getAuthorized()){
             if (movieRepository.findById(id).isPresent()){
                 Movie movie = movieRepository.findById(id).get();
-                model.addAttribute("movie", movie);
-                return "edit-movie";
+                mav.addObject("movie", movie);
+                mav.setViewName("edit-movie");
             } else {
-                model.addAttribute("errorMessage", String.format("Movie %d not found", id));
-                return "error";
+                mav.addObject("errorMessage", String.format("Movie %d not found", id));
+                mav.setViewName("error");
             }
         } else {
-            model.addAttribute("errorMessage", authorized.getReturnMessage());
-            return "error";
+            mav.addObject("errorMessage", authorized.getReturnMessage());
+            mav.setViewName("error");
         }
+        return mav;
+    }
+
+    @GetMapping("/edit-movie/actors")
+    public ModelAndView editMoviesActorsForm(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
+        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+        if (authorized.getAuthorized()){
+            if (movieRepository.findById(id).isPresent()){
+                Movie movie = movieRepository.findById(id).get();
+                mav.addObject("movie", movie);
+                mav.setViewName("edit-movie");
+            } else {
+                mav.addObject("errorMessage", String.format("Movie %d not found", id));
+                mav.setViewName("error");
+            }
+        } else {
+            mav.addObject("errorMessage", authorized.getReturnMessage());
+            mav.setViewName("error");
+        }
+        return mav;
     }
 
     @PostMapping("/edit-movie")
@@ -190,6 +211,11 @@ public class UpdateController {
     }
 
 
+    public static RedirectView safeRedirect(String url){
+        RedirectView rv = new RedirectView(url);
+        rv.setExposeModelAttributes(false);
+        return rv;
+    }
 
 
 }

@@ -22,7 +22,7 @@
 
                 <!-- Add Movie -->
                 <div class="card crudForm" id ="addMovie">
-                    <form method="post" th:action="@{/addMovie}" th:object="${MovieDTO}">
+                    <form method="post" th:action="@{/add-movie}" th:object="${MovieDTO}">
                         <div class="form-row">
                             <div class="form-group col-md-5 mx-auto">
                                 <label for="movieName">Movie Title</label>
@@ -48,7 +48,7 @@
 
                 <!-- Add Actor -->
                 <div class="card crudForm" id="addActor">
-                    <form method="post" th:action="@{/addActor}" th:object="${ActorDTO}">
+                    <form method="post" th:action="@{/add-actor}" th:object="${ActorDTO}">
                         <div class="form-row">
                             <div class="form-group col-md-5 mx-auto">
                                 <label for="actorName">Actor Name</label>
