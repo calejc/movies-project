@@ -28,10 +28,16 @@ public class SearchController {
         List<Result> results = new ArrayList<>();
         if (allParams.containsKey("actor")) {
             //do actorRepo search
+            List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+            for (Actor actor : actorsFound) {
+                Result result = new Result(actor.getId(), actor.getName(), actor.getPhotoUrl(), "actor");
+                results.add(result);
+            }
         } else if (allParams.containsKey("movie")) {
             //do movieRepo search
             List<Movie> moviesFound = movieRepository.findByOverviewIgnoreCase(allParams.get("q"));
             List<Movie> titlesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
+            moviesFound.addAll(titlesFound);
             for (Movie movie : moviesFound) {
                 Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
                 results.add(result);
