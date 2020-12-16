@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<link th:href="@{/styles/actor-cards.css}" rel="stylesheet">
+<link th:href="@{/styles/card-view.css}" rel="stylesheet">
 
 <div class="container">
     <div class="row no-gutters justify-content-center mx-auto">
@@ -20,7 +20,7 @@
                                 <div class="row mx-auto my-3 justify-content-center">
                                     <a th:href="'/edit-actor?id=' + ${actor.id}">
                                         <i class="fa fa-edit fa-3x"></i></a>
-                                    <a th:href="'/delete-actor?id=' + ${actor.id}" th:object="${actor}"><i
+                                    <a th:href="'/delete-actor?id=' + ${actor.id}" th:object="${actor}" onclick="return confirm('Are you sure you want to delete this actor?')"><i
                                             class="fa fa-trash-o fa-3x" aria-hidden="true"></i></a>
                                 </div>
                             </div>
