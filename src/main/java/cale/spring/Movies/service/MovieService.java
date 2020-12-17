@@ -1,8 +1,10 @@
 package cale.spring.Movies.service;
 
 import cale.spring.Movies.dto.ActorDTO;
+import cale.spring.Movies.dto.GenreDTO;
 import cale.spring.Movies.dto.MovieDTO;
 import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Genre;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
 import cale.spring.Movies.repository.MovieRepository;
@@ -32,6 +34,10 @@ public class MovieService {
     @Transactional
     public void addMovie(MovieDTO movieDTO){
         Movie movie = new Movie(movieDTO.getId(),movieDTO.getTitle(), movieDTO.getPhotoUrl(), movieDTO.getOverview(), movieDTO.getReleaseDate(), movieDTO.getVoteAverage(), movieDTO.getPopularity());
+        for (GenreDTO genreDTO : movieDTO.getGenres()){
+            Genre genre = new Genre(genreDTO.getId(), genreDTO.getName());
+            movie.addGenre(genre);
+        }
         Movie savedMovie = movieRepository.save(movie);
         if (movie.getId() != savedMovie.getId()) {
             System.out.println("Problem!");

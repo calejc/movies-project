@@ -10,12 +10,13 @@
                 <form method="post" th:action="'/edit-actor?id=' + ${actor.id}">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="actorName" th:text="${actor.name}"></label>
-                            <input class="form-control" type="text" id="actorName" name="name" th:attr="placeholder=${actor.name}">
-                            <label for="actorBiography" th:text="${actor.biography}"></label>
-                            <input class="form-control" type="text" id="actorBiography" name="biography" th:attr="placeholder=${actor.biography}">
+                            <label for="actorName">Name</label>
+                            <input class="form-control" type="text" id="actorName" name="name" th:attr="value=${actor.name}">
+                            <label for="actorBiography">Biography</label>
+                            <input class="form-control" type="text" id="actorBiography" name="biography" th:attr="value=${actor.biography}">
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-outline-light">Save and Continue</button>
                 </form>
             </div>
         </div>
