@@ -30,36 +30,44 @@ public class SearchController {
         if (allParams.containsKey("actor")) {
             //do actorRepo search
             List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
-            for (Actor actor : actorsFound) {
-                Result result = new Result(actor.getId(), actor.getName(), actor.getPhotoUrl(), "actor");
-                results.add(result);
-            }
+            results.addAll(convertListOfActorsToResultType(actorsFound));
+
         } else if (allParams.containsKey("movie")) {
             //do movieRepo search
             List<Movie> moviesFound = movieRepository.findByOverviewIgnoreCase(allParams.get("q"));
             List<Movie> titlesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
             moviesFound.addAll(titlesFound);
-            for (Movie movie : moviesFound) {
-                Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
-                results.add(result);
-            }
+            results.addAll(convertListOfMoviesToResultType(moviesFound));
+
         } else {
             //search both movies and actors
             List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
             List<Movie> moviesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
-            for (Actor actor : actorsFound) {
-                Result result = new Result(actor.getId(), actor.getName(), actor.getPhotoUrl(), "actor");
-                results.add(result);
-            }
-            for (Movie movie : moviesFound) {
-                Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
-                results.add(result);
-            }
+            results.addAll(convertListOfActorsToResultType(actorsFound));
+            results.addAll(convertListOfMoviesToResultType(moviesFound));
         }
 
         model.addAttribute("results", results);
         model.addAttribute("pageTitle", "Search Results");
         return "search";
+    }
+
+    public List<Result> convertListOfActorsToResultType(List<Actor> actorsFound) {
+        List<Result> results = new ArrayList<>();
+        for (Actor actor : actorsFound) {
+            Result result = new Result(actor.getId(), actor.getName(), actor.getPhotoUrl(), "actor");
+            results.add(result);
+        }
+        return results;
+    }
+
+    public List<Result> convertListOfMoviesToResultType(List<Movie> moviesFound) {
+        List<Result> results = new ArrayList<>();
+        for (Movie movie : moviesFound) {
+            Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
+            results.add(result);
+        }
+        return results;
     }
 
 }
