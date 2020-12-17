@@ -20,9 +20,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.SQLOutput;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -52,7 +51,7 @@ public class UpdateController {
             MovieDTO movie = new MovieDTO(crudService.generateNewMovieId(), title, overview);
             Movie savedMovie = crudService.addMovieToDB(movie);
             mav.addObject("successMessage", String.format("%s saved successfully",savedMovie.getTitle()));
-            mav.setViewName(String.format("redirect:edit-movie?id=%d", savedMovie.getId()));
+            mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", savedMovie.getId()));
         } else {
             mav.addObject("errorMessage", authorized.getReturnMessage());
             mav.setViewName("error");
@@ -67,7 +66,7 @@ public class UpdateController {
             ActorDTO actor = new ActorDTO(crudService.generateNewActorId(), name, biography);
             Actor savedActor = crudService.addActorToDB(actor);
             mav.addObject("successMessage", String.format("%s saved successfully",savedActor.getName()));
-            mav.setViewName(String.format("redirect:edit-actor?id=%d", savedActor.getId()));
+            mav.setViewName(String.format("redirect:edit-actor/movies?id=%d", savedActor.getId()));
         } else {
             mav.addObject("errorMessage", authorized.getReturnMessage());
         }
@@ -112,6 +111,15 @@ public class UpdateController {
         return mav;
     }
 
+    @PostMapping("/edit-movie")
+    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
+        System.out.println(movieRepository.findById(id));
+        System.out.printf("ID: %d    ||     Title: %s", id, title);
+        movieRepository.updateMovieTitleById(title, id);
+        mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", id));
+        return mav;
+    }
+
     @GetMapping("/edit-movie/actors")
     public ModelAndView editMoviesActorsForm(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
@@ -119,7 +127,7 @@ public class UpdateController {
             if (movieRepository.findById(id).isPresent()){
                 Movie movie = movieRepository.findById(id).get();
                 mav.addObject("movie", movie);
-                mav.setViewName("edit-movie");
+                mav.setViewName("movies-actors");
             } else {
                 mav.addObject("errorMessage", String.format("Movie %d not found", id));
                 mav.setViewName("error");
@@ -131,16 +139,69 @@ public class UpdateController {
         return mav;
     }
 
-    @PostMapping("/edit-movie")
-    public String editMovie(@RequestParam Long id, @RequestParam String title, Model model){
-        System.out.println(movieRepository.findById(id));
-        System.out.printf("ID: %d    ||     Title: %s", id, title);
-        movieRepository.updateMovieTitleById(title, id);
-        model.addAttribute("successMessage", String.format("Title for movie #%d updated to %s", id, title));
-        return "success";
+    @PostMapping("/edit-movie/actors")
+    public ModelAndView editMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
+
+        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+
+
+        if (authorized.getAuthorized()){
+
+            Long movieId = Long.parseLong(allParams.get("id"));
+            Movie movie = new Movie();
+            Set<Actor> updatedActors = new HashSet<>();
+
+            if (movieRepository.findById(movieId).isPresent()){
+                movie = movieRepository.findById(movieId).get();
+            } else {
+                mav.addObject("errorMessage", String.format("Movie %d not found", id));
+                mav.setViewName("error");
+                return mav;
+            }
+            for (Map.Entry<String, String> entry : allParams.entrySet()){
+                if (!entry.getKey().equals("id") && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                    Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+                    updatedActors.add(actor);
+//                    if (!movie.getActors().contains(actor)){
+//                        movie.addActor(actor);
+//                    }
+                }
+            }
+            Set<Actor> previousListOfActors = movie.getActors();
+            for (Actor actor : previousListOfActors){
+                if (!updatedActors.contains(actor) && actorRepository.findById(actor.getId()).isPresent()){
+                    Actor a = actorRepository.findById(actor.getId()).get();
+                    a.removeMovie(movie);
+                    actorRepository.save(a);
+                }
+            }
+//            movie.setActors(updatedActors);
+            Movie updatedMovie = movieRepository.findById(movieId).get();
+//            System.out.println(updatedActors);
+            for (Actor actor : updatedMovie.getActors()){
+                System.out.printf("%s\n", actor.getName());
+            }
+            System.out.println("done");
+            if (updatedActors.size() == updatedMovie.getActors().size() && movie.getActors().containsAll(updatedActors)){
+                mav.addObject("successMessage", updatedMovie.getActors());
+                mav.setViewName("success");
+            } else {
+                mav.addObject("errorMessage", "ACTOR UPDATE UNSUCCESSFUL");
+                mav.setViewName("error");
+            }
+        } else {
+            mav.addObject("errorMessage", authorized.getReturnMessage());
+            mav.setViewName("error");
+        }
+        return mav;
     }
 
 
+
+
+    // ---------------- //
+    //    Delete txs    //
+    // ---------------- //
     @GetMapping("/delete-actor")
     public String deleteActor(@RequestParam("id") Long id, Model model, Principal principal){
         Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "delete");
@@ -150,7 +211,7 @@ public class UpdateController {
                 actorRepository.delete(actorRepository.findById(id).get());
                 if (!actorRepository.existsById(id)){
                     model.addAttribute("successMessage", String.format("Successfully deleted actor %s", actorName));
-                    return "redirect:success";
+                    return "success";
                 } else {
                     model.addAttribute("errorMessage", String.format("Unable to delete actor %s", actorName));
                     return "error";
@@ -175,7 +236,7 @@ public class UpdateController {
                 movieRepository.deleteById(id);
                 if (!movieRepository.existsById(id)){
                     model.addAttribute("successMessage", String.format("Successfully deleted movie %s", movieTitle));
-                    return "redirect:success";
+                    return "success";
                 } else {
                     model.addAttribute("errorMessage", String.format("Unable to delete movie %s", movieTitle));
                     return "error";
@@ -190,11 +251,21 @@ public class UpdateController {
         }
     }
 
+
+
+    // ------------------------ //
+    //    Successful tx view    //
+    // ------------------------ //
     @GetMapping("/success")
     public String successfulAction(Model model){
         return "success";
     }
 
+
+
+    // ----------------------- //
+    //    Utility functions    //
+    // ----------------------- //
     private Authorized authorized(String userName, String action) {
         Authorized authorized = new Authorized();
         if (authorizationMap.containsKey(userName)){

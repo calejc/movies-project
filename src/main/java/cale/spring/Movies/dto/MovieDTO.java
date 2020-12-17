@@ -21,6 +21,7 @@ public class MovieDTO {
     private Double voteAverage;
     private Double popularity;
     private Set<ActorDTO> actors = new HashSet<>();
+    private Set<GenreDTO> genres = new HashSet<>();
 
 
     public MovieDTO() {}
@@ -105,6 +106,14 @@ public class MovieDTO {
 
     public void setActors(Set<ActorDTO> actors) {
         this.actors = actors;
+    }
+
+    public Set<GenreDTO> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<GenreDTO> genres) {
+        this.genres = genres;
     }
 
     @Override

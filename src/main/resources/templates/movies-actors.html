@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments :: header"></div>
+<link th:href="@{/styles/edit.css}" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto mt-5">
+            <div class="card">
+                <form method="post" th:action="'/edit-movie/actors?id=' + ${movie.id}">
+                    <div class="row">
+                        <div class="col-lg-5 mx-auto">
+                            <div class="form-check" th:each="actor: ${movie.actors}">
+                                <input class="form-check-input" type="checkbox" checked value="true" th:id="${actor.id}" th:name="${actor.id}">
+                                <label class="form-check-label" th:attr="for=${actor.id}" th:text="${actor.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-light btn-lg">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:insert="fragments :: footer"></div>
+<script src="/scripts/update.js"></script>
+</html>

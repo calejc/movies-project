@@ -24,9 +24,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByOverviewIgnoreCase(String overview);
     Page<Movie> findAll(Pageable pageable);
 
-//    @Transactional
-//    @Query(value = "delete from actor_movie am where am.movie_id = :id", nativeQuery = true)
-//    void deleteById();
+    @Modifying
+    @Query(value = "update", nativeQuery = true)
+    void updateActorSetById(@Param("id") Long id);
+
 
 //    @Transactional
     @Modifying
