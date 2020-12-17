@@ -9,13 +9,19 @@
                 <form method="post" th:action="'/edit-movie/actors?id=' + ${movie.id}">
                     <div class="row">
                         <div class="col-lg-5 mx-auto">
-                            <div class="form-check" th:each="actor: ${movie.actors}">
-                                <input class="form-check-input" type="checkbox" checked value="true" th:id="${actor.id}" th:name="${actor.id}">
-                                <label class="form-check-label" th:attr="for=${actor.id}" th:text="${actor.name}"></label>
+                            <div class="card-body">
+                                <div class="form-check" th:each="actor: ${movie.actors}">
+                                    <input class="form-check-input" type="checkbox" checked value="true" th:id="${actor.id}" th:name="${actor.id}">
+                                    <label class="form-check-label" th:attr="for=${actor.id}" th:text="${actor.name}"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-light btn-lg">Save</button>
+                    <div class="row">
+                        <div class="col-lg-4 mx-auto my-auto">
+                            <button type="submit" class="btn btn-outline-light btn-lg">Save</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
