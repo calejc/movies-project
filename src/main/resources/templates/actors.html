@@ -55,7 +55,7 @@ https://stackoverflow.com/questions/18490820/spring-thymeleaf-how-to-implement-p
             <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>
         </li>
 
-        <li th:each="currentPage : ${#numbers.sequence(0, totalPages - 1)}"
+        <li th:each="actorPage.number : ${#numbers.sequence(0, totalPages - 1)}"
             th:class="${actorPage.number eq currentPage}? 'active' : ''">
             <a th:if="${actorPage.number  eq currentPage}" href="javascript:void(0);">
                 <span th:text="${currentPage + 1}"></span>
