@@ -112,8 +112,6 @@ public class UpdateController {
     }
 
     //TODO
-    // Take in map instead of defined params 'Title' and 'ID'.
-    // Save any updates, continue to actors list edit
     @PostMapping("/edit-movie")
     public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
         movieRepository.updateMovieTitleById(title, id);
@@ -194,6 +192,8 @@ public class UpdateController {
         return mav;
     }
 
+    //TODO
+    // Remove movie from actors when deselected
     @PostMapping("/edit-movie/actors/confirm")
     public ModelAndView confirmMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
 
