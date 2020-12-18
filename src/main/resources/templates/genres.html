@@ -7,18 +7,32 @@
 </head>
 <body>
 
-<div class="card text-center" style="width: 18rem;">
-    <div class="card-body" th:each="genre: ${genres}">
-<!--TODO: add random movie images based on their genres to genre cards-->
-        <h5 class="card-title" th:text="${genre.name}"></h5>
-        <a href="#" class="btn btn-primary">Movies</a> <!--Need to add a link to the Movies under said Genre-->
+<div class="container">
+    <div class="row">
+        <h3>Genres</h3>
+    </div>
+    <div class="row mx-auto my-auto justify-content-center">
+<div class="card m-2" th:each="genre: ${genres}">
+        <div class="card-body">
+            <img th:src="${randomMovie.photoUrl}" class="rounded card-img">
+            <a th:href="'/' + ${genre.id}"><h5 class="card-title" th:text="${genre.name}"></h5></a>
+        </div>
+</div>
     </div>
 </div>
 
 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Next">
-
-
 <div th:insert="fragments :: footer">FOOTER STUFF</div>
 
 </body>
+
+
+
+
+<!--<div class="card text-center" style="width: 18rem;">-->
+<!--    <div class="card-body" th:each="genre: ${genres}">-->
+<!--&lt;!&ndash;TODO: add random movie images based on their genres to genre cards&ndash;&gt;-->
+<!--        <h5 class="card-title" th:text="${genre.name}"></h5>-->
+<!--        <a href="#" class="btn btn-primary">Movies</a> &lt;!&ndash;Need to add a link to the Movies under said Genre&ndash;&gt;-->
+<!--    </div>-->
 </html>
