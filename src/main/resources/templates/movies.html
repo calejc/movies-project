@@ -8,24 +8,15 @@
         <h3>Movies</h3>
     </div>
     <div class="row mx-auto my-auto py-auto">
-        <div class="card result-card m-2" th:each="actor: ${moviePage.content}">
-
-            <!--<div class="card mx-auto my-0" style="max-width: 540px;" th:each="actor: ${actorPage.content}">-->
-            <div class="row mx-auto my-auto py-auto">
-
-                <img th:src="${movie.photoUrl}" class="rounded card-img-top img-fluid">
+        <div class="card result-card m-2" th:each="movie: ${moviePage.content}">
+            <a th:href=" '/movie/' + ${movie.id}"><img class="rounded img-fluid" th:src="${movie.photoUrl}"></a>
+              <div class="card-body">
+                <a th:href=" '/movie/' + ${movie.id}"><h5 class="card-title" th:text="${movie.title}"></h5></a>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a th:href=" '/movie/' + ${movie.id}" th:text="${movie.title}"></a>
-                </h5>
-                <!--                    <ul class="card-text" th:each="movie: ${movie.movies}">-->
-                <!--                        <li><a th:href="'/movie/' + ${movie.id}" th:text="${movie.title}"></a></li>-->
-                </ul>
-            </div>
-        </div>
+                   </div>
     </div>
 </div>
+
 
 
 <!--
