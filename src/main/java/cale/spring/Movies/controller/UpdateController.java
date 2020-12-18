@@ -112,9 +112,11 @@ public class UpdateController {
     }
 
     @PostMapping("/edit-movie")
-    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String overview, @RequestParam String title, ModelAndView mav){
+    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
+        System.out.println(title);
+        System.out.println(id);
         movieRepository.updateMovieTitleById(title, id);
-        movieRepository.updateMovieOverviewById(overview, id);
+//        movieRepository.updateMovieOverviewById(overview, id);
         mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", id));
         return mav;
     }

@@ -16,6 +16,7 @@ import java.util.List;
 
 @Repository
 @DynamicUpdate
+@Transactional
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByTitleContainingIgnoreCase(String title);

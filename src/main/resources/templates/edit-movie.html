@@ -13,7 +13,7 @@
                             <label for="movieTitle">Title</label>
                             <input class="form-control" type="text" th:attr="value=${movie.title}" id="movieTitle" name="title">
                             <label for="movieOverview">Overview</label>
-                            <textarea class="form-control" id="movieOverview" name="overview" th:attr="value=${movie.overview}"></textarea>
+                            <input class="form-control" id="movieOverview" name="overview" th:attr="value=${movie.overview}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-light">Save and Continue</button>
