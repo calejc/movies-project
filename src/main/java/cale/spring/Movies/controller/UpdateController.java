@@ -111,10 +111,10 @@ public class UpdateController {
         return mav;
     }
 
-    //TODO
     @PostMapping("/edit-movie")
-    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
+    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String overview, @RequestParam String title, ModelAndView mav){
         movieRepository.updateMovieTitleById(title, id);
+        movieRepository.updateMovieOverviewById(overview, id);
         mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", id));
         return mav;
     }
@@ -180,7 +180,7 @@ public class UpdateController {
             if (movieRepository.findById(id).isPresent()){
                 Movie movie = movieRepository.findById(id).get();
                 mav.addObject("movie", movie);
-                mav.setViewName("edit-movies-actors");
+                mav.setViewName("redirect:/success");
             } else {
                 mav.addObject("errorMessage", String.format("Movie %d not found", id));
                 mav.setViewName("error");
@@ -191,66 +191,60 @@ public class UpdateController {
         }
         return mav;
     }
+
 
     //TODO
     // Remove movie from actors when deselected
-    @PostMapping("/edit-movie/actors/confirm")
-    public ModelAndView confirmMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
-
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-
-
-        if (authorized.getAuthorized()){
-
-            Long movieId = Long.parseLong(allParams.get("id"));
-//            Long movieId = id;
-            Movie movie = new Movie();
-            Set<Actor> updatedActors = new HashSet<>();
-
-            if (movieRepository.findById(movieId).isPresent()){
-                movie = movieRepository.findById(movieId).get();
-            } else {
-                mav.addObject("errorMessage", String.format("Movie %d not found", id));
-                mav.setViewName("error");
-                return mav;
-            }
-            for (Map.Entry<String, String> entry : allParams.entrySet()){
-                if (!entry.getKey().equals("id") && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
-                    Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
-                    updatedActors.add(actor);
-//                    if (!movie.getActors().contains(actor)){
-//                        movie.addActor(actor);
-//                    }
-                }
-            }
-            Set<Actor> previousListOfActors = movie.getActors();
-            for (Actor actor : previousListOfActors){
-                if (!updatedActors.contains(actor) && actorRepository.findById(actor.getId()).isPresent()){
-                    Actor a = actorRepository.findById(actor.getId()).get();
-                    a.removeMovie(movie);
-                    actorRepository.save(a);
-                }
-            }
-//            movie.setActors(updatedActors);
-            Movie updatedMovie = movieRepository.findById(movieId).get();
-//            System.out.println(updatedActors);
-            for (Actor actor : updatedMovie.getActors()){
-                System.out.printf("%s\n", actor.getName());
-            }
-            System.out.println("done");
-            if (updatedActors.size() == updatedMovie.getActors().size() && movie.getActors().containsAll(updatedActors)){
-                mav.addObject("successMessage", updatedMovie.getActors());
-                mav.setViewName("success");
-            } else {
-                mav.addObject("errorMessage", "ACTOR UPDATE UNSUCCESSFUL");
-                mav.setViewName("error");
-            }
-        } else {
-            mav.addObject("errorMessage", authorized.getReturnMessage());
-            mav.setViewName("error");
-        }
-        return mav;
-    }
+//    @PostMapping("/edit-movie/actors/confirm")
+//    public ModelAndView confirmMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
+//
+//        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+//
+//
+//        if (authorized.getAuthorized()){
+//
+//            Long movieId = Long.parseLong(allParams.get("id"));
+//            Movie movie = new Movie();
+//            Set<Actor> updatedActors = new HashSet<>();
+//
+//            if (movieRepository.findById(movieId).isPresent()){
+//                movie = movieRepository.findById(movieId).get();
+//            } else {
+//                mav.addObject("errorMessage", String.format("Movie %d not found", id));
+//                mav.setViewName("error");
+//                return mav;
+//            }
+//            for (Map.Entry<String, String> entry : allParams.entrySet()){
+//                if (!entry.getKey().equals("id") && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+//                    Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+//                    updatedActors.add(actor);
+//                }
+//            }
+//            Set<Actor> previousListOfActors = movie.getActors();
+//            for (Actor actor : previousListOfActors){
+//                if (!updatedActors.contains(actor) && actorRepository.findById(actor.getId()).isPresent()){
+//                    Actor a = actorRepository.findById(actor.getId()).get();
+//                    a.removeMovie(movie);
+//                    actorRepository.save(a);
+//                }
+//            }
+//            Movie updatedMovie = movieRepository.findById(movieId).get();
+//            for (Actor actor : updatedMovie.getActors()){
+//                System.out.printf("%s\n", actor.getName());
+//            }
+//            if (updatedActors.size() == updatedMovie.getActors().size() && movie.getActors().containsAll(updatedActors)){
+//                mav.addObject("successMessage", updatedMovie.getActors());
+//                mav.setViewName("success");
+//            } else {
+//                mav.addObject("errorMessage", "ACTOR UPDATE UNSUCCESSFUL");
+//                mav.setViewName("error");
+//            }
+//        } else {
+//            mav.addObject("errorMessage", authorized.getReturnMessage());
+//            mav.setViewName("error");
+//        }
+//        return mav;
+//    }
 
 
 
