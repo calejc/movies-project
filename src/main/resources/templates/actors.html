@@ -9,15 +9,15 @@
         <!--<div class="card mx-auto my-0" style="max-width: 540px;" th:each="actor: ${actorPage.content}">-->
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img th:src="${actor.photoUrl}" class="rounded card-img">
+                <img th:src="${actor.photoUrl}" class="rounded card-img-top img-fluid">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a th:href=" '/actor/' + ${actor.id}" th:text="${actor.name}"></a>
                     </h5>
-                    <ul class="card-text" th:each="movie: ${actor.movies}">
-                        <li><a th:href="'/movie/' + ${movie.id}" th:text="${movie.title}"></a></li>
+<!--                    <ul class="card-text" th:each="movie: ${actor.movies}">-->
+<!--                        <li><a th:href="'/movie/' + ${movie.id}" th:text="${movie.title}"></a></li>-->
                     </ul>
                 </div>
             </div>
@@ -34,32 +34,24 @@ https://www.baeldung.com/spring-thymeleaf-pagination
 
     <ul class="pagination">
 
-<!--        <li th:class="${firstPage} ? 'disabled' : ''">-->
-<!--            <a th:if="${firstPage}">Previous</a>-->
-<!--            <a th:if="${not firstPage}"-->
-<!--               th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
-
-<!--        </li>-->
-
-        <li th:class="${actorPage.number eq 0} ? 'disabled' : ''">
+        <li th:class="${firstPage} ? 'disabled' : ''">
+            <a th:if="${firstPage}">Previous</a>
             <a th:if="${not firstPage}"
-               th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>
-            <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>
+               th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
         </li>
 
-
-        <li th:if="${actorPage.totalPages > 0}" class="page-item" th:each="pageNumber : ${pageNumbers}">
+        <li th:if="${actorPage.totalPages > 0}" class="page-item" th:each="pgNumber: ${pageRange}">
             <a class="page-link"
-               th:href="@{/actor(size=${actorPage.size}, page=${pageNumber})}"
-               th:text=${pageNumber}
-               th:class="${pageNumber==actorPage.number + 1} ? active"></a>
+               th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
+               th:text=${pgNumber}
+               th:class="${pgNumber==actorPage.number + 1} ? active"></a>
         </li>
 
 
         <li th:class="${actorPage.number + 1 ge totalPages} ? 'disabled' : ''">
+            <a th:if="${lastPage}">Next</a>
             <a th:if="${not lastPage}"
-               th:href="@{${'/actor'}(page=${actorPage.number+1},size=${actorPage.size})}">Next</a>
-            <a th:if="${lastPage}" href="javascript:void(0);">Next</a>
+               th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
         </li>
     </ul>
 
@@ -70,6 +62,13 @@ https://www.baeldung.com/spring-thymeleaf-pagination
 <!--    <a th:if="${not firstPage}"-->
 <!--       th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
 <!--    <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>-->
+<!--</li>-->
+
+<!--<li th:if="${actorPage.totalPages > 0}" class="page-item" th:each="pageNumber : ${pageNumbers}">-->
+<!--    <a class="page-link"-->
+<!--       th:href="@{/actor(size=${actorPage.size}, page=${pageNumber})}"-->
+<!--       th:text=${pageNumber}-->
+<!--       th:class="${pageNumber==actorPage.number + 1} ? active"></a>-->
 <!--</li>-->
 <!--END OF DELETE BLOCK-->
 

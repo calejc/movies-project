@@ -38,7 +38,7 @@ public class ActorsController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         boolean firstPage = false;
-        if (currentPage == 0) {
+        if (currentPage == 1) {
             firstPage = true;
         }
 
@@ -47,6 +47,7 @@ public class ActorsController {
                 pageSize));
         model.addAttribute("actorPage", actorPage);
         model.addAttribute("firstPage", firstPage);
+        model.addAttribute("currentPage", currentPage);
         int totalPages = actorPage.getTotalPages();
         System.out.println(totalPages);
         boolean lastPage = false;
@@ -54,6 +55,12 @@ public class ActorsController {
             lastPage = true;
         }
         model.addAttribute("lastPage", lastPage);
+        model.addAttribute("pageRange", buildPageRange(currentPage, totalPages));
+
+        if (currentPage > totalPages) {
+            model.addAttribute("errorMessage", "Page not found");
+            return "error";
+        }
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -62,6 +69,33 @@ public class ActorsController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "actors";
+    }
+
+    public List<Integer> buildPageRange(int currentPage, int totalPages) {
+        final int tp = totalPages;
+
+//        switch (currentPage)
+//        {
+//            case 1:
+//                return List.of(currentPage, currentPage+1, currentPage +2, currentPage +3, currentPage +4);
+//            case 2:
+//                return List.of(currentPage-1, currentPage, currentPage +1, currentPage +2, currentPage +3);
+//            case tp:
+//                return List.of(currentPage -4, currentPage -3, currentPage -2, currentPage -1, currentPage);
+//            default:
+//                return List.of(currentPage - 2, currentPage -1, currentPage, currentPage +1, currentPage +2);
+//        }
+        if (currentPage == 1) {
+            return List.of(currentPage, currentPage+1, currentPage +2, currentPage +3, currentPage +4);
+        } else if (currentPage == 2) {
+            return List.of(currentPage-1, currentPage, currentPage +1, currentPage +2, currentPage +3);
+        } else if (currentPage == totalPages-1){
+            return List.of(currentPage - 3, currentPage - 2, currentPage -1, currentPage, currentPage +1);
+        } else if (currentPage == totalPages) {
+            return List.of(currentPage -4, currentPage -3, currentPage -2, currentPage -1, currentPage);
+        } else {
+            return List.of(currentPage - 2, currentPage -1, currentPage, currentPage +1, currentPage +2);
+        }
     }
 
 //    Generated URL format ?page=2&size=6
