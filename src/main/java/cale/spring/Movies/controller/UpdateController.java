@@ -172,10 +172,35 @@ public class UpdateController {
     }
 
     @RequestMapping(params = "formAction=search", value = "/edit-movie/actors", method=RequestMethod.POST)
-    public ModelAndView editMoviesActorsSearch(@RequestParam String q, @RequestParam Long id, ModelAndView mav){
-        List<Actor> actors = actorRepository.findByNameContainingIgnoreCase(q);
-        mav.addObject("movieId", id);
+    public ModelAndView editMoviesActorsSearch(@RequestParam Map<String, String> allParams, ModelAndView mav){
+        List<String> nonActorParams = List.of("id", "q", "formAction");
+        List<Actor> actorsAdded = new ArrayList<>();
+        for (Map.Entry<String, String> entry : allParams.entrySet()){
+            if (!nonActorParams.contains(entry.getKey()) && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+                actorsAdded.add(actor);
+            }
+        }
+        List<Actor> actors = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+        mav.addObject("movieId", allParams.get("id"));
+        mav.addObject("actorsAdded", actorsAdded);
         mav.addObject("actors", actors);
+        mav.setViewName("add-actors");
+        return mav;
+    }
+
+    @RequestMapping(params = "formAction=add", value = "/edit-movie/actors", method=RequestMethod.POST)
+    public ModelAndView editMoviesActorsAdd(@RequestParam Map<String, String> allParams, ModelAndView mav){
+        List<String> nonActorParams = List.of("id", "q", "formAction");
+        List<Actor> actorsAdded= new ArrayList<>();
+        for (Map.Entry<String, String> entry : allParams.entrySet()){
+            if (!nonActorParams.contains(entry.getKey()) && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+                actorsAdded.add(actor);
+            }
+        }
+        mav.addObject("movieId", allParams.get("id"));
+        mav.addObject("actorsAdded", actorsAdded);
         mav.setViewName("add-actors");
         return mav;
     }
