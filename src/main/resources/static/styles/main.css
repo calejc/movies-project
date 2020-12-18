@@ -34,7 +34,7 @@ html {
     border-radius: .25em;
   }
 
-.page-item a {
+.page-item a:hover, .page-item a {
   color: #bc5a45;
 }
 
@@ -50,6 +50,8 @@ li.disabled.page-item a.page-link {
 .page-item a:active {
     background-color: #bc5a45;
 }
+
+a.page-link:hover
 
 a:hover {
     color: #b2b2b2;
