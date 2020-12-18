@@ -43,6 +43,20 @@ public class CrudService {
         return savedActor;
     }
 
+    @Transactional
+    public void addMovieToActor(MovieDTO movieDTO, ActorDTO actorDTO){
+        Movie movie = new Movie();
+        Actor actor = new Actor();
+        if (actorRepository.findById(actorDTO.getId()).isPresent() && movieRepository.findById(movieDTO.getId()).isPresent() && !movieDTO.getActors().contains(actorDTO)){
+
+            actor = actorRepository.findById(actorDTO.getId()).get();
+            movie = movieRepository.findById(movieDTO.getId()).get();
+
+            actor.addMovie(movie);
+            actorRepository.save(actor);
+        }
+    }
+
     
     public void addMovie(Movie movie){ movieRepository.save(movie); }
     public void updateActor(Actor actor) throws Exception {

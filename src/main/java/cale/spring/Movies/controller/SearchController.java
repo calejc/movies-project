@@ -1,9 +1,11 @@
 package cale.spring.Movies.controller;
 
 import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Genre;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.model.Result;
 import cale.spring.Movies.repository.ActorRepository;
+import cale.spring.Movies.repository.GenreRepository;
 import cale.spring.Movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;

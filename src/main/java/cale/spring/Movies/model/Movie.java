@@ -27,14 +27,12 @@ public class Movie {
     private Double popularity;
 
 
-//    @JsonSetter("genre_ids")
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "movie_genre",
-//            joinColumns = {@JoinColumn(name = "")},
-//            inverseJoinColumns = {@JoinColumn(name = "")}
-//    )
-//    private Set<Genre> genres = new HashSet<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "movie_genre",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+    )
+    private Set<Genre> genres = new HashSet<>();
 
     public Movie(){ }
     public Movie(Long id, String title, String photoUrl, String overview, Date releaseDate, Double voteAverage, Double popularity, Set<Actor> actors) {
@@ -104,6 +102,16 @@ public class Movie {
     public void removeActor(Actor actor) {
         this.actors.remove(actor);
         actor.getMovies().remove(this);
+    }
+
+    public void addGenre(Genre genre){
+        this.genres.add(genre);
+        genre.getMovies().remove(this);
+    }
+
+    public void removeGenre(Genre genre){
+        this.genres.remove(genre);
+        genre.getMovies().remove(this);
     }
 
     @Override

@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header"></div>
-<<<<<<< HEAD
-<!--<div class="display-4" th:text="${movie.title}"></div>-->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-9 mx-auto mt-5">
-            <div class="card">
-                <form >
-
-=======
 <link th:href="@{/styles/edit.css}" rel="stylesheet">
 
 <div class="container">
@@ -19,23 +10,17 @@
                 <form method="post" th:action="'/edit-movie?id=' + ${movie.id}">
                     <div class="form-row">
                         <div class="form-group">
-                            <span>Current: </span><label for="movieTitle" th:text="${movie.title}"></label>
-                            <input class="form-control" type="text" id="movieTitle" name="title" th:attr="placeholder=${movie.title}">
-                            <span>Current: </span><label for="movieOverview" th:text="${movie.overview}"></label>
-                            <input class="form-control" type="text" id="movieOverview" name="overview" th:attr="placeholder=${movie.overview}">
-
+                            <label for="movieTitle">Title</label>
+                            <input class="form-control" type="text" th:attr="value=${movie.title}" id="movieTitle" name="title">
+                            <label for="movieOverview">Overview</label>
+                            <textarea class="form-control" id="movieOverview" name="overview" th:attr="value=${movie.overview}"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-light">Submit</button>
->>>>>>> master
+                    <button type="submit" class="btn btn-outline-light">Save and Continue</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 <div th:insert="fragments :: footer"></div>
 </html>
