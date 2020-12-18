@@ -35,23 +35,22 @@ https://www.baeldung.com/spring-thymeleaf-pagination
 
     <ul class="pagination">
 
-        <li th:class="${firstPage} ? 'disabled' : ''">
-            <a th:if="${firstPage}">Previous</a>
-            <a th:if="${not firstPage}"
+        <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
+            <a th:if="${firstPage}" th:class="page-link">Previous</a>
+            <a th:if="${not firstPage}" th:class="page-link"
                th:href="@{${'/movie'}(page=${currentPage-1},size=${moviePage.size})}">Previous</a>
         </li>
 
-        <li th:if="${moviePage.totalPages > 0}" class="page-item" th:each="pgNumber: ${pageRange}">
-            <a class="page-link"
-               th:href="@{/movie(size=${moviePage.size}, page=${pgNumber})}"
+        <li th:if="${moviePage.totalPages > 0}" th:class="${pgNumber==moviePage.number + 1} ? 'active page-item' : 'page-item'" th:each="pgNumber: ${pageRange}">
+            <a th:href="@{/movie(size=${moviePage.size}, page=${pgNumber})}"
                th:text=${pgNumber}
-               th:class="${pgNumber==moviePage.number + 1} ? active"></a>
+               th:class="page-link"></a>
         </li>
 
 
-        <li th:class="${moviePage.number + 1 ge totalPages} ? 'disabled' : ''">
-            <a th:if="${lastPage}">Next</a>
-            <a th:if="${not lastPage}"
+        <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
+            <a th:if="${lastPage}" th:class="page-link">Next</a>
+            <a th:if="${not lastPage}" th:class="page-link"
                th:href="@{${'/movie'}(page=${currentPage+1},size=${moviePage.size})}">Next</a>
         </li>
     </ul>

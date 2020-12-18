@@ -4,3 +4,8 @@
 .card-body {
     overflow: auto;
 }
+
+.tooltip-image{
+    max-height:3em;
+    width:auto;
+}

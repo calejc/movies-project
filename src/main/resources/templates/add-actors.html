@@ -18,7 +18,7 @@
                             <div class="card-body">
                                 <div class="form-check" th:each="actor: ${actors}">
                                     <input class="form-check-input" type="checkbox" value="true" th:id="${actor.id}" th:name="${actor.id}">
-                                    <label class="form-check-label" th:attr="for=${actor.id}" th:text="${actor.name}"></label>
+                                    <label class="form-check-label" th:for="${actor.id}"><a th:text="${actor.name}" data-placement="right" data-toggle="tooltip" th:title="'<img src=&quot;' + ${actor.photoUrl} + '&quot; style=&quot;max-width:5em;height:auto;&quot;>'"></a></label>
                                 </div>
                             </div>
                         </div>
