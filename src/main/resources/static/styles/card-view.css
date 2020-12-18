@@ -16,7 +16,7 @@
     text-shadow: .15em .15em .15em .15em #fff;
     border-radius: .15em;
     border: .05em solid #fff;
-    box-shadow: 0 1em 2em 0 rgba(0,0,0,0.5);
+    justify-content: left;
 }
 
 .cardFlipTrigger:hover {
@@ -62,4 +62,8 @@
     grid-area: frontAndBack;
     transform: rotateY(-180deg);
     z-index:0;
+}
+
+a {
+    z-index:2;
 }

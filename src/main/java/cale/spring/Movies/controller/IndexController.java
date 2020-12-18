@@ -30,7 +30,7 @@ public class IndexController {
         Actor randomActor = new Actor();
         do{
             randomActor = actors.get(returnRand(actors.size()));
-        } while (randomActor.getPhotoUrl().contains("no_img"));
+        } while (randomActor.getPhotoUrl().contains("default"));
         Movie randomMovie = movies.get(returnRand(movies.size()));
         model.addAttribute("randomActor", randomActor);
         model.addAttribute("randomMovie", randomMovie);

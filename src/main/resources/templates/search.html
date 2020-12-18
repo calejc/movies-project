@@ -3,39 +3,49 @@
 <div th:insert="fragments :: header"></div>
 
 <div class="container">
-    <div class="row">
+    <div class="row mx-auto my-auto">
         <div class="col-lg-9">
-
             <!-- Advanced search filter box -->
-            <div class="collapse">
-
+            <div class="card">
+                <form class="form-inline mt-2 mt-md-0" method="get" th:action="@{/search}">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1" name="actor">
+                        <label class="form-check-label mx-2 my-2" for="defaultCheck1">
+                            Actors
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2" name="movie">
+                        <label class="form-check-label mx-2 my-2" for="defaultCheck2">
+                            Movies
+                        </label>
+                    </div>
+                    <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+                </form>
             </div>
-
         </div>
     </div>
-    <div class="row">
+    <div class="row mx-auto my-2 py-3">
         <h3>Results</h3>
-        <div class="card-deck">
-            <div class="card result-card m-2" th:each="actor: ${actorsFound}">
-                <img class="rounded img-fluid" th:src="${actor.photoUrl}">
-                <div class="card-body">
-                    <a th:href="'/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}"></h5></a>
-                </div>
+    </div>
+    <div class="row mx-auto my-auto py-auto">
+        <div class="card result-card m-2" th:each="result: ${results}">
+            <a th:href="'/' +${result.type} + '/' + ${result.id}"><img class="rounded img-fluid"
+                                                                       th:src="${result.photoUrl}"></a>
+            <div class="card-body">
+                <a th:href="'/' +${result.type} + '/' + ${result.id}"><h5 class="card-title"
+                                                                          th:text="${result.header}"></h5></a>
             </div>
-            <div class="card result-card m-2" th:each="movie: ${moviesFound}">
-                <img class="rounded card-img-top" th:src="${movie.photoUrl}">
-                <div class="card-body">
-                    <a th:href="'/movie/' + ${movie.id}"><h5 class="card-title" th:text="${movie.title}"></h5></a>
-                </div>
-            </div>
-<!--                <div th:each="movie: ${moviesFound}">-->
-<!--                    <div class="row">-->
-<!--                        <a th:href="'/movie/' + ${movie.id}"><img th:src="${movie.photoUrl}"></a><a th:href="'/movie/' + ${movie.id}"><span th:text="${movie.title}" th:href="'/movie/' + ${movie.id}"></span></a>-->
-<!--                    </div>-->
-<!--                </div>-->
         </div>
+        <!--                <div th:each="movie: ${moviesFound}">-->
+        <!--                    <div class="row">-->
+        <!--                        <a th:href="'/movie/' + ${movie.id}"><img th:src="${movie.photoUrl}"></a><a th:href="'/movie/' + ${movie.id}"><span th:text="${movie.title}" th:href="'/movie/' + ${movie.id}"></span></a>-->
+        <!--                    </div>-->
+        <!--                </div>-->
     </div>
 </div>
+
 
 <div th:insert="fragments :: footer"></div>
 </html>

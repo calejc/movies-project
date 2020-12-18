@@ -16,18 +16,24 @@ import java.util.List;
 
 @Repository
 @DynamicUpdate
+@Transactional
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByTitleContainingIgnoreCase(String title);
     List<Movie> findByTitleContainingIgnoreCaseOrderByPopularity(String title);
+    List<Movie> findByOverviewIgnoreCase(String overview);
     Page<Movie> findAll(Pageable pageable);
 
-    @Transactional
+//    @Transactional
+//    @Query(value = "delete from actor_movie am where am.movie_id = :id", nativeQuery = true)
+//    void deleteById();
+
+//    @Transactional
     @Modifying
     @Query(value = "update movie m set m.title = :title where m.id = :id", nativeQuery = true)
     void updateMovieTitleById(@Param("title") String title, @Param("id") Long id);
 
-    @Transactional
+//    @Transactional
     @Modifying
     @Query(value = "update movie m set m.overview = :overview where m.id = :id", nativeQuery = true)
     void updateMovieOverviewById(@Param("overview") String overview, @Param("id") Long id);
