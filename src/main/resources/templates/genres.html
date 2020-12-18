@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div> th:insert="fragments :: header">HEADER STUFF</div>
+<head>
+    <meta charset="UTF-8">
+    <title>Genre</title>
+</head>
+<body>
+
+<div class="card text-center" style="width: 18rem;">
+    <div class="card-body" th:each="genre: ${genres}">
+<!--TODO: add random movie images based on their genres to genre cards-->
+        <h5 class="card-title" th:text="${genre.name}"></h5>
+        <a href="#" class="btn btn-primary">Movies</a> <!--Need to add a link to the Movies under said Genre-->
+    </div>
+</div>
+
+<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Next">
+
+
+<div th:insert="fragments :: footer">FOOTER STUFF</div>
+
+</body>
+</html>
