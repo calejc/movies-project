@@ -4,108 +4,42 @@
 
 <!--NOTE: Generated url format actors?page=1&size=10  -->
 <div class="container">
-<div class="row mx-auto my-2 py-3">
-    <h3>Actors</h3>
-</div>
-<div class="row mx-auto my-auto py-auto">
-    <div class="card result-card m-2" th:each="actor: ${actorPage.content}">
+    <div class="row mx-auto my-2 py-3">
+        <h3>Actors</h3>
+    </div>
+    <nav aria-label="Page navigation" class="w-50">
+        <ul class="pagination">
+            <!-- Example adding class .example -->
+            <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${firstPage}" th:class="page-link">Previous</a>
+                <a th:if="${not firstPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
+            </li>
+            <li th:if="${actorPage.totalPages > 0}" th:class="${pgNumber==actorPage.number + 1} ? 'active page-item' : 'page-item'" th:each="pgNumber: ${pageRange}">
+                <a th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
+                   th:text=${pgNumber}
+                   th:class="page-link"></a>
+            </li>
 
-        <!--<div class="card mx-auto my-0" style="max-width: 540px;" th:each="actor: ${actorPage.content}">-->
-        <div class="row mx-auto my-auto py-auto">
-
-                <a th:href=" '/actor/' + ${actor.id}"><img th:src="${actor.photoUrl}" class="rounded card-img-top img-fluid"></a>
+            <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${lastPage}" th:class="page-link">Next</a>
+                <a th:if="${not lastPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+       <div class="row mx-auto my-auto py-auto">
+        <div class="card-deck">
+        <div class="card result-card m-2" th:each="actor: ${actorPage.content}">
+            <a th:href=" '/actor/' + ${actor.id}"><img class="rounded img-fluid" th:src="${actor.photoUrl}"></a>
+            <div class="card-body">
+                <a th:href=" '/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}">
+                </h5></a>
             </div>
-                            <div class="card-body">
-                    <h5 class="card-title">
-                        <a th:href=" '/actor/' + ${actor.id}" th:text="${actor.name}"></a>
-                    </h5>
-<!--                    <ul class="card-text" th:each="movie: ${actor.movies}">-->
-<!--                        <li><a th:href="'/movie/' + ${movie.id}" th:text="${movie.title}"></a></li>-->
-                    </ul>
-                </div>
-
+        </div>
         </div>
     </div>
 </div>
-
-<!--
-The following was sampled from this baeldung
-https://www.baeldung.com/spring-thymeleaf-pagination
--->
-
-<nav aria-label="Page navigation">
-
-    <ul class="pagination pagination-lg justify-content-center px-3 py-3">
-
-        <li th:class="${firstPage} ? 'disabled' : ''">
-            <a th:if="${firstPage}">Previous</a>
-            <a th:if="${not firstPage}"
-               th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
-        </li>
-
-        <li th:if="${actorPage.totalPages > 0}" class="page-item" th:each="pgNumber: ${pageRange}">
-            <a class="page-link"
-               th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
-               th:text=${pgNumber}
-               th:class="${pgNumber==actorPage.number + 1} ? active"></a>
-        </li>
-
-
-        <li th:class="${actorPage.number + 1 ge totalPages} ? 'disabled' : ''">
-            <a th:if="${lastPage}">Next</a>
-            <a th:if="${not lastPage}"
-               th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
-        </li>
-    </ul>
-
-</nav>
-
-<!--DELETE IF SOLUTION WORKS-->
-<!--<li th:class="${actorPage.number eq 0} ? 'disabled' : ''">-->
-<!--    <a th:if="${not firstPage}"-->
-<!--       th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
-<!--    <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>-->
-<!--</li>-->
-
-<!--<li th:if="${actorPage.totalPages > 0}" class="page-item" th:each="pageNumber : ${pageNumbers}">-->
-<!--    <a class="page-link"-->
-<!--       th:href="@{/actor(size=${actorPage.size}, page=${pageNumber})}"-->
-<!--       th:text=${pageNumber}-->
-<!--       th:class="${pageNumber==actorPage.number + 1} ? active"></a>-->
-<!--</li>-->
-<!--END OF DELETE BLOCK-->
-
-<!--
-The following was sampled from this stackoverflow
-https://stackoverflow.com/questions/18490820/spring-thymeleaf-how-to-implement-pagination-for-a-list
--->
-
-<!--<nav aria-label="Page navigation">-->
-<!--    <ul class="pagination">-->
-<!--        <li th:class="${actorPage.number eq 0} ? 'disabled' : ''">-->
-<!--            <a th:if="${not firstPage}"-->
-<!--               th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
-<!--            <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>-->
-<!--        </li>-->
-
-<!--        <li th:each="actorPage.number : ${#numbers.sequence(0, totalPages - 1)}"-->
-<!--            th:class="${actorPage.number eq currentPage}? 'active' : ''">-->
-<!--            <a th:if="${actorPage.number  eq currentPage}" href="javascript:void(0);">-->
-<!--                <span th:text="${currentPage + 1}"></span>-->
-<!--            </a>-->
-<!--            <a th:if="${not (actorPage.number  eq currentPage)}"-->
-<!--               th:href="@{${'/actor'}(page=${currentPage},size=${actorPage.size})}">-->
-<!--                <span th:text="${currentPage + 1}"></span>-->
-<!--            </a>-->
-
-<!--        </li>-->
-<!--        <li th:class="${actorPage.number + 1 ge totalPages} ? 'disabled' : ''">-->
-<!--            <a th:if="${not lastPage}"-->
-<!--               th:href="@{${'/actor'}(page=${actorPage.number+1},size=${actorPage.size})}">Next</a>-->
-<!--            <a th:if="${lastPage}" href="javascript:void(0);">Next</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</nav>-->
 
 </div>
 <div th:insert="fragments :: footer">FOOTER STUFF</div>

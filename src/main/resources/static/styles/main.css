@@ -29,6 +29,28 @@ html {
     /*font-weight: bold;*/
 }
 
+.page-item {
+    border: .05em solid #bc5a45;
+    border-radius: .25em;
+  }
+
+.page-item a {
+  color: #bc5a45;
+}
+
+.page-item.active .page-link {
+background-color: #bc5a45;
+border-color: #bc5a45;
+}
+
+li.disabled.page-item a.page-link {
+    color: #bc5a45;
+}
+
+.page-item a:active {
+    background-color: #bc5a45;
+}
+
 a:hover {
     color: #b2b2b2;
     text-decoration: none;
@@ -92,7 +114,9 @@ body {
   @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
 }
 
-
+.card-title {
+    word-wrap: normal;
+}
 
 
 
