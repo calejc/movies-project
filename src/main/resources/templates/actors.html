@@ -34,6 +34,13 @@ https://www.baeldung.com/spring-thymeleaf-pagination
 
     <ul class="pagination">
 
+<!--        <li th:class="${firstPage} ? 'disabled' : ''">-->
+<!--            <a th:if="${firstPage}">Previous</a>-->
+<!--            <a th:if="${not firstPage}"-->
+<!--               th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
+
+<!--        </li>-->
+
         <li th:class="${actorPage.number eq 0} ? 'disabled' : ''">
             <a th:if="${not firstPage}"
                th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>
@@ -58,17 +65,13 @@ https://www.baeldung.com/spring-thymeleaf-pagination
 
 </nav>
 
-<!--DELETE THE FOLLOWING IF CHANGE IS SUCCESSFUL-->
-<!--<ul th:if="${actorPage.totalPages > 0}" class="pagination"-->
-<!--    th:each="pageNumber : ${pageNumbers}">-->
-
-<!--    <li class="page-item">-->
-<!--        <a class="page-link"-->
-<!--           th:href="@{/actor(size=${actorPage.size}, page=${pageNumber})}"-->
-<!--           th:text=${pageNumber}-->
-<!--           th:class="${pageNumber==actorPage.number + 1} ? active"></a>-->
-<!--    </li>-->
-<!--</ul>-->
+<!--DELETE IF SOLUTION WORKS-->
+<!--<li th:class="${actorPage.number eq 0} ? 'disabled' : ''">-->
+<!--    <a th:if="${not firstPage}"-->
+<!--       th:href="@{${'/actor'}(page=${actorPage.number-1},size=${actorPage.size})}">Previous</a>-->
+<!--    <a th:if="${firstPage}" href="javascript:void(0);">Previous</a>-->
+<!--</li>-->
+<!--END OF DELETE BLOCK-->
 
 <!--
 The following was sampled from this stackoverflow
