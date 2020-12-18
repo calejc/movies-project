@@ -29,7 +29,7 @@ public class SearchController {
     private GenreRepository genreRepository;
 
     @GetMapping("/search")
-    public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model){
+    public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model) {
         List<Result> results = new ArrayList<>();
         if (allParams.containsKey("actor")) {
             //do actorRepo search

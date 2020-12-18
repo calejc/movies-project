@@ -88,6 +88,11 @@ body {
     color: #fff;
 }
 
+.pagination-lg {
+  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
+}
+
+
 
 
 
