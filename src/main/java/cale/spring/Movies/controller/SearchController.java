@@ -25,9 +25,11 @@ public class SearchController {
     private MovieRepository movieRepository;
     @Autowired
     private ActorRepository actorRepository;
+    @Autowired
+    private GenreRepository genreRepository;
 
     @GetMapping("/search")
-    public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model){
+    public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model) {
         List<Result> results = new ArrayList<>();
         if (allParams.containsKey("actor")) {
             //do actorRepo search
@@ -41,7 +43,12 @@ public class SearchController {
             moviesFound.addAll(titlesFound);
             results.addAll(convertListOfMoviesToResultType(moviesFound));
 
-        } else {
+        } else if (allParams.containsKey("genre")) {
+            List<Genre> genresFound = genreRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+            results.addAll(convertListOfGenresToResultType(genresFound));
+        }
+
+        else {
             //search both movies and actors
             List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
             List<Movie> moviesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
@@ -67,6 +74,15 @@ public class SearchController {
         List<Result> results = new ArrayList<>();
         for (Movie movie : moviesFound) {
             Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
+            results.add(result);
+        }
+        return results;
+    }
+
+    public List<Result> convertListOfGenresToResultType(List<Genre> genresFound) {
+        List<Result> results = new ArrayList<>();
+        for (Genre genre : genresFound) {
+            Result result = new Result(genre.getId(), genre.getName(), "genre");
             results.add(result);
         }
         return results;
