@@ -21,6 +21,12 @@ public class Result {
         this.type = type;
     }
 
+    public Result(Long id, String header, String type) {
+        this.id = id;
+        this.header = header;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }
