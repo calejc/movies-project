@@ -2,6 +2,7 @@ package cale.spring.Movies.service;
 
 import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.model.Actor;
+import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
 import cale.spring.Movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class PageService {
 
 
 
-    public Page<Actor> findPaginated(Pageable pageable) {
+    public Page<Actor> findPaginatedActors(Pageable pageable) {
         List<Actor> actors = actorRepository.findAll();
 //        for(Actor actor : actors){
 //            System.out.println(actor);
@@ -45,5 +46,26 @@ public class PageService {
         }
 
         return new PageImpl<Actor>(list, PageRequest.of(currentPage, pageSize), actors.size());
+    }
+
+    public Page<Movie> findPaginatedMovies(Pageable pageable) {
+        List<Movie> movies = movieRepository.findAll();
+//        for(Actor actor : actors){
+//            System.out.println(actor);
+//        }
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Movie> list;
+
+        if (movies.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, movies.size());
+            list = movies.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<Movie>(list, PageRequest.of(currentPage, pageSize), movies.size());
     }
 }
