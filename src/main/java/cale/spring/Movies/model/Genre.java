@@ -3,6 +3,7 @@ package cale.spring.Movies.model;
 import cale.spring.Movies.model.Movie;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class Genre {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Movie> movies = new HashSet<>();
 
 
