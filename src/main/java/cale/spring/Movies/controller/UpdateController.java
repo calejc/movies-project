@@ -70,8 +70,10 @@ public class UpdateController {
         if (authorized.getCreate()) {
             ActorDTO actor = new ActorDTO(crudService.generateNewActorId(), name, biography);
             Actor savedActor = crudService.addActorToDB(actor);
-            mav.addObject("successMessage", String.format("%s saved successfully",savedActor.getName()));
-            mav.setViewName(String.format("redirect:edit-actor/movies?id=%d", savedActor.getId()));
+            if (actorRepository.existsById(savedActor.getId())){
+                mav.addObject("successMessage", String.format("%s saved successfully",savedActor.getName()));
+                mav.setViewName("redirect:success");
+            }
         } else {
             mav.addObject("errorMessage", authorized.getReturnMessage());
         }
@@ -97,6 +99,19 @@ public class UpdateController {
         }
     }
 
+    @PostMapping("/edit-actor")
+    public String editActor(@RequestParam Map<String, String> allParams, Model model, Principal principal){
+        if (actorRepository.findById(Long.parseLong(allParams.get("id"))).isPresent()){
+            actorRepository.updateActorNameById(allParams.get("name"), Long.parseLong(allParams.get("id")));
+            actorRepository.updateActorBiographyById(Long.parseLong(allParams.get("id")), allParams.get("biography"));
+            model.addAttribute("successMessage", String.format("Successfully updated:\n Actor name to %s\nActor Biography to %s", allParams.get("name"), allParams.get("biography")));
+            return "success";
+        } else {
+            model.addAttribute("errorMessage", String.format("Actor %d not found", Long.parseLong(allParams.get("id"))));
+            return "error";
+        }
+    }
+
     @GetMapping("/edit-movie")
     public ModelAndView editMovieForm(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
         Authorized authorized = authorizationService.authorized(principal);
@@ -117,11 +132,9 @@ public class UpdateController {
     }
 
     @PostMapping("/edit-movie")
-    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
-        System.out.println(title);
-        System.out.println(id);
+    public ModelAndView editMovie(@RequestParam Long id, @RequestParam String overview, @RequestParam String title, ModelAndView mav){
         movieRepository.updateMovieTitleById(title, id);
-//        movieRepository.updateMovieOverviewById(overview, id);
+        movieRepository.updateMovieOverviewById(overview, id);
         mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", id));
         return mav;
     }

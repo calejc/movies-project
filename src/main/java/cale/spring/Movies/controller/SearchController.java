@@ -38,7 +38,6 @@ public class SearchController {
         List<Genre> genreColumn2 = new ArrayList<>();
         List<Genre> genreColumn3 = new ArrayList<>();
         List<Genre> genreColumn4 = new ArrayList<>();
-//        for
 
         List<Result> results = new ArrayList<>();
         List<Long> genreIds = new ArrayList<>();
@@ -58,8 +57,7 @@ public class SearchController {
                 results.addAll(convertListOfActorsToResultType(actorsFound));
             } else {
                 for (Long genreId : genreIds){
-//                    results.addAll(convertListOfActorsToResultType(ac))
-                    System.out.println("genre");
+                    results.addAll(convertListOfActorsToResultType(actorRepository.findByNameContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
                 }
             }
 
@@ -92,6 +90,7 @@ public class SearchController {
                     // do actor search by genre
                     results.addAll(convertListOfMoviesToResultType(movieRepository.findByTitleContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
                     results.addAll(convertListOfMoviesToResultType(movieRepository.findByOverviewContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
+                    results.addAll(convertListOfActorsToResultType(actorRepository.findByNameContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
                 }
             }
         }

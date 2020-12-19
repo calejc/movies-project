@@ -57,21 +57,13 @@ public class CrudService {
         }
     }
 
-    
-    public void addMovie(Movie movie){ movieRepository.save(movie); }
-    public void updateActor(Actor actor) throws Exception {
-        Optional<Actor> actorEntry = actorRepository.findById(actor.getId());
-        if (actorEntry.isPresent()){
-            Actor updatedActor = actorEntry.get();
-            updatedActor.setName(actor.getName());
-            updatedActor.setGender(actor.getGender());
-            updatedActor.setBiography(actor.getBiography());
-            updatedActor.setBirthday(actor.getBirthday());
-            updatedActor.setDeathday(actor.getDeathday());
-            updatedActor.setPopularity(actor.getPopularity());
-            updatedActor.setMovies(actor.getMovies());
-        } else {
-             throw new Exception("NOT FOUND");
+    @Transactional
+    public void updateActor(ActorDTO actorDTO){
+        if (actorRepository.findById(actorDTO.getId()).isPresent()){
+            Actor actor = actorRepository.findById(actorDTO.getId()).get();
+            actor.setName(actorDTO.getName());
+            actor.setBiography(actorDTO.getBiography());
+            actorRepository.save(actor);
         }
     }
     public void updateMovie(Movie movie){}
