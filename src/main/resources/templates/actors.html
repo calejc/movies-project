@@ -7,6 +7,7 @@
     <div class="row mx-auto my-2 py-3">
         <h3>Actors</h3>
     </div>
+
     <nav aria-label="Page navigation" class="w-50">
         <ul class="pagination">
             <!-- Example adding class .example -->
@@ -36,6 +37,22 @@
                 <a th:if="${lastPage}" th:class="page-link"> >> </a>
                 <a th:if="${not lastPage}" th:class="page-link"
                    th:href="@{${'/actor'}(page=${totalPages},size=${actorPage.size})}"> >> </a>
+            </li>
+
+            <li class="dropdown show page-item">
+                <a class="btn btn-secondary dropdown-toggle page-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Results per page
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=3)}"> 3 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=5)}"> 5 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=10)}"> 10 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=15)}"> 15 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=20)}"> 20 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=25)}"> 25 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=30)}"> 30 </a>
+                </div>
             </li>
         </ul>
     </nav>

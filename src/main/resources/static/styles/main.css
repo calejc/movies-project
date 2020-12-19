@@ -21,12 +21,30 @@ html {
     opacity: .5;
 }*/
 
+
 .navbar-brand:hover, .nav-link:hover {
     background-color: #b2b2b2;
     color: #bc5a45;
     border: .05em solid #bc5a45;
     border-radius: .25em;
     /*font-weight: bold;*/
+}
+
+/* PAGINATION CSS HERE*/
+.dropdown .page-item .show {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
+}
+.dropdown .show .page-item {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
+}
+.btn .btn-secondary .dropdown-toggle .page-link {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
 }
 
 .page-item {
