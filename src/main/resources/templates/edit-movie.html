@@ -9,19 +9,20 @@
             <div class="card">
                 <form method="post" th:action="'/edit-movie?id=' + ${movie.id}">
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group w-75 ml-3">
                             <label for="movieTitle">Title</label>
                             <input class="form-control" type="text" th:attr="value=${movie.title}" id="movieTitle" name="title">
                             <label for="movieOverview">Overview</label>
-                            <textarea class="form-control" id="movieOverview" name="overview" th:attr="value=${movie.overview}"></textarea>
+                            <textarea class="form-control" id="movieOverview" name="overview" th:text="${movie.overview}" rows="7"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-light">Save and Continue</button>
+                    <div class="form-row ml-3">
+                        <button type="submit" class="btn btn-outline-light">Save and Continue</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 <div th:insert="fragments :: footer"></div>
 </html>

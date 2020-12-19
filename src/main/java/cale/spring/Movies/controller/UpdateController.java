@@ -33,21 +33,26 @@ public class UpdateController {
     MovieRepository movieRepository;
     @Autowired
     ActorRepository actorRepository;
-    public final String filename = "src/main/resources/authorized-usernames.txt";
-    Map<String, String> authorizationMap = AuthorizationService.readInAuthorizedUsers(filename);
+    @Autowired
+    AuthorizationService authorizationService;
 
-    public UpdateController() throws IOException { }
 
     @GetMapping("/update")
     public String returnContributePage(Model model, Principal principal){
-        model.addAttribute("pageTitle", "Update");
-        return "update";
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getUpdate() || authorized.getDelete() || authorized.getCreate()){
+            model.addAttribute("pageTitle", "Update");
+            return "update";
+        } else {
+            model.addAttribute("errorMessage", authorized.getReturnMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/add-movie")
     public ModelAndView addMovie(@RequestParam("title") String title, @RequestParam("overview") String overview, ModelAndView mav, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
-        if (authorized.getAuthorized()) {
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getCreate()) {
             MovieDTO movie = new MovieDTO(crudService.generateNewMovieId(), title, overview);
             Movie savedMovie = crudService.addMovieToDB(movie);
             mav.addObject("successMessage", String.format("%s saved successfully",savedMovie.getTitle()));
@@ -61,8 +66,8 @@ public class UpdateController {
 
     @PostMapping("/add-actor")
     public ModelAndView addActor(@RequestParam("name") String name, @RequestParam("biography") String biography,  ModelAndView mav, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "create");
-        if (authorized.getAuthorized()) {
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getCreate()) {
             ActorDTO actor = new ActorDTO(crudService.generateNewActorId(), name, biography);
             Actor savedActor = crudService.addActorToDB(actor);
             mav.addObject("successMessage", String.format("%s saved successfully",savedActor.getName()));
@@ -76,8 +81,8 @@ public class UpdateController {
 
     @GetMapping("/edit-actor")
     public String editActorForm(@RequestParam("id") Long id, Model model, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getUpdate()){
             if (actorRepository.findById(id).isPresent()){
                 Actor actor = actorRepository.findById(id).get();
                 model.addAttribute("actor", actor);
@@ -94,8 +99,8 @@ public class UpdateController {
 
     @GetMapping("/edit-movie")
     public ModelAndView editMovieForm(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getUpdate()){
             if (movieRepository.findById(id).isPresent()){
                 Movie movie = movieRepository.findById(id).get();
                 mav.addObject("movie", movie);
@@ -111,18 +116,20 @@ public class UpdateController {
         return mav;
     }
 
-    //TODO
     @PostMapping("/edit-movie")
     public ModelAndView editMovie(@RequestParam Long id, @RequestParam String title, ModelAndView mav){
+        System.out.println(title);
+        System.out.println(id);
         movieRepository.updateMovieTitleById(title, id);
+//        movieRepository.updateMovieOverviewById(overview, id);
         mav.setViewName(String.format("redirect:edit-movie/actors?id=%d", id));
         return mav;
     }
 
     @GetMapping("/edit-movie/actors")
     public ModelAndView editMoviesActors(@RequestParam Long id, ModelAndView mav, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getUpdate()){
             mav.addObject("movieId", id);
             mav.setViewName("add-actors");
         } else {
@@ -165,22 +172,47 @@ public class UpdateController {
     }
 
     @RequestMapping(params = "formAction=search", value = "/edit-movie/actors", method=RequestMethod.POST)
-    public ModelAndView editMoviesActorsSearch(@RequestParam String q, @RequestParam Long id, ModelAndView mav){
-        List<Actor> actors = actorRepository.findByNameContainingIgnoreCase(q);
-        mav.addObject("movieId", id);
+    public ModelAndView editMoviesActorsSearch(@RequestParam Map<String, String> allParams, ModelAndView mav){
+        List<String> nonActorParams = List.of("id", "q", "formAction");
+        List<Actor> actorsAdded = new ArrayList<>();
+        for (Map.Entry<String, String> entry : allParams.entrySet()){
+            if (!nonActorParams.contains(entry.getKey()) && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+                actorsAdded.add(actor);
+            }
+        }
+        List<Actor> actors = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+        mav.addObject("movieId", allParams.get("id"));
+        mav.addObject("actorsAdded", actorsAdded);
         mav.addObject("actors", actors);
+        mav.setViewName("add-actors");
+        return mav;
+    }
+
+    @RequestMapping(params = "formAction=add", value = "/edit-movie/actors", method=RequestMethod.POST)
+    public ModelAndView editMoviesActorsAdd(@RequestParam Map<String, String> allParams, ModelAndView mav){
+        List<String> nonActorParams = List.of("id", "q", "formAction");
+        List<Actor> actorsAdded= new ArrayList<>();
+        for (Map.Entry<String, String> entry : allParams.entrySet()){
+            if (!nonActorParams.contains(entry.getKey()) && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+                actorsAdded.add(actor);
+            }
+        }
+        mav.addObject("movieId", allParams.get("id"));
+        mav.addObject("actorsAdded", actorsAdded);
         mav.setViewName("add-actors");
         return mav;
     }
 
     @GetMapping("/edit-movie/actors/confirm")
     public ModelAndView confirmMoviesActors(@RequestParam("id") Long id, ModelAndView mav, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getUpdate()){
             if (movieRepository.findById(id).isPresent()){
                 Movie movie = movieRepository.findById(id).get();
                 mav.addObject("movie", movie);
-                mav.setViewName("edit-movies-actors");
+                mav.setViewName("redirect:/success");
             } else {
                 mav.addObject("errorMessage", String.format("Movie %d not found", id));
                 mav.setViewName("error");
@@ -191,66 +223,60 @@ public class UpdateController {
         }
         return mav;
     }
+
 
     //TODO
     // Remove movie from actors when deselected
-    @PostMapping("/edit-movie/actors/confirm")
-    public ModelAndView confirmMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
-
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
-
-
-        if (authorized.getAuthorized()){
-
-            Long movieId = Long.parseLong(allParams.get("id"));
-//            Long movieId = id;
-            Movie movie = new Movie();
-            Set<Actor> updatedActors = new HashSet<>();
-
-            if (movieRepository.findById(movieId).isPresent()){
-                movie = movieRepository.findById(movieId).get();
-            } else {
-                mav.addObject("errorMessage", String.format("Movie %d not found", id));
-                mav.setViewName("error");
-                return mav;
-            }
-            for (Map.Entry<String, String> entry : allParams.entrySet()){
-                if (!entry.getKey().equals("id") && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
-                    Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
-                    updatedActors.add(actor);
-//                    if (!movie.getActors().contains(actor)){
-//                        movie.addActor(actor);
-//                    }
-                }
-            }
-            Set<Actor> previousListOfActors = movie.getActors();
-            for (Actor actor : previousListOfActors){
-                if (!updatedActors.contains(actor) && actorRepository.findById(actor.getId()).isPresent()){
-                    Actor a = actorRepository.findById(actor.getId()).get();
-                    a.removeMovie(movie);
-                    actorRepository.save(a);
-                }
-            }
-//            movie.setActors(updatedActors);
-            Movie updatedMovie = movieRepository.findById(movieId).get();
-//            System.out.println(updatedActors);
-            for (Actor actor : updatedMovie.getActors()){
-                System.out.printf("%s\n", actor.getName());
-            }
-            System.out.println("done");
-            if (updatedActors.size() == updatedMovie.getActors().size() && movie.getActors().containsAll(updatedActors)){
-                mav.addObject("successMessage", updatedMovie.getActors());
-                mav.setViewName("success");
-            } else {
-                mav.addObject("errorMessage", "ACTOR UPDATE UNSUCCESSFUL");
-                mav.setViewName("error");
-            }
-        } else {
-            mav.addObject("errorMessage", authorized.getReturnMessage());
-            mav.setViewName("error");
-        }
-        return mav;
-    }
+//    @PostMapping("/edit-movie/actors/confirm")
+//    public ModelAndView confirmMoviesActors(@RequestParam("id") String id, @RequestParam Map<String, String> allParams, ModelAndView mav, Principal principal){
+//
+//        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "update");
+//
+//
+//        if (authorized.getAuthorized()){
+//
+//            Long movieId = Long.parseLong(allParams.get("id"));
+//            Movie movie = new Movie();
+//            Set<Actor> updatedActors = new HashSet<>();
+//
+//            if (movieRepository.findById(movieId).isPresent()){
+//                movie = movieRepository.findById(movieId).get();
+//            } else {
+//                mav.addObject("errorMessage", String.format("Movie %d not found", id));
+//                mav.setViewName("error");
+//                return mav;
+//            }
+//            for (Map.Entry<String, String> entry : allParams.entrySet()){
+//                if (!entry.getKey().equals("id") && actorRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+//                    Actor actor = actorRepository.findById(Long.parseLong(entry.getKey())).get();
+//                    updatedActors.add(actor);
+//                }
+//            }
+//            Set<Actor> previousListOfActors = movie.getActors();
+//            for (Actor actor : previousListOfActors){
+//                if (!updatedActors.contains(actor) && actorRepository.findById(actor.getId()).isPresent()){
+//                    Actor a = actorRepository.findById(actor.getId()).get();
+//                    a.removeMovie(movie);
+//                    actorRepository.save(a);
+//                }
+//            }
+//            Movie updatedMovie = movieRepository.findById(movieId).get();
+//            for (Actor actor : updatedMovie.getActors()){
+//                System.out.printf("%s\n", actor.getName());
+//            }
+//            if (updatedActors.size() == updatedMovie.getActors().size() && movie.getActors().containsAll(updatedActors)){
+//                mav.addObject("successMessage", updatedMovie.getActors());
+//                mav.setViewName("success");
+//            } else {
+//                mav.addObject("errorMessage", "ACTOR UPDATE UNSUCCESSFUL");
+//                mav.setViewName("error");
+//            }
+//        } else {
+//            mav.addObject("errorMessage", authorized.getReturnMessage());
+//            mav.setViewName("error");
+//        }
+//        return mav;
+//    }
 
 
 
@@ -260,8 +286,8 @@ public class UpdateController {
     // ---------------- //
     @GetMapping("/delete-actor")
     public String deleteActor(@RequestParam("id") Long id, Model model, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "delete");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getDelete()){
             if (actorRepository.existsById(id)){
                 String actorName = actorRepository.findById(id).get().getName();
                 actorRepository.delete(actorRepository.findById(id).get());
@@ -284,8 +310,8 @@ public class UpdateController {
 
     @GetMapping("/delete-movie")
     public String deleteMovie(@RequestParam("id") Long id, Model model, Principal principal){
-        Authorized authorized = authorized((String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login"), "delete");
-        if (authorized.getAuthorized()){
+        Authorized authorized = authorizationService.authorized(principal);
+        if (authorized.getDelete()){
             if (movieRepository.existsById(id)){
                 String movieTitle = movieRepository.findById(id).get().getTitle();
 //                movieRepository.delete(movieRepository.findById(id).get());
@@ -322,22 +348,6 @@ public class UpdateController {
     // ----------------------- //
     //    Utility functions    //
     // ----------------------- //
-    private Authorized authorized(String userName, String action) {
-        Authorized authorized = new Authorized();
-        if (authorizationMap.containsKey(userName)){
-            Boolean auth = authorizationMap.get(userName).contains(action);
-            authorized.setAuthorized(auth);
-            if(!auth){
-                authorized.setReturnMessage(String.format("Not authorized to perform %s actions", action));
-            }
-        } else {
-            authorized.setAuthorized(false);
-            authorized.setReturnMessage("Not authorized to perform any actions");
-        }
-        return authorized;
-    }
-
-
     public static RedirectView safeRedirect(String url){
         RedirectView rv = new RedirectView(url);
         rv.setExposeModelAttributes(false);

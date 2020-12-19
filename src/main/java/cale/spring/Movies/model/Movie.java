@@ -61,7 +61,9 @@ public class Movie {
         this.overview = overview;
     }
 
+
     @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
+
     private Set<Actor> actors = new HashSet<>();
 
 //    @PreRemove

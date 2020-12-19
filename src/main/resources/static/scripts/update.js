@@ -17,3 +17,5 @@ function toggleForms(formAction){
        }
     }
 }
+
+$('[data-toggle="tooltip"]').tooltip({ html: true });

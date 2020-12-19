@@ -2,5 +2,10 @@
     max-height:80vh;
 }
 .card-body {
-    overflow:auto;
+    overflow: auto;
+}
+
+.tooltip-image{
+    max-height:3em;
+    width:auto;
 }

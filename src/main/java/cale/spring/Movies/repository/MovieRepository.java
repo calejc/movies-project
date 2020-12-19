@@ -23,18 +23,17 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByTitleContainingIgnoreCaseOrderByPopularity(String title);
     List<Movie> findByOverviewIgnoreCase(String overview);
     Page<Movie> findAll(Pageable pageable);
+    List<Movie> findAllByOrderByTitle();
 
     @Modifying
     @Query(value = "update", nativeQuery = true)
     void updateActorSetById(@Param("id") Long id);
 
 
-//    @Transactional
     @Modifying
     @Query(value = "update movie m set m.title = :title where m.id = :id", nativeQuery = true)
     void updateMovieTitleById(@Param("title") String title, @Param("id") Long id);
 
-//    @Transactional
     @Modifying
     @Query(value = "update movie m set m.overview = :overview where m.id = :id", nativeQuery = true)
     void updateMovieOverviewById(@Param("overview") String overview, @Param("id") Long id);

@@ -2,29 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="fragments :: header">HEADER STUFF</div>
 
-<div class="table-view">
-    <table>
-        <tbody>
-        <tr>
-            <th>Photo</th>
-            <th>Name</th>
-<!--            <th>Number of Movies</th>-->
-        </tr>
-        <tr th:each="actor: ${actors}">
-            <td><img th:src=${actor.photoUrl}></td>
-            <td th:text=${actor.name}/></td>
-<!--            <td> <span id="tabletext" th:text=${actor.movies.size}/> Movies:-->
-<!--               <ol>-->
-<!--                 <li th:each="movie: ${actor.movies}"><a th:href="@{${movie.fileName}}" th:text="${movie.title}"/></li>-->
-<!--               </ol>-->
-<!--            </td>-->
-        </tr>
-        </tbody>
-    </table>
+<!--NOTE: Generated url format actors?page=1&size=10  -->
+<div class="container">
+    <div class="row mx-auto my-2 py-3">
+        <h3>Actors</h3>
+    </div>
+    <nav aria-label="Page navigation" class="w-50">
+        <ul class="pagination">
+            <!-- Example adding class .example -->
+            <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${firstPage}" th:class="page-link">Previous</a>
+                <a th:if="${not firstPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
+            </li>
+            <li th:if="${actorPage.totalPages > 0}" th:class="${pgNumber==actorPage.number + 1} ? 'active page-item' : 'page-item'" th:each="pgNumber: ${pageRange}">
+                <a th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
+                   th:text=${pgNumber}
+                   th:class="page-link"></a>
+            </li>
+
+            <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${lastPage}" th:class="page-link">Next</a>
+                <a th:if="${not lastPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+       <div class="row mx-auto my-auto py-auto">
+        <div class="card-deck">
+        <div class="card result-card m-2" th:each="actor: ${actorPage.content}">
+            <a th:href=" '/actor/' + ${actor.id}"><img class="rounded img-fluid" th:src="${actor.photoUrl}"></a>
+            <div class="card-body">
+                <a th:href=" '/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}">
+                </h5></a>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
-
-<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Next">
-
-
 <div th:insert="fragments :: footer">FOOTER STUFF</div>
 </html>

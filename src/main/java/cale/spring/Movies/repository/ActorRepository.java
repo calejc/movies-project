@@ -15,5 +15,7 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 
     List<Actor> findByNameContainingIgnoreCaseOrderByPopularity(String name);
     List<Actor> findByNameContainingIgnoreCase(String name);
-    Page<Actor> findAll(Pageable pageable);
+    List<Actor> findAllByOrderByName();
+//    Page<Actor> findAll(Pageable pageable);
+//    List<Actor> findAll();
 }
