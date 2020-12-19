@@ -49,12 +49,12 @@
                     <li class="nav-item" id="movie"><a class="nav-link" th:href="@{~/movie}">Movies</a></li>
                     <li class="nav-item" id="actor"><a class="nav-link" th:href="@{~/actor}">Actors</a></li>
                     <li class="nav-item" id="genre"><a class="nav-link" th:href="@{~/genres}">Genres</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{~/logout}">Logout</a></li>
                 </ul>
                 <form class="form-inline mt-2 mt-md-0" method="get" th:action="@{/search}">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
                     <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
                 </form>
+                <a class="nav-link" th:href="@{~/logout}">Logout</a>
             </div>
         </div>
     </body>
