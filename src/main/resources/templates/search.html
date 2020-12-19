@@ -7,27 +7,44 @@
         <div class="col-lg-9">
             <!-- Advanced search filter box -->
             <div class="card">
-                <form class="form-inline mt-2 mt-md-0" method="get" th:action="@{/search}">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1" name="actor">
-                        <label class="form-check-label mx-2 my-2" for="defaultCheck1">
-                            Actors
-                        </label>
+                <form class="mt-2 mt-md-0" method="get" th:action="@{/search}">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="true" id="defaultCheck1" name="actor">
+                                <label class="form-check-label mx-2 my-2" for="defaultCheck1">
+                                    Actors
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2" name="movie">
+                                <label class="form-check-label mx-2 my-2" for="defaultCheck2">
+                                    Movies
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <a class="mx-1" data-toggle="collapse" href="#filterCollapse" aria-expanded="false" aria-controls="#filerCollapse">
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck2" name="movie">
-                        <label class="form-check-label mx-2 my-2" for="defaultCheck2">
-                            Movies
-                        </label>
+                    <div class="row">
+                        <div class="collapse" id="filterCollapse">
+                            <div class="form-check" th:each="genre: ${genres}">
+                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre.id}" th:name="${genre.id}">
+                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre.id}" th:text="${genre.name}"></label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="defaultCheck3" name="genre">
-                        <label class="form-check-label mx-2 my-2" for="defaultCheck3">
-                            Genres
-                        </label>
-                    </div>
-                    <button class="btn btn-outline-light my-2 my-sm-0" id="searchButton" type="submit">Search</button>
                 </form>
             </div>
         </div>

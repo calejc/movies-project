@@ -37,4 +37,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Modifying
     @Query(value = "update movie m set m.overview = :overview where m.id = :id", nativeQuery = true)
     void updateMovieOverviewById(@Param("overview") String overview, @Param("id") Long id);
+
+    @Query(value = "select * from movie inner join movie_genre on movie.id = movie_genre.movie_id where movie_genre.genre_id = :genreId", nativeQuery = true)
+    List<Movie> findAllMoviesByGenreType(@Param("genreId") Long genreId);
+
+    @Query(value = "select * from movie inner join movie_genre on movie.id = movie_genre.movie_id where movie_genre.genre_id = :genreId and movie.title like %:title%", nativeQuery = true)
+    List<Movie> findByTitleContainingIgnoreCaseFilterByGenreType(@Param("genreId") Long genreId, @Param("title") String title);
+
+    @Query(value = "select * from movie inner join movie_genre on movie.id = movie_genre.movie_id where movie_genre.genre_id = :genreId and movie.overview like %:overview%", nativeQuery = true)
+    List<Movie> findByOverviewContainingIgnoreCaseFilterByGenreType(@Param("genreId") Long genreId, @Param("overview") String overview);
 }
