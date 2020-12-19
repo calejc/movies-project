@@ -6,14 +6,16 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mx-auto mt-5">
-            <div class="card">
+                   <div class="card">
                 <form method="post" th:action="'/edit-actor?id=' + ${actor.id}">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="actorName">Name</label>
                             <input class="form-control" type="text" id="actorName" name="name" th:attr="value=${actor.name}">
                             <label for="actorBiography">Biography</label>
-                            <input class="form-control" type="text" id="actorBiography" name="biography" th:attr="value=${actor.biography}">
+                            <div class="form-row"></div>
+                            <textarea id="actorBiography" name="biography" rows="10" cols="30" th:text="${actor.biography}"></textarea>
+                        </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-light">Save</button>

@@ -73,9 +73,13 @@ li.disabled.page-item {
     background-color: #bc5a45;
 }
 
-a.page-link:hover
+a.page-link:hover {
+color: #b2b2b2;
+    text-decoration: none;
+}
 
-a:hover {
+
+a#home:hover {
     color: #b2b2b2;
     text-decoration: none;
 }
@@ -94,10 +98,9 @@ a:hover {
     border-radius: .25em;
 }
 
-/*.fas {*/
-/*    float: right;*/
-/*}*/
-
+label {
+    color: #fff;
+}
 
 
 /* End changes */
@@ -145,6 +148,15 @@ body {
 .card-title {
     word-wrap: normal;
 }
+
+.form-group {
+    width: 100%
+}
+
+textarea#actorBiography {
+    width: 100%;
+}
+
 
 
 
