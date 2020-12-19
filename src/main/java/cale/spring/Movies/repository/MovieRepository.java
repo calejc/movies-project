@@ -24,6 +24,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByOverviewIgnoreCase(String overview);
     Page<Movie> findAll(Pageable pageable);
     List<Movie> findAllByOrderByTitle();
+    List<Movie> findAllByOrderByPopularityDesc();
+    List<Movie> findAllByOrderByReleaseDateDesc();
+    List<Movie> findAllByOrderByVoteAverageDesc();
 
     @Modifying
     @Query(value = "update", nativeQuery = true)
