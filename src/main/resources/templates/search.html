@@ -53,19 +53,16 @@
         <h3>Results</h3>
     </div>
     <div class="row mx-auto my-auto py-auto">
-        <div class="card result-card m-2" th:each="result: ${results}">
-            <a th:href="'/' +${result.type} + '/' + ${result.id}"><img class="rounded img-fluid"
-                                                                       th:src="${result.photoUrl}"></a>
-            <div class="card-body">
-                <a th:href="'/' +${result.type} + '/' + ${result.id}"><h5 class="card-title"
-                                                                          th:text="${result.header}"></h5></a>
+        <div class="card-deck">
+            <div class="card result-card m-2" th:each="result: ${results}">
+                <a th:href="'/' +${result.type} + '/' + ${result.id}"><img class="rounded img-fluid"
+                                                                           th:src="${result.photoUrl}"></a>
+                <div class="card-body">
+                    <a th:href="'/' +${result.type} + '/' + ${result.id}"><h5 class="card-title"
+                                                                              th:text="${result.header}"></h5></a>
+                </div>
             </div>
         </div>
-        <!--                <div th:each="movie: ${moviesFound}">-->
-        <!--                    <div class="row">-->
-        <!--                        <a th:href="'/movie/' + ${movie.id}"><img th:src="${movie.photoUrl}"></a><a th:href="'/movie/' + ${movie.id}"><span th:text="${movie.title}" th:href="'/movie/' + ${movie.id}"></span></a>-->
-        <!--                    </div>-->
-        <!--                </div>-->
     </div>
 </div>
 
