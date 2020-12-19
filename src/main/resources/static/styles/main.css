@@ -44,7 +44,11 @@ border-color: #bc5a45;
 }
 
 li.disabled.page-item a.page-link {
-    color: #bc5a45;
+    color: #e3bcb5;
+}
+
+li.disabled.page-item {
+    border-color: #e3bcb5;
 }
 
 .page-item a:active {

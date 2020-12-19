@@ -49,6 +49,8 @@ public class ActorsController {
         if (currentPage == totalPages) {
             lastPage = true;
         }
+
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageRange", buildPageRange(currentPage, totalPages));
 

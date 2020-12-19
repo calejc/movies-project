@@ -11,20 +11,31 @@
         <ul class="pagination">
             <!-- Example adding class .example -->
             <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
-                <a th:if="${firstPage}" th:class="page-link">Previous</a>
+                <a th:class="page-link"
+                   th:href="@{${'/actor'}(page=1,size=${actorPage.size})}"> << </a>
+            </li>
+
+            <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${firstPage}" th:class="page-link"> < </a>
                 <a th:if="${not firstPage}" th:class="page-link"
-                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
+                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}"> < </a>
             </li>
             <li th:if="${actorPage.totalPages > 0}" th:class="${pgNumber==actorPage.number + 1} ? 'active page-item' : 'page-item'" th:each="pgNumber: ${pageRange}">
-                <a th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
+                <a th:href="@{/actor(page=${pgNumber}, size=${actorPage.size})}"
                    th:text=${pgNumber}
                    th:class="page-link"></a>
             </li>
 
             <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
-                <a th:if="${lastPage}" th:class="page-link">Next</a>
+                <a th:if="${lastPage}" th:class="page-link"> > </a>
                 <a th:if="${not lastPage}" th:class="page-link"
-                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
+                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}"> > </a>
+            </li>
+
+            <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${lastPage}" th:class="page-link"> >> </a>
+                <a th:if="${not lastPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${totalPages},size=${actorPage.size})}"> >> </a>
             </li>
         </ul>
     </nav>

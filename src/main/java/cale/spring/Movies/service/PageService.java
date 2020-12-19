@@ -29,9 +29,7 @@ public class PageService {
 
     public Page<Actor> findPaginatedActors(Pageable pageable) {
         List<Actor> actors = actorRepository.findAllByOrderByName();
-//        for(Actor actor : actors){
-//            System.out.println(actor);
-//        }
+
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
@@ -50,9 +48,7 @@ public class PageService {
 
     public Page<Movie> findPaginatedMovies(Pageable pageable) {
         List<Movie> movies = movieRepository.findAllByOrderByTitle();
-//        for(Actor actor : actors){
-//            System.out.println(actor);
-//        }
+
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
