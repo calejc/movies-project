@@ -15,7 +15,7 @@
 <div class="card m-2" th:each="genre: ${genres}">
         <div class="card-body">
             <img th:src="${randomMovie.photoUrl}" class="rounded card-img">
-            <a th:href="'/' + ${genre.id}"><h5 class="card-title" th:text="${genre.name}"></h5></a>
+            <a th:href="'/genre/' + ${genre.id}"><h5 class="card-title" th:text="${genre.name}"></h5></a>
         </div>
 </div>
     </div>

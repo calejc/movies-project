@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="fragments :: header"></div>
+<link th:href="@{/styles/card-view.css}" rel="stylesheet">
+
+<div class="container">
+    <div class="row no-gutters justify-content-center mx-auto">
+        <div class="col-lg-9 card-container">
+            <div class="card-flip">
+                <div class="card back">
+                    <div class="row">
+<!--                        <div class="col-lg-4 mx-auto">-->
+<!--                            <img class="card-img-left img-fluid img-thumbnail rounded m-3" th:src="${randomMovie.photoUrl}">-->
+<!--                        </div>-->
+                        <div class="col-lg-8">
+                            <div class="flex-row-reverse float-right">
+                                <a class="cardFlipTrigger"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                    Cast <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="row justify-content-center">
+                                <!--<div class="col-lg-8 mx-auto my-3">-->
+                                <h1 id="cardTitle" class="card-title pt-2 pb-3 mt-3" th:text="${genre.name}">></h1>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-text" th:text="${movie.overview}"></div>-->
+<!--                    </div>-->
+                </div>
+                <div class="card front">
+                    <div class="flex-row float-right">
+                        <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    </div>
+                    <h1 class="card-title">Movies</h1>
+                    <div class="card-body">
+                        <div class="row" th:each="genre: ${genre.movies}">
+                            <div class="col-lg-2 mx-auto my-2">
+                                <a th:href="'/movie/' + ${movies.id}"><img class="img-fluid mw-100"
+                                                                          th:src="${movies.photoUrl}"></a>
+                            </div>
+                            <div class="col-lg-10 mx-auto my-auto">
+                                <a th:href="'/movie/' + ${movies.id}"><h3 class="mx-auto my-auto"
+                                                                         th:text="${movies.title}"></h3></a>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments :: footer"></div>
+<script th:src="@{/scripts/actor-cards.js}"></script>
+</html>
