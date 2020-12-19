@@ -58,13 +58,13 @@
     </nav>
        <div class="row mx-auto my-auto py-auto">
         <div class="card-deck">
-        <div class="card result-card m-2" th:each="actor: ${actorPage.content}">
-            <a th:href=" '/actor/' + ${actor.id}"><img class="rounded img-fluid" th:src="${actor.photoUrl}"></a>
-            <div class="card-body">
-                <a th:href=" '/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}">
-                </h5></a>
+            <div class="card result-card m-2" th:each="actor: ${actorPage.content}">
+                <a th:href=" '/actor/' + ${actor.id}"><img class="rounded img-fluid" th:src="${actor.photoUrl}"></a>
+                <div class="card-body">
+                    <a th:href=" '/actor/' + ${actor.id}"><h5 class="card-title" th:text="${actor.name}">
+                    </h5></a>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
