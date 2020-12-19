@@ -20,47 +20,47 @@
                                 <div class="row mx-auto my-3 justify-content-center">
                                     <a th:href="'/edit-movie?id=' + ${movie.id}">
                                         <i class="fa fa-edit fa-3x"></i></a>
-                                    <a th:href="'/delete-movie?id=' + ${movie.id}" th:object="${movie}" onclick="return confirm('Are you sure you want to delete this movie?')"><i class="fa fa-trash-o fa-3x" aria-hidden="true"></i></a>
-<!--                                    -->
-                                </div>
+                                    <a th:href="'/delete-movie?id=' + ${movie.id}" th:object="${movie}"
+                                       onclick="return confirm('Are you sure you want to delete this movie?')"><i
+                                            class="fa fa-trash-o fa-3x" aria-hidden="true"></i></a>
+                                                                  </div>
                             </div>
-                            <div class="row justify-content-left">
-                                <!--<div class="col-lg-8 mx-auto my-3">-->
-                                <h1 id="cardTitle" class="card-title pt-2 pb-3 mt-3" th:text="${movie.title}">></h1>
-
-
+                            <div class="row mx-3 my-3 justify-content-left">
+                                <div class="col-lg-10 mx-1 my-1">
+                                    <h1 id="cardTitle" class="card-title pt-2 pb-3 mt-3" th:text="${movie.title}">></h1>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="card-text" th:text="${movie.overview}"></div>
+                        <div class="card-body">
+                            <div class="card-text" th:text="${movie.overview}"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="card front">
-                    <div class="flex-row float-right">
-                        <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i>
-                            Actor Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                    </div>
-                    <h1 class="card-title">Full Cast</h1>
-                    <div class="card-body">
-                        <div class="row" th:each="actor: ${movie.actors}">
-                            <div class="col-lg-2 mx-auto my-2">
-                                <a th:href="'/actor/' + ${actor.id}"><img class="img-fluid mw-100"
-                                                                          th:src="${actor.photoUrl}"></a>
+                    <div class="card front">
+                        <div class="flex-row float-right">
+                            <a class="cardFlipTrigger float-right"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                Movie Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        </div>
+                        <h1 class="card-title">Full Cast</h1>
+                        <div class="card-body">
+                            <div class="row" th:each="actor: ${movie.actors}">
+                                <div class="col-lg-2 mx-auto my-2">
+                                    <a th:href="'/actor/' + ${actor.id}"><img class="img-fluid mw-100"
+                                                                              th:src="${actor.photoUrl}"></a>
+                                </div>
+                                <div class="col-lg-10 mx-auto my-auto">
+                                    <a th:href="'/actor/' + ${actor.id}"><h3 class="mx-auto my-auto"
+                                                                             th:text="${actor.name}"></h3></a>
+                                </div>
+                                <hr class="my-2">
                             </div>
-                            <div class="col-lg-10 mx-auto my-auto">
-                                <a th:href="'/actor/' + ${actor.id}"><h3 class="mx-auto my-auto"
-                                                                         th:text="${actor.name}"></h3></a>
-                            </div>
-                            <hr class="my-2">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div th:insert="fragments :: footer"></div>
-<script th:src="@{/scripts/actor-cards.js}"></script>
+    <div th:insert="fragments :: footer"></div>
+    <script th:src="@{/scripts/actor-cards.js}"></script>
 </html>

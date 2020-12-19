@@ -29,6 +29,16 @@ html {
     /*font-weight: bold;*/
 }
 
+a:hover {
+    color: #b2b2b2;
+    text-decoration: none;
+}
+
+a {
+color: #fff;
+    text-decoration: none;
+}
+
 .page-item {
     border: .05em solid #bc5a45;
     border-radius: .25em;
@@ -51,9 +61,13 @@ li.disabled.page-item a.page-link {
     background-color: #bc5a45;
 }
 
-a.page-link:hover
+a.page-link:hover {
+color: #b2b2b2;
+    text-decoration: none;
+}
 
-a:hover {
+
+a#home:hover {
     color: #b2b2b2;
     text-decoration: none;
 }
@@ -72,6 +86,9 @@ a:hover {
     border-radius: .25em;
 }
 
+label {
+    color: #fff;
+}
 
 
 /* End changes */
@@ -119,6 +136,15 @@ body {
 .card-title {
     word-wrap: normal;
 }
+
+.form-group {
+    width: 100%
+}
+
+textarea#actorBiography {
+    width: 100%;
+}
+
 
 
 
