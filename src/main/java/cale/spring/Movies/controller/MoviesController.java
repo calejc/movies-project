@@ -45,6 +45,11 @@ public class MoviesController {
         if (sort.equals("popularity")) {
             moviePage = pageService.findPaginatedMoviesByPopularity(PageRequest.of(currentPage - 1,
                     pageSize));
+        } else if (sort.equals("releasedate")) {
+            moviePage = pageService.findPaginatedMoviesByReleaseDate(PageRequest.of(currentPage - 1,
+                    pageSize));
+        } else if (sort.equals("voteaverage")) {
+            moviePage = pageService.findPaginatedMoviesByVoteAverage(PageRequest.of(currentPage - 1, pageSize));
         } else {
             moviePage = pageService.findPaginatedMovies(PageRequest.of(currentPage - 1,
                     pageSize));
