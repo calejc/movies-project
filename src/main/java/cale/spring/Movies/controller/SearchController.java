@@ -1,5 +1,6 @@
 package cale.spring.Movies.controller;
 
+import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Genre;
 import cale.spring.Movies.model.Movie;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -28,35 +30,73 @@ public class SearchController {
     @Autowired
     private GenreRepository genreRepository;
 
+
     @GetMapping("/search")
     public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model) {
+        List<Genre> genres = genreRepository.findAll();
+        List<Genre> genreColumn1 = new ArrayList<>();
+        List<Genre> genreColumn2 = new ArrayList<>();
+        List<Genre> genreColumn3 = new ArrayList<>();
+        List<Genre> genreColumn4 = new ArrayList<>();
+//        for
+
         List<Result> results = new ArrayList<>();
+        List<Long> genreIds = new ArrayList<>();
+
+        List<String> nonGenreParams = List.of("id", "q", "actor", "movie");
+        for (Map.Entry<String, String> entry : allParams.entrySet()){
+            if (!nonGenreParams.contains(entry.getKey()) && genreRepository.findById(Long.parseLong(entry.getKey())).isPresent()){
+                genreIds.add(Long.parseLong(entry.getKey()));
+            }
+        }
+
+
         if (allParams.containsKey("actor")) {
             //do actorRepo search
-            List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
-            results.addAll(convertListOfActorsToResultType(actorsFound));
+            if (genreIds.size() == 0){
+                List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+                results.addAll(convertListOfActorsToResultType(actorsFound));
+            } else {
+                for (Long genreId : genreIds){
+//                    results.addAll(convertListOfActorsToResultType(ac))
+                    System.out.println("genre");
+                }
+            }
 
         } else if (allParams.containsKey("movie")) {
+
             //do movieRepo search
-            List<Movie> moviesFound = movieRepository.findByOverviewIgnoreCase(allParams.get("q"));
-            List<Movie> titlesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
-            moviesFound.addAll(titlesFound);
-            results.addAll(convertListOfMoviesToResultType(moviesFound));
-
-        } else if (allParams.containsKey("genre")) {
-            List<Genre> genresFound = genreRepository.findByNameContainingIgnoreCase(allParams.get("q"));
-            results.addAll(convertListOfGenresToResultType(genresFound));
-        }
-
-        else {
+            if (genreIds.size() == 0){
+                List<Movie> moviesFound = movieRepository.findByOverviewIgnoreCase(allParams.get("q"));
+                List<Movie> titlesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
+                moviesFound.addAll(titlesFound);
+                results.addAll(convertListOfMoviesToResultType(moviesFound));
+            } else {
+                for (Long genreId : genreIds){
+                    results.addAll(convertListOfMoviesToResultType(movieRepository.findByTitleContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
+                    results.addAll(convertListOfMoviesToResultType(movieRepository.findByOverviewContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
+                }
+            }
+        } else {
             //search both movies and actors
-            List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
-            List<Movie> moviesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
-            results.addAll(convertListOfActorsToResultType(actorsFound));
-            results.addAll(convertListOfMoviesToResultType(moviesFound));
+            if (genreIds.size() == 0){
+                List<Movie> titlesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
+                List<Actor> actorsFound = actorRepository.findByNameContainingIgnoreCase(allParams.get("q"));
+                List<Movie> moviesFound = movieRepository.findByTitleContainingIgnoreCaseOrderByPopularity(allParams.get("q"));
+                moviesFound.addAll(titlesFound);
+                results.addAll(convertListOfMoviesToResultType(moviesFound));
+                results.addAll(convertListOfActorsToResultType(actorsFound));
+            } else {
+                for (Long genreId : genreIds){
+                    //TODO
+                    // do actor search by genre
+                    results.addAll(convertListOfMoviesToResultType(movieRepository.findByTitleContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
+                    results.addAll(convertListOfMoviesToResultType(movieRepository.findByOverviewContainingIgnoreCaseFilterByGenreType(genreId, allParams.get("q"))));
+                }
+            }
         }
-
-        model.addAttribute("results", results);
+        model.addAttribute("genres", genres);
+        model.addAttribute("results", new ArrayList<>(new HashSet<>(results)));
         model.addAttribute("pageTitle", "Search Results");
         return "search";
     }
@@ -74,15 +114,6 @@ public class SearchController {
         List<Result> results = new ArrayList<>();
         for (Movie movie : moviesFound) {
             Result result = new Result(movie.getId(), movie.getTitle(), movie.getPhotoUrl(), "movie");
-            results.add(result);
-        }
-        return results;
-    }
-
-    public List<Result> convertListOfGenresToResultType(List<Genre> genresFound) {
-        List<Result> results = new ArrayList<>();
-        for (Genre genre : genresFound) {
-            Result result = new Result(genre.getId(), genre.getName(), "genre");
             results.add(result);
         }
         return results;
