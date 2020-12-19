@@ -7,24 +7,52 @@
     <div class="row mx-auto my-2 py-3">
         <h3>Actors</h3>
     </div>
+
     <nav aria-label="Page navigation" class="w-50">
         <ul class="pagination">
             <!-- Example adding class .example -->
             <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
-                <a th:if="${firstPage}" th:class="page-link">Previous</a>
+                <a th:class="page-link"
+                   th:href="@{${'/actor'}(page=1,size=${actorPage.size})}"> << </a>
+            </li>
+
+            <li th:class="${firstPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${firstPage}" th:class="page-link"> < </a>
                 <a th:if="${not firstPage}" th:class="page-link"
-                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}">Previous</a>
+                   th:href="@{${'/actor'}(page=${currentPage-1},size=${actorPage.size})}"> < </a>
             </li>
             <li th:if="${actorPage.totalPages > 0}" th:class="${pgNumber==actorPage.number + 1} ? 'active page-item' : 'page-item'" th:each="pgNumber: ${pageRange}">
-                <a th:href="@{/actor(size=${actorPage.size}, page=${pgNumber})}"
+                <a th:href="@{/actor(page=${pgNumber}, size=${actorPage.size})}"
                    th:text=${pgNumber}
                    th:class="page-link"></a>
             </li>
 
             <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
-                <a th:if="${lastPage}" th:class="page-link">Next</a>
+                <a th:if="${lastPage}" th:class="page-link"> > </a>
                 <a th:if="${not lastPage}" th:class="page-link"
-                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}">Next</a>
+                   th:href="@{${'/actor'}(page=${currentPage+1},size=${actorPage.size})}"> > </a>
+            </li>
+
+            <li th:class="${lastPage} ? 'disabled page-item' : 'page-item'">
+                <a th:if="${lastPage}" th:class="page-link"> >> </a>
+                <a th:if="${not lastPage}" th:class="page-link"
+                   th:href="@{${'/actor'}(page=${totalPages},size=${actorPage.size})}"> >> </a>
+            </li>
+
+            <li class="dropdown show page-item">
+                <a class="btn btn-secondary dropdown-toggle page-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Results per page
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=3)}"> 3 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=5)}"> 5 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=10)}"> 10 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=15)}"> 15 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=20)}"> 20 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=25)}"> 25 </a>
+                    <a class="dropdown-item page-link" th:href="@{${'/actor'}(page=${currentPage},size=30)}"> 30 </a>
+                </div>
             </li>
         </ul>
     </nav>
@@ -39,8 +67,6 @@
         </div>
         </div>
     </div>
-</div>
-
 </div>
 <div th:insert="fragments :: footer">FOOTER STUFF</div>
 </html>

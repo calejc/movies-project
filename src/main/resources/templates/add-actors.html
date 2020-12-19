@@ -18,19 +18,27 @@
                             <div class="card-body">
                                 <div class="form-check" th:each="actor: ${actors}">
                                     <input class="form-check-input" type="checkbox" value="true" th:id="${actor.id}" th:name="${actor.id}">
-                                    <label class="form-check-label" th:attr="for=${actor.id}" th:text="${actor.name}"></label>
+                                    <label class="form-check-label" th:for="${actor.id}"><a th:text="${actor.name}" data-placement="right" data-toggle="tooltip" th:title="'<img src=&quot;' + ${actor.photoUrl} + '&quot; style=&quot;max-width:5em;height:auto;&quot;>'"></a></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto">
 
                             <!-- Newly added actors here -->
-
+                            <div class="card-body">
+                                <div class="form-check" th:each="actorAdded: ${actorsAdded}">
+                                    <input class="form-check-input" checked type="checkbox" value="true" th:id="${actorAdded.id}" th:name="${actorAdded.id}">
+                                    <label class="form-check-label" th:attr="for=${actorAdded.id}" th:text="${actorAdded.name}"></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-5 mx-auto my-auto">
-                            <button type="submit" name="formAction" value="save" class="btn btn-outline-light btn-lg">Save and Continue</button>
+                            <button type="submit" name="formAction" value="add" class="btn btn-outline-light btn-lg">Add</button>
+                        </div>
+                        <div class="col-lg-5 mx-auto my-auto">
+                            <button type="submit" name="formAction" value="save" class="btn btn-outline-light btn-lg">Save</button>
                         </div>
                     </div>
                 </form>

@@ -1,5 +1,7 @@
 package cale.spring.Movies.model;
 
+import java.util.Objects;
+
 public class Result {
     private Long id;
     private String header;
@@ -18,6 +20,12 @@ public class Result {
         this.id = id;
         this.header = header;
         this.photoUrl = photoUrl;
+        this.type = type;
+    }
+
+    public Result(Long id, String header, String type) {
+        this.id = id;
+        this.header = header;
         this.type = type;
     }
 
@@ -43,5 +51,18 @@ public class Result {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result result = (Result) o;
+        return id.equals(result.id) && type.equals(result.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type);
     }
 }

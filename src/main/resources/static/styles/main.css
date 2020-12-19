@@ -21,6 +21,7 @@ html {
     opacity: .5;
 }*/
 
+
 .navbar-brand:hover, .nav-link:hover {
     background-color: #b2b2b2;
     color: #bc5a45;
@@ -29,14 +30,21 @@ html {
     /*font-weight: bold;*/
 }
 
-a:hover {
-    color: #b2b2b2;
-    text-decoration: none;
+/* PAGINATION CSS HERE*/
+.dropdown .page-item .show {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
 }
-
-a {
-color: #fff;
-    text-decoration: none;
+.dropdown .show .page-item {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
+}
+.btn .btn-secondary .dropdown-toggle .page-link {
+    background-color: #bc5a45;
+    border-color: #bc5a45;
+      color: #bc5a45;
 }
 
 .page-item {
@@ -54,7 +62,11 @@ border-color: #bc5a45;
 }
 
 li.disabled.page-item a.page-link {
-    color: #bc5a45;
+    color: #e3bcb5;
+}
+
+li.disabled.page-item {
+    border-color: #e3bcb5;
 }
 
 .page-item a:active {
