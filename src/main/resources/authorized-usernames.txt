@@ -1,4 +1,4 @@
 cjcortney create,update,delete
 mabrjo create,update,delete
-jaclark756 create,update,delete
+jaclark756 update
 rkscheer create,update,delete
