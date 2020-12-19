@@ -44,6 +44,12 @@ html {
       background: #f8f9fa;
 }
 
+.dropdown-item .page-link {
+    border-color: #bc5a45;
+      color: #bc5a45;
+      background: #f8f9fa;
+}
+
 /*
 .dropdown {
     border-color: #bc5a45;
