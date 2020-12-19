@@ -1,6 +1,5 @@
 package cale.spring.Movies.service;
 
-import cale.spring.Movies.dto.ActorDTO;
 import cale.spring.Movies.model.Actor;
 import cale.spring.Movies.model.Movie;
 import cale.spring.Movies.repository.ActorRepository;
@@ -29,9 +28,7 @@ public class PageService {
 
     public Page<Actor> findPaginatedActors(Pageable pageable) {
         List<Actor> actors = actorRepository.findAllByOrderByName();
-//        for(Actor actor : actors){
-//            System.out.println(actor);
-//        }
+
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
@@ -50,9 +47,64 @@ public class PageService {
 
     public Page<Movie> findPaginatedMovies(Pageable pageable) {
         List<Movie> movies = movieRepository.findAllByOrderByTitle();
-//        for(Actor actor : actors){
-//            System.out.println(actor);
-//        }
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Movie> list;
+
+        if (movies.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, movies.size());
+            list = movies.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<Movie>(list, PageRequest.of(currentPage, pageSize), movies.size());
+    }
+
+    public Page<Movie> findPaginatedMoviesByPopularity(Pageable pageable) {
+        List<Movie> movies = movieRepository.findAllByOrderByPopularityDesc();
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Movie> list;
+
+        if (movies.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, movies.size());
+            list = movies.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<Movie>(list, PageRequest.of(currentPage, pageSize), movies.size());
+    }
+
+    public Page<Movie> findPaginatedMoviesByReleaseDate(Pageable pageable) {
+        List<Movie> movies = movieRepository.findAllByOrderByReleaseDateDesc();
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Movie> list;
+
+        if (movies.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, movies.size());
+            list = movies.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<Movie>(list, PageRequest.of(currentPage, pageSize), movies.size());
+    }
+
+    public Page<Movie> findPaginatedMoviesByVoteAverage(Pageable pageable) {
+        List<Movie> movies = movieRepository.findAllByOrderByVoteAverageDesc();
+
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;

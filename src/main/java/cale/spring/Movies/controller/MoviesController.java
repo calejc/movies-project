@@ -29,26 +29,45 @@ public class MoviesController {
     @GetMapping("/movie")
     public String movies(Model model,
                          @RequestParam("page") Optional<Integer> page,
-                         @RequestParam("size") Optional<Integer> size) {
+                         @RequestParam("size") Optional<Integer> size,
+                         @RequestParam(value = "sort", required = false, defaultValue = "title") String sort) {
+
+
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
         boolean firstPage = false;
         if (currentPage == 1) {
             firstPage = true;
         }
+        Page<Movie> moviePage = null;
 
 
-        Page<Movie> moviePage = pageService.findPaginatedMovies(PageRequest.of(currentPage - 1,
-                pageSize));
+        if (sort.equals("popularity")) {
+            moviePage = pageService.findPaginatedMoviesByPopularity(PageRequest.of(currentPage - 1,
+                    pageSize));
+        } else if (sort.equals("releasedate")) {
+            moviePage = pageService.findPaginatedMoviesByReleaseDate(PageRequest.of(currentPage - 1,
+                    pageSize));
+        } else if (sort.equals("voteaverage")) {
+            moviePage = pageService.findPaginatedMoviesByVoteAverage(PageRequest.of(currentPage - 1, pageSize));
+        } else {
+            moviePage = pageService.findPaginatedMovies(PageRequest.of(currentPage - 1,
+                    pageSize));
+        }
+
         model.addAttribute("moviePage", moviePage);
         model.addAttribute("firstPage", firstPage);
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("sort", sort);
+
         int totalPages = moviePage.getTotalPages();
         System.out.println(totalPages);
         boolean lastPage = false;
         if (currentPage == totalPages) {
             lastPage = true;
         }
+
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("pageRange", buildPageRange(currentPage, totalPages));
 
@@ -64,6 +83,7 @@ public class MoviesController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "movies";
+
     }
 
     public List<Integer> buildPageRange(int currentPage, int totalPages) {
@@ -81,12 +101,4 @@ public class MoviesController {
     }
 }
 
-//    @GetMapping("/movies")
-//    public String movies(Model model, @RequestParam(defaultValue = "0") int page){
-//        Pageable sortedByTitle = PageRequest.of(page, 10, Sort.by("title"));
-//        model.addAttribute("movies", movieRepository.findAll(sortedByTitle));
-//        return "movies";
-//    }
-
-
-//Generated url format moviess?page=1
+//Generated url format movie?sort=popularity&size=10&page=2
