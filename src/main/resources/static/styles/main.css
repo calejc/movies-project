@@ -31,6 +31,31 @@ html {
 }
 
 /* PAGINATION CSS HERE*/
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    border-color: #bc5a45;
+      color: #bc5a45;
+      background: #f8f9fa;
+}
+
+.btn-secondary {
+    border-color: #bc5a45;
+      color: #bc5a45;
+      background: #f8f9fa;
+}
+
+/*
+.dropdown {
+    border-color: #bc5a45;
+      color: #bc5a45;
+}
+
+
+.dropdown .btn:active {
+background: #bc5a45;
+color: white;
+}
+
 .dropdown .page-item .show {
     background-color: #bc5a45;
     border-color: #bc5a45;
@@ -46,6 +71,8 @@ html {
     border-color: #bc5a45;
       color: #bc5a45;
 }
+
+*/
 
 .page-item {
     border: .05em solid #bc5a45;
