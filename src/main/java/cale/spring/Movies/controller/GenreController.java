@@ -60,7 +60,7 @@ public class GenreController {
                 Movie movie = movieRepository.findById(randomMovieId).get();
                 photoUrl = movie.getPhotoUrl();
             } else {
-                photoUrl = "/img/defaultGenre.jpg";
+                photoUrl = "/imgs/OIP.jpg";
             }
             mav.addObject("photoUrl" , photoUrl);
             mav.addObject("genre", genreRepository.findById(id).get());

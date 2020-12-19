@@ -15,10 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 public class SearchController {
@@ -34,10 +34,16 @@ public class SearchController {
     @GetMapping("/search")
     public String renderSearchResults(@RequestParam Map<String, String> allParams, Model model) {
         List<Genre> genres = genreRepository.findAll();
-        List<Genre> genreColumn1 = new ArrayList<>();
-        List<Genre> genreColumn2 = new ArrayList<>();
-        List<Genre> genreColumn3 = new ArrayList<>();
-        List<Genre> genreColumn4 = new ArrayList<>();
+        int numberOfPartitions = 4;
+        List<List<Genre>> split = IntStream.range(0, numberOfPartitions).boxed()
+                .map(i -> genres.subList(
+                        partitionOffset(genres.size(), numberOfPartitions, i),
+                        partitionOffset(genres.size(), numberOfPartitions, i + 1)))
+                .collect(toList());
+        List<Genre> genreColumn1 = split.get(0);
+        List<Genre> genreColumn2 = split.get(1);
+        List<Genre> genreColumn3 = split.get(2);
+        List<Genre> genreColumn4 = split.get(3);
 
         List<Result> results = new ArrayList<>();
         List<Long> genreIds = new ArrayList<>();
@@ -94,7 +100,10 @@ public class SearchController {
                 }
             }
         }
-        model.addAttribute("genres", genres);
+        model.addAttribute("genres1", genreColumn1);
+        model.addAttribute("genres2", genreColumn2);
+        model.addAttribute("genres3", genreColumn3);
+        model.addAttribute("genres4", genreColumn4);
         model.addAttribute("results", new ArrayList<>(new HashSet<>(results)));
         model.addAttribute("pageTitle", "Search Results");
         return "search";
@@ -116,6 +125,10 @@ public class SearchController {
             results.add(result);
         }
         return results;
+    }
+
+    public Integer partitionOffset(int length, int numberOfPartitions, int partitionIndex){
+        return partitionIndex * (length / numberOfPartitions) + Math.min(partitionIndex, length % numberOfPartitions);
     }
 
 }

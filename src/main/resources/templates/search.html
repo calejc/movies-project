@@ -38,13 +38,29 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="collapse" id="filterCollapse">
-                            <div class="form-check" th:each="genre: ${genres}">
-                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre.id}" th:name="${genre.id}">
-                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre.id}" th:text="${genre.name}"></label>
+                        <div class="collapse ml-2" id="filterCollapse">
+                            <div class="form-check-inline" th:each="genre1: ${genres1}">
+                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre1.id}" th:name="${genre1.id}">
+                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre1.id}" th:text="${genre1.name}"></label>
+                            </div>
+                            <div class="form-check-inline" th:each="genre2: ${genres2}">
+                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre2.id}" th:name="${genre2.id}">
+                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre2.id}" th:text="${genre2.name}"></label>
+                            </div>
+                            <div class="form-check-inline" th:each="genre3: ${genres3}">
+                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre3.id}" th:name="${genre3.id}">
+                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre3.id}" th:text="${genre3.name}"></label>
+                            </div>
+                            <div class="form-check-inline" th:each="genre4: ${genres4}">
+                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre4.id}" th:name="${genre4.id}">
+                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre4.id}" th:text="${genre4.name}"></label>
                             </div>
                         </div>
                     </div>
+<!--                            <div class="form-check" th:each="genre: ${genres}">-->
+<!--                                <input class="form-check-input" type="checkbox" value="true" th:id="${genre.id}" th:name="${genre.id}">-->
+<!--                                <label class="form-check-label mx-2 my-2" th:attr="for=${genre.id}" th:text="${genre.name}"></label>-->
+<!--                            </div>-->
                 </form>
             </div>
         </div>
