@@ -7,8 +7,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
-    open-in-view: false
+#    show-sql: true
+#    open-in-view: false
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console:
@@ -18,5 +18,5 @@ spring:
       client:
         registration:
           github:
-            client-id:  ${CLIENT_ID}
+            client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
