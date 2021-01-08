@@ -23,7 +23,7 @@ public class MoviesApplication implements CommandLineRunner {
 	@Autowired
 	MovieService movieService;
 
-	private final String inputFileName = "src/main/resources/movie_dataset_small.json";
+	private final String inputFileName = "src/main/resources/movie_dataset_large.json";
 
 	public static void main(String[] args) {
 		SpringApplication.run(MoviesApplication.class, args);

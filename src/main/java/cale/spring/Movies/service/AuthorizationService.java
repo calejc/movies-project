@@ -18,7 +18,6 @@ public class AuthorizationService {
 
 
     private final String FILENAME = "src/main/resources/authorized-usernames.txt";
-//    private final String FILENAME = "src/main/resources/authorized-usernames-example.txt";
     Map<String, String> authorizationMap = new HashMap<>();
 
     public AuthorizationService() throws IOException {
