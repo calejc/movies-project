@@ -39,11 +39,20 @@ public class AuthorizationService {
     public Authorized authorized(Principal principal) {
         Authorized authorized = new Authorized();
         String userName = (String) ((OAuth2AuthenticationToken) principal).getPrincipal().getAttributes().get("login");
-        if (authorizationMap.containsKey(userName)){
-            authorized.setCreate(authorizationMap.get(userName).contains("create"));
-            authorized.setUpdate(authorizationMap.get(userName).contains("update"));
-            authorized.setDelete(authorizationMap.get(userName).contains("delete"));
-        }
+
+        // Read in authorized admin users from txt file and assign authorized actions.
+        // Temporarily setting this to authorize all logged in users for demo purposes.
+
+//        if (authorizationMap.containsKey(userName)){
+//            authorized.setCreate(authorizationMap.get(userName).contains("create"));
+//            authorized.setUpdate(authorizationMap.get(userName).contains("update"));
+//            authorized.setDelete(authorizationMap.get(userName).contains("delete"));
+//        }
+
+
+        authorized.setUpdate(true);
+        authorized.setDelete(true);
+        authorized.setCreate(true);
         authorized.setReturnMessage();
         return authorized;
     }

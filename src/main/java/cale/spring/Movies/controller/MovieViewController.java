@@ -23,9 +23,12 @@ public class MovieViewController {
 
     @GetMapping("/movie/{id}")
     public ModelAndView movieView(@PathVariable("id") Long id, ModelAndView mav, Principal principal){
+
+        // Only show the edit/delete buttons for admin users who are authorized for edit/delete actions
         Authorized authorized = authorizationService.authorized(principal);
         mav.addObject("delete", authorized.getDelete());
         mav.addObject("update", authorized.getUpdate());
+
         if (movieRepository.findById(id).isEmpty()){
             mav.setViewName("error");
             String errorMessage = String.format("Movie %d not found", id);

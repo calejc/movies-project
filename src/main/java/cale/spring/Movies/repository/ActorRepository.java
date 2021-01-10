@@ -24,8 +24,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
     List<Actor> findByNameContainingIgnoreCaseOrderByPopularity(String name);
     List<Actor> findByNameContainingIgnoreCase(String name);
     List<Actor> findAllByOrderByName();
-//    Page<Actor> findAll(Pageable pageable);
-//    List<Actor> findAll();
 
     @Query(value = "select a.id, a.biography, a.birthday, a.deathday, a.gender, a.name, a.photo_url, a.popularity from actor a inner join actor_movie am on a.id = am.actor_id inner join movie_genre mg on am.movie_id = mg.movie_id where genre_id = :genreId", nativeQuery = true)
     List<Actor> findActorByGenreType(Long genreId);

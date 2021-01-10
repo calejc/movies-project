@@ -28,9 +28,12 @@ public class ActorViewController {
 
     @GetMapping("/actor/{id}")
     public ModelAndView actorView(@PathVariable("id") Long id, ModelAndView mav, Principal principal){
+
+        // Only show the edit/delete buttons for admin users who are authorized for edit/delete actions
         Authorized authorized = authorizationService.authorized(principal);
         mav.addObject("delete", authorized.getDelete());
         mav.addObject("update", authorized.getUpdate());
+
         if (actorRepository.findById(id).isEmpty()){
             mav.setViewName("error");
             String errorMessage = String.format("Actor %d not found", id);
