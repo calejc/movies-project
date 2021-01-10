@@ -11,9 +11,15 @@ public class Authorized {
     public Authorized() { }
 
     public Authorized(Boolean create, Boolean update, Boolean delete, String returnMessage) {
-        this.create = create;
-        this.update = update;
-        this.delete = delete;
+//        this.create = create;
+//        this.update = update;
+//        this.delete = delete;
+
+        // Allow all users admin rights for demo purposes
+        this.create = true;
+        this.update = true;
+        this.delete = true;
+
         this.returnMessage = returnMessage;
     }
 
