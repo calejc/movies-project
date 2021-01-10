@@ -135,6 +135,9 @@ label {
     color: #fff;
 }
 
+.custom-nav-link:hover{
+    color: #b2b2b2;
+}
 
 /* End changes */
 
