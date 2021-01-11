@@ -1,4 +1,5 @@
-## MCC Code School - Movie Databse Project
+# MCC Code School - Movie Databse Project
+### Team Members:
 - Cale Cortney
 - Rob Scheer
 - Matt Johnson
